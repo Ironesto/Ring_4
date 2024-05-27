@@ -22,19 +22,14 @@ int	validargs(int argc, char **argv, t_map *map)
 int validlines(t_map *map)
 {
 	int	i;
+	int	k;
 
-	i = 0;
-	while(map->map[0][i] && map->map[0][i + 1])
+	k = 0;
+	ft_printf("INICIO:\n");
+	while(k < map->h)
 	{
- 		while (ft_strchr("1 \t", map->map[0][i]))
-			i++;
-		if (map->map[0][i] != '\0' && map->map[0][i] != '\n')
-			return (1);
-		if (map->map[0 - 1][i])	//podria ser el jugador tambien
-			ft_printf("arriba\n");
-		//if (map->map[0 + 1][i] != '1')	//podria ser el jugador tambien
-		//	return (1);
-		i++;
+		
+		k++;
 	}
 	return (0);
 }
