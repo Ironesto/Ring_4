@@ -6,38 +6,58 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/04/11 19:59:29 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/05/27 05:01:41 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	validargs(int argc, char **argv)
+int ft_tester(int argc, char **argv, t_map *map)
 {
-	char	*valid;
-	
-	if (argc != 2)
+	int i = 0;
+
+	if (validargs(argc, argv, map) == 1 && TEST)
 	{
-		write(2, "ERROR: invalid number of arguments\n", 35);
+		ft_printf("TESTER: arguments validation KO\n");
 		return (1);
 	}
-	valid = ft_strjoin("./maps/", argv[1]);
-	if (open(valid, O_RDONLY) == -1)
+	else if (TEST)
+		ft_printf("TESTER: arguments validation OK\n");
+	if (validmap(map) == 1 && TEST)
 	{
-		write(2, "ERROR: map not found\n", 21);
+		ft_printf("TESTER: map validation KO\n");
 		return (1);
 	}
-	if (ft_strncmp(&valid[ft_strlen(valid) - 4], ".cub", 3) != 0)
+	else if (TEST)
+		ft_printf("TESTER: map validation OK\n");
+	while (map->map[i] && TEST)
 	{
-		write(2, "ERROR: invalid extension\n", 25);
-		return (0);
+		ft_printf("%s", map->map[i]);
+		i++;
 	}
-	return (0);
+	return(0);
+}
+
+void ft_free(t_map *map)
+{
+	if (map->map)
+	{
+		ft_printf("freeing map\n");			//BORRAR
+			free(map->map);				//liberar todas las lineas y finalmente el puntero doble
+	}
+	if (map->route)
+	{
+		ft_printf("freeing route\n");		//BORRAR
+		free(map->route);
+	}
+	close(map->fd);
 }
 
 int	main(int argc, char **argv)
 {
-	if (validargs(argc, argv) == 1)
-		return (1);
+	t_map map;
+	if (ft_tester(argc, argv, &map) == 1)
+		return (ft_free(&map), 1);
+	ft_free(&map);
 	return (0);
 }
