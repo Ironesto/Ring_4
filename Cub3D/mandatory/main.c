@@ -18,18 +18,18 @@ int ft_tester(int argc, char **argv, t_map *map)
 
 	if (validargs(argc, argv, map) == 1 && TEST)
 	{
-		ft_printf("TESTER: arguments validation KO\n");
+		ft_printf("%sTESTER:%s arguments validation KO\n", BLU, RST);
 		return (1);
 	}
 	else if (TEST)
-		ft_printf("TESTER: arguments validation OK\n");
+		ft_printf("%sTESTER:%s arguments validation OK\n", BLU, RST);
 	if (validmap(map) == 1 && TEST)
 	{
-		ft_printf("TESTER: map validation KO\n");
+		ft_printf("%sTESTER:%s map validation KO\n", BLU, RST);
 		return (1);
 	}
 	else if (TEST)
-		ft_printf("TESTER: map validation OK\n");
+		ft_printf("%sTESTER:%s map validation OK\n", BLU, RST);
 	while (map->map[i] && TEST)
 	{
 		ft_printf("%s", map->map[i]);
@@ -42,17 +42,17 @@ void ft_free(t_map *map)
 {
 	if (map->map)
 	{
-		ft_printf("freeing map\n");			//BORRAR
+		ft_printf("%sfreeing%s map\n", CYN, RST);			//BORRAR
 			free(map->map);				//liberar todas las lineas y finalmente el puntero doble
 	}
 	if (map->route)
 	{
-		ft_printf("freeing route\n");		//BORRAR
+		ft_printf("%sfreeing%s route\n", CYN, RST);		//BORRAR
 		free(map->route);
 	}
 	if (map->player)
 	{
-		ft_printf("freeing player\n");	//BORRAR
+		ft_printf("%sfreeing%s player\n", CYN, RST);	//BORRAR
 		free (map->player);
 	}
 	close(map->fd);

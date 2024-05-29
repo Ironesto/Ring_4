@@ -47,7 +47,6 @@ int validlines(t_map *map)
 				return (ft_error("ERROR: map not closed\n"));
 			if (ft_strchr("NSWE",map->map[k][i]))
 			{
-				puts("entra");
 				savepoint(map->player, k, i);
 				if (map->player->n_pl != 1)
 					return(ft_error("ERROR: number of players is not 1\n"));
@@ -63,12 +62,12 @@ int validlines(t_map *map)
 
 int 	validmap(t_map *map)
 {
-	while (get_next_line(map->fd))
+	while (get_next_line(map->fd))	//leaks? guardar aqui al jugador en ese caso
 		map->h++;
 	if (TEST)												//BORRAR
-		ft_printf("numero de lineas del mapa: %d\n",map->h);		//BORRAR
+		ft_printf("%sTESTER:%s numero de lineas del mapa: %d\n",BLU, RST, map->h);		//BORRAR
 	if (map->h > 2)
-		map->map = malloc(sizeof(char *) * (map->h + 1));	//poner a NULL el extra?
+		map->map = malloc(sizeof(char *) * (map->h + 1));	//poner a NULL el extra? y proteger malloc
 	else
 		return(ft_error("ERROR: invalid map\n"));
 	if (close(map->fd) == -1)
