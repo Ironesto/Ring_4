@@ -19,7 +19,7 @@ int	savelines(t_map *map)
 	map->fd = open(map->route, O_RDONLY);
 	if (map->fd == -1)
 	{
-		return (ft_error("ERROR: open map failed\n"));
+		return (1);
 	}
 	map->map[0] = ft_strdup(get_next_line(map->fd));
 	while(i < map->h)
@@ -28,5 +28,13 @@ int	savelines(t_map *map)
 		i++;
 	}
 	map->map[i + 1] = NULL;
+	return (0);
+}
+
+int	savepoint(t_player *point, int y, int x)
+{
+	point->n_pl++;
+	point->posx = x;
+	point->posy = y;
 	return (0);
 }

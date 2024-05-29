@@ -15,12 +15,21 @@
 
 #define TEST 1
 
+typedef	struct s_player
+{
+	int	n_pl;
+	int	posy;
+	int	posx;
+}	t_player;
+
+
 typedef struct s_map
 {
-	char	**map;
-	char	*route;
-	int		fd;
-	int		h;
+	t_player	*player;
+	char		**map;
+	char		*route;
+	int			fd;
+	int			h;
 }	t_map;
 
 
@@ -31,3 +40,4 @@ int	validmap(t_map *map);
 	//utils
 int	ft_error(char *str);
 int	savelines(t_map *map);
+int	savepoint(t_player *point, int y, int x);

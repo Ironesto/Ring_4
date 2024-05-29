@@ -50,12 +50,28 @@ void ft_free(t_map *map)
 		ft_printf("freeing route\n");		//BORRAR
 		free(map->route);
 	}
+	if (map->player)
+	{
+		ft_printf("freeing player\n");	//BORRAR
+		free (map->player);
+	}
 	close(map->fd);
+}
+
+void	ft_init(t_map *map)
+{
+	map->fd = 0;
+	map->h = 0;
+	map->player = malloc(sizeof(t_player));
+	map->player->n_pl = 0;
+	map->player->posx = -1;
+	map->player->posy = -1;
 }
 
 int	main(int argc, char **argv)
 {
 	t_map map;
+	ft_init(&map);
 	if (ft_tester(argc, argv, &map) == 1)
 		return (ft_free(&map), 1);
 	ft_free(&map);
