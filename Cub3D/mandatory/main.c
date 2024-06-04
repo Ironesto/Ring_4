@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/05/27 05:01:41 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/06/04 05:40:10 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int ft_tester(int argc, char **argv, t_map *map)
 		ft_printf("%s", map->map[i]);
 		i++;
 	}
+	createimage(map);
+	imagetomap(map);
 	return(0);
 }
 
@@ -62,11 +64,37 @@ void	ft_init(t_map *map)
 {
 	map->fd = 0;
 	map->h = 0;
+	map->w = 0;
 	map->player = malloc(sizeof(t_player));
 	map->player->n_pl = 0;
 	map->player->posx = -1;
 	map->player->posy = -1;
 }
+
+/* void	hook(void *param)
+{
+	t_map	*data;
+	int		x;
+	int		y;
+
+	data = param;
+	x = data->image.fermin->instances[0].x;
+	y = data->image.fermin->instances[0].y;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(data->mlx);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W) && !compmovy(x, y, 64, data))
+		data->image.fermin->instances[0].y -= 2;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S) && !compmovy2(x, y, 64, data))
+		data->image.fermin->instances[0].y += 2;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A) && !compmovx(y, x, 64, data))
+		data->image.fermin->instances[0].x -= 2;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D) && !compmovx2(y, x, 64, data))
+		data->image.fermin->instances[0].x += 2;
+	if (data->map[data->pp.y][data->pp.x] == 'C')
+		erase_coll(data);
+	if (data->totcol == 1 || data->totcol == 0)
+		opendoor(data);
+} */
 
 int	main(int argc, char **argv)
 {
@@ -74,6 +102,10 @@ int	main(int argc, char **argv)
 	ft_init(&map);
 	if (ft_tester(argc, argv, &map) == 1)
 		return (ft_free(&map), 1);
+	map.mlx = mlx_init(map.w * SIZE, map.h * SIZE, argv[1], true);
+	//mlx_loop_hook(map.mlx, &hook, &map);
+	mlx_loop(map.mlx);
+	mlx_terminate(map.mlx);
 	ft_free(&map);
 	return (0);
 }
