@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/04 05:39:53 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/06/05 03:49:03 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef	struct s_player
 typedef struct s_image
 {
 	mlx_image_t	*player;
+	mlx_image_t	*wall;
 }	t_image;
 
 typedef struct s_map
@@ -51,18 +52,29 @@ typedef struct s_map
 	char		*route;
 	int			fd;
 	size_t		w;
-	int			h;
+	size_t		h;
 	t_image		image;
 }	t_map;
 
 
 	//validations
 int	validargs(int argc, char **argv, t_map *map);
+int	validclose(t_map *map, int k, int i);
+int validlines(t_map *map);
 int	validmap(t_map *map);
 
 	//utils
 int	ft_error(char *str);
 int	savelines(t_map *map);
 int	savepoint(t_player *point, int y, int x);
+int	ft_fd(char *str);
+
+	//create
 int	createimage(t_map *map);
 int imagetomap(t_map *map);
+
+	//moves
+int	compmovy(int posx, int pos, int size, t_map *data);
+int	compmovy2(int posx, int pos, int size, t_map *data);
+int	compmovx2(int posy, int pos, int size, t_map *data);
+int	compmovx(int posy, int pos, int size, t_map *data);

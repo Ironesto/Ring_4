@@ -46,22 +46,17 @@ int	savepoint(t_player *point, int y, int x)
 	point->posy = y;
 	return (0);
 }
-int	createimage(t_map *map)
-{
-	mlx_texture_t	*image;
 
-	if (open("./assets/cartucho.png", O_RDONLY)  == -1)
-		return (ft_error("ERROR: Cannot open the image\n"));
-	else
-		image = mlx_load_png("./assets/cartucho.png");
-	puts("falla");
-	map->image.player = mlx_texture_to_image(map->mlx, image);
-	mlx_delete_texture(image);
-	return (0);
-}
-
-int imagetomap(t_map *map)
+int	ft_fd(char *str)
 {
-	mlx_image_to_window(map->mlx, map->image.player, map->w * SIZE, map->h * SIZE);
+	int	fd;
+
+	fd = open(str, O_RDONLY);
+	if(fd < 0)
+	{
+		close(fd);
+		return (-1);
+	}
+	close(fd);
 	return (0);
 }
