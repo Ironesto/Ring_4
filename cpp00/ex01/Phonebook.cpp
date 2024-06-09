@@ -66,8 +66,6 @@ int Phonebook::resultsearch()
 		i = atoi(str.data());
 		if (i == 0)
 			return (0);
-		else						//en progreso
-			resultsearch();
 	}
 	std::cout<<"Number: "<<i + 1<<std::endl;
 	std::cout<<"His name: "<<_contact[i].getName()<<std::endl;
