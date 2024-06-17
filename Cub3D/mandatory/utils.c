@@ -13,7 +13,7 @@ int	ft_error(char *str)
 
 int	savelines(t_map *map)
 {
-	int	i;
+	size_t	i;
 
 	i = 1;
 	map->fd = open(map->route, O_RDONLY);

@@ -19,7 +19,7 @@ int	validargs(int argc, char **argv, t_map *map)
 	return (0);
 }
 
-int	validclose(t_map *map, int k, int i)
+int	validclose(t_map *map, size_t k, int i)
 {
 	if (!ft_strchr("10NSWE",map->map[k][i - 1]) || !ft_strchr("10NSWE",map->map[k][i + 1]))	//BORRAR COMENTARIO comprueba delante y detras de cada 0 o jugador
 		return (1);
@@ -34,8 +34,8 @@ int	validclose(t_map *map, int k, int i)
 
 int validlines(t_map *map)
 {
-	int	i;
-	int	k;
+	int		i;
+	size_t	k;
 
 	k = 0;
 	while(k < map->h)

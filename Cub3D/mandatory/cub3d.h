@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: gpaez-ga <gpaez-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/05 03:49:03 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:37:27 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_map
 
 	//validations
 int	validargs(int argc, char **argv, t_map *map);
-int	validclose(t_map *map, int k, int i);
+int	validclose(t_map *map, size_t k, int i);
 int validlines(t_map *map);
 int	validmap(t_map *map);
 
