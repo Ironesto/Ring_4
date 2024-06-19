@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpaez-ga <gpaez-ga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/17 17:37:27 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/06/19 05:25:56 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../MLX42/include/MLX42/MLX42.h"
 #include <stdio.h>
+#include <math.h>
 
 #define BLK "\e[0;30m"
 #define RED "\e[0;31m"
@@ -40,6 +41,8 @@ typedef	struct s_player
 
 typedef struct s_image
 {
+	mlx_image_t	*back;
+	mlx_image_t	*aux;
 	mlx_image_t	*player;
 	mlx_image_t	*wall;
 }	t_image;
