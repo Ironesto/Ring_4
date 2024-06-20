@@ -2,17 +2,8 @@
 
 int	createimage(t_map *map)
 {
-	mlx_texture_t	*image;
-
-	image = NULL;
 	map->image.player = mlx_new_image(map->mlx, SIZE, SIZE);
-	if (ft_fd("./assets/wall.png") == -1)
-		return (ft_error("ERROR: Cannot open the image\n"));
-	else
-		image = mlx_load_png("./assets/wall.png");
-	map->image.wall = mlx_texture_to_image(map->mlx, image);
-	mlx_delete_texture(image);
-
+	//map->image.wall = mlx_new_image(map->mlx, SIZE, SIZE);
 	map->image.aux = mlx_new_image(map->mlx, map->w * SIZE, map->h* SIZE);
 	mlx_image_to_window(map->mlx, map->image.aux, 0, 0);
 	map->image.back = mlx_new_image(map->mlx, map->w * SIZE, map->h* SIZE);
@@ -36,6 +27,28 @@ int	createimage(t_map *map)
 	return (0);
 }
 
+void	drawcube(t_map *data, int by, int bx)
+{
+	int y = by * SIZE;
+	int x = bx * SIZE;
+	int aux = x;
+	while (aux < x + SIZE)
+	{
+		mlx_put_pixel(data->image.back, aux, y, 0xa413da);
+		mlx_put_pixel(data->image.back, aux, y + SIZE, 0xa413da);
+		mlx_put_pixel(data->image.back, aux, y + SIZE / 2, 0xa413da);
+		aux++;
+	}
+	aux = y;
+	while (aux < y + SIZE)
+	{
+		mlx_put_pixel(data->image.back, x, aux, 0xa413da);
+		mlx_put_pixel(data->image.back, x + SIZE, aux, 0xa413da);
+		mlx_put_pixel(data->image.back, x + SIZE / 2, aux, 0xa413da);
+		aux++;
+	}
+}
+
 int imagetomap(t_map *map)
 {
 	size_t	i;
@@ -48,7 +61,7 @@ int imagetomap(t_map *map)
 		while (i < map->w)
 		{
 			if (map->map[k][i] == '1')
-				mlx_image_to_window(map->mlx, map->image.wall, i * SIZE, k * SIZE);
+				drawcube(map, k, i);
 			i++;
 		}
 		k++;

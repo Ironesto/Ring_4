@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/19 05:25:56 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/06/20 05:40:13 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 
 #ifndef SIZE
  #define SIZE 64
+#endif
+
+#ifndef ANG
+ #define ANG 20
 #endif
 
 #define TEST 1
