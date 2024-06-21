@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/20 06:25:09 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/06/21 05:38:57 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,239 +78,157 @@ float	rads(float x)
 	return (res);
 }
 
-void	deletepixelx(t_map *data, int by, int bx)
+float	catopo(int ady, int ang)
 {
-	int px = bx + SIZE / 2;
-	int py = by + SIZE / 2;
-	int y = (by + SIZE / 2) / SIZE;
-	int x = (bx + SIZE / 2) / SIZE;
-	while (data->map[y][x] != '1')
-		x--;
-	if (py != data->image.player->instances[0].y + SIZE / 2)
-	{
-		while (px > x * SIZE && py)
-		{
-			mlx_put_pixel(data->image.aux, px, py, 0x00000000);
-			px--;
-		}
-	}
-}
+	float	res;
 
-void	deletepixeldiag(t_map *data, int by, int bx, int ang)
-{
-	int px = bx + SIZE / 2;
-	int py = by + SIZE / 2;
-	//int y = (by + SIZE / 2) / SIZE;
-	//int x = (bx + SIZE / 2) / SIZE;
-	int auxx = (px + cos(rads(ang))) / SIZE;
-	int auxy = (py + cos(rads(ang))) / SIZE;
-	while (data->map[auxy][auxx] != '1')
-	{
-		auxx = (px + cos(rads(ang))) / SIZE;
-		auxy = (py + cos(rads(ang))) / SIZE;
-		px--;
-		py--;
-	}
-	//printf("x %d pxcos %d y %d pycos %d\n", x, auxx, y, auxy);
-	px = bx + SIZE / 2;
-	py = by + SIZE / 2;
-
-	//printf("px %d (auxx * SIZE) + SIZE %d\n", px, (auxx * SIZE) + SIZE);
-	if (px != data->image.player->instances[0].x + SIZE / 2 || py != data->image.player->instances[0].y + SIZE / 2)
-	{
-		while (px > (auxx * SIZE) + SIZE || py > (auxy * SIZE) + SIZE)
-		{
-			//puts("entra");
-			mlx_put_pixel(data->image.aux, px + cos(rads(ang)), py + cos(rads(ang)), 0x00000000);
-			py--;
-			px--;
-		}
-	}
-	if (ang > -ANG)
-		deletepixeldiag(data, by, bx, ang - 1);
-}
-
-void	deletepixel(t_map *data, int by, int bx)
-{
-	int px = bx + SIZE / 2;
-	int py = by + SIZE / 2;
-	int y = (by + SIZE / 2) / SIZE;
-	int x = (bx + SIZE / 2) / SIZE;
-	while (data->map[y][x] != '1')
-		y--;
-	if (px != data->image.player->instances[0].x + SIZE / 2)
-	{
-		while (py > y * SIZE && px)
-		{
-			mlx_put_pixel(data->image.aux, px, py, 0x00000000);
-			py--;
-		}
-	}
-	deletepixelx(data, by, bx);
-	deletepixeldiag(data, by, bx, ANG);
-	if (px != data->image.player->instances[0].x + SIZE / 2 || py != data->image.player->instances[0].y + SIZE / 2)
-	{
-		mlx_put_pixel(data->image.aux, px + 1, by + SIZE / 2, 0x00000000);
-		mlx_put_pixel(data->image.aux, px + 2, by + SIZE / 2, 0x00000000);
-		mlx_put_pixel(data->image.aux, px + 3, by + SIZE / 2, 0x00000000);
-		mlx_put_pixel(data->image.aux, px - 3, by + SIZE / 2, 0x00000000);
-		mlx_put_pixel(data->image.aux, px - 2, by + SIZE / 2, 0x00000000);
-		mlx_put_pixel(data->image.aux, px - 1, by + SIZE / 2, 0x00000000);
-		mlx_put_pixel(data->image.aux, px, by + SIZE / 2, 0x00000000);
-		mlx_put_pixel(data->image.aux, px, by + SIZE / 2 + 1, 0x00000000);
-		mlx_put_pixel(data->image.aux, px, by + SIZE / 2 + 2, 0x00000000);
-		mlx_put_pixel(data->image.aux, px, by + SIZE / 2 + 3, 0x00000000);
-	}
-
-}
-
-void	putpixelx(t_map *data)
-{
-	int px = data->image.player->instances[0].x + SIZE / 2;
-	int py = data->image.player->instances[0].y + SIZE / 2;
-	int y = (data->image.player->instances[0].y + SIZE / 2) / SIZE;
-	int x = (data->image.player->instances[0].x + SIZE / 2) / SIZE;
-	while (data->map[y][x] != '1')
-		x--;
-	while (px > (x * SIZE) + SIZE && py)
-	{
-		mlx_put_pixel(data->image.aux, px, py, 0xFF0000FF);
-		px--;
-	}
-}
-
-/* void	putpixeldiag(t_map *data, int ang)
-{
-	int px = data->image.player->instances[0].x + SIZE / 2;
-	int py = data->image.player->instances[0].y + SIZE / 2;
-	//int y = (data->image.player->instances[0].y + SIZE / 2) / SIZE;
-	//int x = (data->image.player->instances[0].x + SIZE / 2) / SIZE;
-	int auxx = (px + cos(rads(ang))) / SIZE;
-	int auxy = (py + cos(rads(ang))) / SIZE;
-	while (data->map[auxy][auxx] != '1')
-	{
-		auxx = (px + cos(rads(ang))) / SIZE;
-		auxy = (py + cos(rads(ang))) / SIZE;
-		px--;
-		py--;
-	}
-	px = data->image.player->instances[0].x + SIZE / 2;
-	py = data->image.player->instances[0].y + SIZE / 2;
-
-	//printf("cos %f sin %f\n", cos(rads(ang)), sin(rads(ang)));
-	while (px > (auxx * SIZE) + SIZE || py > (auxy * SIZE) + SIZE)
-	{
-		mlx_put_pixel(data->image.aux, px + cos(rads(ang)), py + cos(rads(ang)), 0xFFFFFFFF);
-		py--;
-		px--;
-	}
-	ft_printf("py %d px %d\n", py / SIZE, px / SIZE);
-	if (ang > -ANG)
-		putpixeldiag(data, ang - 1);
-
-} */
-
-float	hipo(float len, int ang)
-{
-	float res;
-
-	res = len / cos(rads(ang));
+	res = ady * tan(rads(ang));
 	return (res);
 }
 
-void	putpixeldiag(t_map *data, int ang)
+void	draw(t_map *data, t_point end, t_point begin, int color)
 {
-	float px = data->image.player->instances[0].x + SIZE / 2;
-	float py = data->image.player->instances[0].y + SIZE / 2;
-	//int y = (data->image.player->instances[0].y + SIZE / 2) / SIZE;
-	//int x = (data->image.player->instances[0].x + SIZE / 2) / SIZE;
-	int auxx = (px) / SIZE;
-	int auxy = (py) / SIZE;
-	while (data->map[auxy][auxx] != '1')		//ESTO ESTA MAL
+	float	delta_x;
+	float	delta_y;
+	float	pixel_x;
+	float	pixel_y;
+	int		pixels;
+
+	delta_x = end.x - begin.x;
+	delta_y = end.y - begin.y;
+	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
+	delta_x = delta_x / pixels;
+	delta_y = delta_y / pixels;
+	pixel_x = begin.x;
+	pixel_y = begin.y;
+	while (pixels > 0)
 	{
-		auxx = (px) / SIZE;
-		auxy = (py) / SIZE;
-		px--;
-		py--;
+		mlx_put_pixel(data->image.aux, pixel_x, pixel_y, color);
+		pixel_x += delta_x;
+		pixel_y += delta_y;
+		pixels--;
 	}
-	px = (data->image.player->instances[0].x + SIZE / 2);
-	py =( data->image.player->instances[0].y + SIZE / 2);
-	float h = hipo(px, ang);
-	//printf("rads %f cos %f sin %f  tan %f\n",rads(ang), cos(rads(ang)), sin(rads(ang)), tan(rads(ang)));
-	ft_printf("px %d (auxx * SIZE) + SIZE %d\n", px, (auxx * SIZE) + SIZE);
-	ft_printf("hipo %d\n", h);
-	while (px > (auxx * SIZE) + SIZE || py > (auxy * SIZE) + SIZE)
+}
+
+
+void	del_hor(t_map *data, int py, int px, int ang)
+{
+
+	int	x;
+	int	auxx;
+	int	y;
+
+
+	x = px / SIZE;
+	auxx = px;
+	y = py / SIZE;
+	//printf("player y %d, player x %d \n", data->player->ppoint.y, data->player->ppoint.x);
+	while (auxx < x * SIZE + SIZE)
 	{
-		mlx_put_pixel(data->image.aux, px, py, 0xFFFFFFFF);
-		py--;
-		px--;
+		mlx_put_pixel(data->image.aux, auxx, py, 0x00000000);
+		auxx++;
 	}
-	ft_printf("py %d px %d\n", py / SIZE, px / SIZE);	//px es muchisimo
+	//printf("py %d, px %d \n", py, px);
+	mlx_put_pixel(data->image.aux, auxx, py, 0x00000000);
+	mlx_put_pixel(data->image.aux, auxx, py - 1, 0x00000000);
+	mlx_put_pixel(data->image.aux, auxx, py + 1, 0x00000000);
+	mlx_put_pixel(data->image.aux, auxx, py - 2, 0x00000000);
+	mlx_put_pixel(data->image.aux, auxx, py + 2, 0x00000000);
+	mlx_put_pixel(data->image.aux, auxx, py + 3, 0x00000000);
+	mlx_put_pixel(data->image.aux, auxx, py - 3, 0x00000000);
+
+	float dx = abs(data->player->ppoint.x - auxx);
+	float opo = catopo(dx, ang);
+	float dy = opo;
+	//int h = sqrt((dx * dx) + (dy * dy));
+	mlx_put_pixel(data->image.aux, auxx, py - opo, 0x00000000);
+	t_point end;
+	end.x = dx + data->player->ppoint.x;
+	end.y = py - dy;
+	draw(data, end, data->player->ppoint, 0x00000000);
+	if (data->map[y][x + 1] != '1')
+		del_hor(data, py, auxx, ang);
+
 /* 	if (ang > -ANG)
-		putpixeldiag(data, ang - 1); */
+		del_hor(data, py, px, ang - 1);
+		*/
+	}
+
+int	dist_ver(t_map *data, int py, int px, int ang)
+{
+	int	x;
+	int	auxy;
+	int	y;
+
+
+	x = px / SIZE;
+	auxy = py;
+	y = py / SIZE;
+	//printf("player y %d, player x %d \n", data->player->ppoint.y, data->player->ppoint.x);
+	//printf("auxy %d y * SIZE  %d\n", auxy, y * SIZE);
+	while (auxy > y * SIZE)
+	{
+		mlx_put_pixel(data->image.aux, px, auxy, 0xFFFFFFFF);
+		auxy--;
+	}
+	//printf("auxy %d\n", auxy);
+	float dy = abs(py - auxy);
+	float opo = catopo(dy, 90 - ang);
+	float dx = opo;
+	printf("dy %f, dx %f\n", dy, dx);
+	//mlx_put_pixel(data->image.aux, px, py - opo, 0xa413da);
+	t_point end;
+	end.x = dx + px;
+	end.y = py - dy;
+	draw(data, end, data->player->ppoint, 0xFFFFFFFF);
+	printf("endx %d endy %d\n",end.x, end.y);
+	if (data->map[y - 1][x] != '1')
+		dist_ver(data, end.y - 1, end.x, ang);
+	int pixels;
+	pixels = sqrt((dy * dy) + (dx * dx));
+	return (pixels);
+}
+
+int	dist_hor(t_map *data, int py, int px, int ang)
+{
+
+	int	x;
+	int	auxx;
+	int	y;
+
+
+	x = px / SIZE;
+	auxx = px;
+	y = py / SIZE;
+	//printf("player y %d, player x %d \n", data->player->ppoint.y, data->player->ppoint.x);
+	while (auxx < x * SIZE + SIZE)
+	{
+		mlx_put_pixel(data->image.aux, auxx, py, 0xFF0000FF);
+		auxx++;
+	}
+	float dx = abs(px - auxx);
+	float opo = catopo(dx, ang);
+	float dy = opo;
+	mlx_put_pixel(data->image.aux, auxx, py - opo, 0xa413da);
+	t_point end;
+	end.x = dx + px;
+	end.y = py - dy;
+	draw(data, end, data->player->ppoint, 0xFF0000FF);
+	if (data->map[y][x + 1] != '1')
+		dist_hor(data, end.y, auxx, ang);
+/* 	if (ang > -ANG)
+		dist_hor(data, py, px, ang - 1); */
+	//printf("dy %f, dx %f\n", dy, dx);
+	int pixels;
+	pixels = sqrt((dy * dy) + (dx * dx));
+	return (pixels);
 
 }
 
-/* void	putpixeldiag(t_map *data)
+/* void	dist_hor(t_map *data, int py, int px)
 {
-	int px = data->image.player->instances[0].x + SIZE / 2;
-	int py = data->image.player->instances[0].y + SIZE / 2;
-	int y = (data->image.player->instances[0].y + SIZE / 2) / SIZE;
-	int x = (data->image.player->instances[0].x + SIZE / 2) / SIZE;
-	while (data->map[(data->image.player->instances[0].y + SIZE / 2) / SIZE][x] != '1')
-		x--;
-	while (data->map[y][(data->image.player->instances[0].x + SIZE / 2) / SIZE] != '1')
-		y--;
-	printf("x %d pxcos %f y %d\n", x, (px + cos(rads(40))) / SIZE, y);
-	if (x - (data->image.player->instances[0].x + SIZE / 2) / SIZE < y - (data->image.player->instances[0].y + SIZE / 2) / SIZE)
-	{
-		while (px > (x * SIZE) + SIZE)
-		{
-			//puts("entra");
-			mlx_put_pixel(data->image.aux, px + cos(rads(40)), py + cos(rads(40)), 0xFFFFFFFF);
-			py--;
-			px--;
-		}
-	}
-	else
-		while (py > (y * SIZE) + SIZE)
-		{
-			//puts("entra");
-			mlx_put_pixel(data->image.aux, px + cos(rads(40)), py + cos(rads(40)), 0xFFFFFFFF);
-			py--;
-			px--;
-		}
+
 } */
-
-void	putpixel(t_map *data)
-{
-	int px = data->image.player->instances[0].x + SIZE / 2;
-	int py = data->image.player->instances[0].y + SIZE / 2;
-	int y = (data->image.player->instances[0].y + SIZE / 2) / SIZE;
-	int x = (data->image.player->instances[0].x + SIZE / 2) / SIZE;
-	while (data->map[y][x] != '1')
-		y--;
-	while (py > (y * SIZE) + SIZE && px)
-	{
-		mlx_put_pixel(data->image.aux, px, py, 0xFF0000FF);
-		py--;
-	}
-	putpixelx(data);
-	putpixeldiag(data, ANG);
-
-
-	px = data->image.player->instances[0].x + SIZE / 2;
-	mlx_put_pixel(data->image.aux, px + 1, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, px + 2, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, px + 3, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, px - 3, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, px - 2, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, px - 1, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, px, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, px, data->image.player->instances[0].y + SIZE / 2 + 1, 0xa413da);
-	mlx_put_pixel(data->image.aux, px, data->image.player->instances[0].y + SIZE / 2 + 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, px, data->image.player->instances[0].y + SIZE / 2 + 3, 0xa413da);
-}
 
 void	hook(void *param)
 {
@@ -321,6 +239,8 @@ void	hook(void *param)
 	data = param;
 	x = data->image.player->instances[0].x;
 	y = data->image.player->instances[0].y;
+	data->player->ppoint.y = data->image.player->instances[0].y + SIZE / 2;
+	data->player->ppoint.x = data->image.player->instances[0].x + SIZE / 2;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) && !compmovy(x, y, SIZE, data))
@@ -331,10 +251,31 @@ void	hook(void *param)
 		data->image.player->instances[0].x -= 2;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) && !compmovx2(y, x, SIZE, data))
 		data->image.player->instances[0].x += 2;
-	putpixel(data);
-	deletepixel(data, y, x);
+	dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ANG);
+	dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ANG);
+	//dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, -ANG);
+	//if (data->player->ppoint.x != data->image.player->instances[0].x + SIZE / 2 || data->player->ppoint.y != data->image.player->instances[0].y + SIZE / 2)
+		//del_hor(data, data->player->ppoint.y, data->player->ppoint.x, ANG);
+	
+/* 	t_point end;
+	end.x = 0;
+	end.y = 0;
+	draw(data, end, data->player->ppoint); */
+	//putpixel(data);
+	//deletepixel(data, y, x);
 
 
+
+	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 + 1, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 + 2, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 + 3, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 - 3, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 - 2, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 - 1, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2, data->image.player->instances[0].y + SIZE / 2 + 1, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2, data->image.player->instances[0].y + SIZE / 2 + 2, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2, data->image.player->instances[0].y + SIZE / 2 + 3, 0xa413da);
 /* 	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
 		data->image.player->instances[0].z += 2; */
 /* 	if (data->map[data->player->posy][data->player->posx] == 'C')

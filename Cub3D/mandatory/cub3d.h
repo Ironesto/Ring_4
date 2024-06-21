@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/20 05:40:13 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/06/21 04:28:13 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,18 @@
 
 #define TEST 1
 
+typedef	struct	s_point
+{
+	int x;
+	int	y;
+}	t_point;
+
 typedef	struct s_player
 {
 	int	n_pl;
 	int	posy;
 	int	posx;
+	t_point	ppoint;
 }	t_player;
 
 typedef struct s_image
