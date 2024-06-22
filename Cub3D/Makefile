@@ -3,7 +3,7 @@ SRC			:= $(wildcard ./mandatory/*.c)
 
 OBJS		= $(SRC:.c=.o)
 CC			= clang
-#CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -g #-Wall -Wextra -Werror
 GLFW_FLAGS  = -ldl -lglfw -lm		#Linux
 #GLFW_FLAGS = -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ -lm
 MLX42_PATH  = ./MLX42

@@ -10,13 +10,13 @@ int	createimage(t_map *map)
 	mlx_image_to_window(map->mlx, map->image.back, 0, 0);
 	size_t y = 0;
 	size_t x;
-	while (y <= (map->h * SIZE) / 2)
+/* 	while (y <= (map->h * SIZE) / 2)
 	{
 		x = -1;
 		while (++x < map->w * SIZE)
 			mlx_put_pixel(map->image.back, x, y, 0x6cffeb);
 		y++;
-	}
+	} */
 	while (y > (map->h * SIZE) / 2 && y < map->h *SIZE)
 	{
 		x = -1;

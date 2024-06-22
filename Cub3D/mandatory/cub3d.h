@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/21 04:28:13 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/06/22 04:53:11 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_map
 	char		**map;
 	char		*route;
 	int			fd;
+	int			ang;
 	size_t		w;
 	size_t		h;
 	t_image		image;
@@ -92,3 +93,17 @@ int	compmovy(int posx, int pos, int size, t_map *data);
 int	compmovy2(int posx, int pos, int size, t_map *data);
 int	compmovx2(int posy, int pos, int size, t_map *data);
 int	compmovx(int posy, int pos, int size, t_map *data);
+
+
+	//rays
+void	draw(t_map *data, t_point end, t_point begin, int color);
+void	deletepix(t_map *data);
+t_point	dist_ver(t_map *data, int py, int px, int ang);
+t_point	dist_hor(t_map *data, int py, int px, int ang);
+t_point	dist_ver_down(t_map *data, int py, int px, int ang);
+
+	//trigo
+float	rads(float x);
+float	catopo(int ady, int ang);
+float	catady(int opo, int ang);
+int		hipo(int y, int x);
