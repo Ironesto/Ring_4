@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/22 05:37:17 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/06/23 05:26:30 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	hook(void *param)
 	int		y;
 
 	data = param;
-	data->ang = ANG;
 	x = data->image.player->instances[0].x;
 	y = data->image.player->instances[0].y;
 	data->player->ppoint.y = data->image.player->instances[0].y + SIZE / 2;
@@ -104,25 +103,32 @@ void	hook(void *param)
 	t_point	v;
 	t_point	h;
 	//printf("ang %d\n", data->ang);
-/* 		v = dist_ver_down(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
-			draw(data, v, data->player->ppoint, 0xFFFFFFFF);
-		h = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
-			draw(data, h, data->player->ppoint, 0xFF0000FF); */
-	while (data->ang > -ANG)
+		//v = dist_ver_down(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, 20);
+		//	draw(data, v, data->player->ppoint, 0xFFFFFFFF);
+		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
+		if (h.y < 0)
+		{
+			puts("entra");
+			h.y = 0;
+		}
+		draw(data, h, data->player->ppoint, 0xFF0000FF);
+	//data->ang = 1;
+/* 	int aux = data->ang;
+	while (aux > data->ang - ANG)
 	{
 		if (data->ang == 0 || data->ang == 90 || data->ang == 180 || data->ang == 270)
 			data->ang--;
  		if (data->ang == 0 || data->ang == -90 || data->ang == -180 || data->ang == -270)
 			data->ang++;
 		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
-		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
+		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
 		//printf("hipo ver %d hipo hor %d\n", hipo(v.y, v.x), hipo(h.y, h.x));
 		if (hipo(v.y, v.x) >= hipo(h.y, h.x))
 			draw(data, h, data->player->ppoint, 0xFF0000FF);
-		else
-			draw(data, v, data->player->ppoint, 0xFFFFFFFF);
-		data->ang--;
-	}
+		//else
+		//	draw(data, v, data->player->ppoint, 0xFFFFFFFF);
+		aux--;
+	} */
 
 
 	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 + 1, data->image.player->instances[0].y + SIZE / 2, 0xa413da);

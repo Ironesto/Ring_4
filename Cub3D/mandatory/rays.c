@@ -57,7 +57,7 @@ t_point	dist_ver(t_map *data, int py, int px, int ang)
 	y = py / SIZE;
 	while (auxy > y * SIZE)
 	{
-		//mlx_put_pixel(data->image.aux, px, auxy, 0xFFFFFFFF);
+		mlx_put_pixel(data->image.aux, px, auxy, 0xFFFFFFFF);
 		auxy--;
 	}
 	float dy = py - auxy;
@@ -75,18 +75,19 @@ t_point	dist_ver(t_map *data, int py, int px, int ang)
 
 t_point	dist_ver_down(t_map *data, int py, int px, int ang)
 {
-	int	x;
+	size_t	x;
 	int	auxy;
-	int	y;
+	size_t	y;
 	t_point end;
 
 
 	x = px / SIZE;
 	auxy = py;
 	y = py / SIZE;
+	//printf("x %zu y %zu w %zu h %zu\n", x, y, data->w, data->h);
 	while (auxy < y * SIZE + SIZE)
 	{
-		//mlx_put_pixel(data->image.aux, px, auxy, 0xFFFFFFFF);
+		mlx_put_pixel(data->image.aux, px, auxy, 0xFFFFFFFF);
 		auxy++;
 	}
 	//printf("px %d auxy %d\n", px, auxy);
@@ -97,9 +98,8 @@ t_point	dist_ver_down(t_map *data, int py, int px, int ang)
 	end.x = dx + px;
 	end.y = py + dy;
 	x = end.x / SIZE;
-	//printf("x %d y %d\n", x, y);
-	if (data->map[y + 1][x] != '1' && x + 1 < data->w && y + 1 < data->h)
-		return (dist_ver_down(data, end.y + 1, end.x, ang));
+	if (data->map[y + 1][x] != '1' && x < data->w && y < data->h)
+		return (dist_ver_down(data, end.y, end.x, ang));
 	return (end);
 }
 
@@ -110,7 +110,6 @@ t_point	dist_hor(t_map *data, int py, int px, int ang)
 	int	auxx;
 	int	y;
 	t_point end;
-
 
 	x = px / SIZE;
 	auxx = px;
@@ -128,8 +127,47 @@ t_point	dist_hor(t_map *data, int py, int px, int ang)
 	end.x = dx + px;
 	end.y = py - dy;
 	y = end.y / SIZE;
-	if (data->map[y][x + 1] != '1')
+	printf("end.x %d end.y %d ang %d\n", end.x, end.y, ang);
+	printf("x %d y %d\n", x, y);
+	if (data->map[y][x + 1] != '1' && x < data->w)
 		return (dist_hor(data, end.y, end.x, ang));
 	return (end);
 
 }
+
+/* t_point	dist_hor(t_map *data, int py, int px, int ang)
+{
+
+	int	x;
+	int	auxx;
+	int	y;
+	t_point end;
+
+	x = px / SIZE;
+	auxx = px;
+	y = py / SIZE;
+	//printf("player y %d, player x %d \n", data->player->ppoint.y, data->player->ppoint.x);
+	while (auxx < x * SIZE + SIZE)
+	{
+		//mlx_put_pixel(data->image.aux, auxx, py, 0xFF0000FF);
+		auxx++;
+	}
+	float dx = auxx -px;
+	float opo = catopo(dx, ang);
+	float dy = opo;
+	//mlx_put_pixel(data->image.aux, auxx, py - opo, 0xa413da);
+	end.x = dx + px;
+	end.y = py - dy;
+	if (end.y <= 0 || ang == 90)
+		end.y = 0;
+	else if(end.y > data->h * SIZE)
+		end.y = data->h * SIZE - SIZE;
+	else
+		y = end.y / SIZE;
+	printf("end.x %d end.y %d ang %d\n", end.x, end.y, ang);
+	printf("x %d y %d\n", x, y);
+	if (data->map[y][x + 1] != '1' && y > 0 && y < data->h)
+		return (dist_hor(data, end.y, end.x, ang));
+	return (end);
+
+} */
