@@ -57,19 +57,27 @@ t_point	dist_ver(t_map *data, int py, int px, int ang)
 	y = py / SIZE;
 	while (auxy > y * SIZE)
 	{
-		mlx_put_pixel(data->image.aux, px, auxy, 0xFFFFFFFF);
+		//mlx_put_pixel(data->image.aux, px, auxy, 0xFFFFFFFF);
 		auxy--;
 	}
 	float dy = py - auxy;
-	float opo = catady(dy, ang);
-	float dx = opo;
+	float dx = catady(dy, ang);
 	//mlx_put_pixel(data->image.aux, px, py - opo, 0xa413da);
 	end.x = dx + px;
 	end.y = py - dy;
-	//draw(data, end, data->player->ppoint, 0xFFFFFFFF);
 	x = end.x / SIZE;
+	if (x >= data->w - 1)
+	{
+		end.x = data->w * SIZE - SIZE ;
+		end.y = data->player->ppoint.y - catopo(end.x - data->player->ppoint.x, ang);
+		//printf("endy %d endx %d hipo %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+		//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x));
+		return (end);
+	}
 	if (data->map[y - 1][x] != '1' && x < data->w && y - 1 > 0)
 		return (dist_ver(data, end.y - 1, end.x, ang));		//no se por que es -1
+	//printf("endy %d endx %d hipo %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+	//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x));
 	return (end);
 }
 
@@ -121,16 +129,25 @@ t_point	dist_hor(t_map *data, int py, int px, int ang)
 		auxx++;
 	}
 	float dx = abs(px - auxx);
-	float opo = catopo(dx, ang);
-	float dy = opo;
+	float dy = catopo(dx, ang);
 	//mlx_put_pixel(data->image.aux, auxx, py - opo, 0xa413da);
 	end.x = dx + px;
 	end.y = py - dy;
 	y = end.y / SIZE;
-	printf("end.x %d end.y %d ang %d\n", end.x, end.y, ang);
-	printf("x %d y %d\n", x, y);
-	if (data->map[y][x + 1] != '1' && x < data->w)
+	//printf("end.x %d end.y %d py %d ang %d\n", end.x, end.y, py,  ang);
+	//printf("x %d y %d\n", x, y);
+	if (y <= 0)
+	{
+		end.y = 0;
+		end.x = data->player->ppoint.x + catady(data->player->ppoint.y, ang);
+	//	printf("hipo %d\n", hipo(end.y, catady(data->player->ppoint.y, ang)));
+		return (end);
+	}
+	if (data->map[y][x + 1] != '1' && x < data->w && end.y > 0)
 		return (dist_hor(data, end.y, end.x, ang));
+	//printf("hipo %d\n", hipo(catopo(dx, ang), end.x));
+	//printf("endy %d endx %d hipo %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+	//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x));
 	return (end);
 
 }

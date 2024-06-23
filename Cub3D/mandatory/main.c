@@ -103,32 +103,35 @@ void	hook(void *param)
 	t_point	v;
 	t_point	h;
 	//printf("ang %d\n", data->ang);
-		//v = dist_ver_down(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, 20);
-		//	draw(data, v, data->player->ppoint, 0xFFFFFFFF);
+/* 		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
+			draw(data, v, data->player->ppoint, 0xFFFFFFFF);
 		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
 		if (h.y < 0)
 		{
 			puts("entra");
 			h.y = 0;
 		}
-		draw(data, h, data->player->ppoint, 0xFF0000FF);
+		printf("ang %d\n", data->ang);
+		draw(data, h, data->player->ppoint, 0xFF0000FF); */
 	//data->ang = 1;
-/* 	int aux = data->ang;
+	int aux = data->ang;
 	while (aux > data->ang - ANG)
 	{
 		if (data->ang == 0 || data->ang == 90 || data->ang == 180 || data->ang == 270)
 			data->ang--;
  		if (data->ang == 0 || data->ang == -90 || data->ang == -180 || data->ang == -270)
 			data->ang++;
-		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
+		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
 		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
-		//printf("hipo ver %d hipo hor %d\n", hipo(v.y, v.x), hipo(h.y, h.x));
-		if (hipo(v.y, v.x) >= hipo(h.y, h.x))
+		//if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) > hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
+			printf("hipo ver %d hipo hor %d ang %d\n", hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x),
+				hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x), aux);
+		if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) >= hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
 			draw(data, h, data->player->ppoint, 0xFF0000FF);
-		//else
-		//	draw(data, v, data->player->ppoint, 0xFFFFFFFF);
+		else
+			draw(data, v, data->player->ppoint, 0xFFFFFFFF);
 		aux--;
-	} */
+	}
 
 
 	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 + 1, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
