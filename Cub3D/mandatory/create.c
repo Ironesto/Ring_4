@@ -32,20 +32,36 @@ void	drawcube(t_map *data, int by, int bx)
 	int y = by * SIZE;
 	int x = bx * SIZE;
 	int aux = x;
+	int	aux2 = y;
 	while (aux < x + SIZE)
 	{
-		mlx_put_pixel(data->image.back, aux, y, 0xa413da);
-		mlx_put_pixel(data->image.back, aux, y + SIZE, 0xa413da);
-		mlx_put_pixel(data->image.back, aux, y + SIZE / 2, 0xa413da);
+		mlx_put_pixel(data->image.back, aux, aux2, 0xa413da);
+		mlx_put_pixel(data->image.back, aux, aux2 + SIZE, 0xa413da);
 		aux++;
 	}
+	aux2 = x;
 	aux = y;
 	while (aux < y + SIZE)
 	{
-		mlx_put_pixel(data->image.back, x, aux, 0xa413da);
-		mlx_put_pixel(data->image.back, x + SIZE, aux, 0xa413da);
-		mlx_put_pixel(data->image.back, x + SIZE / 2, aux, 0xa413da);
+		mlx_put_pixel(data->image.back, aux2, aux, 0xa413da);
+		mlx_put_pixel(data->image.back, aux2 + SIZE, aux, 0xa413da);
 		aux++;
+	}
+	aux2 = x;
+	aux = y;
+	while (aux < y + SIZE)
+	{
+		mlx_put_pixel(data->image.back, aux2, aux, 0x6cffeb);
+		aux++;
+		aux2++;
+	}
+	aux2 = x;
+	aux = y + SIZE;
+	while (aux > y)
+	{
+		mlx_put_pixel(data->image.back, aux2, aux, 0x6cffeb);
+		aux--;
+		aux2++;
 	}
 }
 

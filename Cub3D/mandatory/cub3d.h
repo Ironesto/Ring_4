@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/22 04:53:11 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/06/24 05:44:18 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@
 #endif
 
 #ifndef ANG
- #define ANG 20
+ #define ANG 45
 #endif
 
 #define TEST 1
 
 typedef	struct	s_point
 {
-	int x;
-	int	y;
+	float x;
+	float	y;
 }	t_point;
 
 typedef	struct s_player
@@ -106,4 +106,4 @@ t_point	dist_ver_down(t_map *data, int py, int px, int ang);
 float	rads(float x);
 float	catopo(int ady, int ang);
 float	catady(int opo, int ang);
-int		hipo(int y, int x);
+int		hipo(float y, float x);

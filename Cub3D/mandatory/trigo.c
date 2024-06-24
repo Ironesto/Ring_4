@@ -24,7 +24,7 @@ float	catady(int opo, int ang)
 	return (res);
 }
 
-int	hipo(int y, int x)
+int	hipo(float y, float x)
 {
 	int	h;
 

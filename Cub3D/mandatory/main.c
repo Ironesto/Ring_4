@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/23 05:26:30 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/06/24 05:52:18 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ void	hook(void *param)
 	data = param;
 	x = data->image.player->instances[0].x;
 	y = data->image.player->instances[0].y;
-	data->player->ppoint.y = data->image.player->instances[0].y + SIZE / 2;
-	data->player->ppoint.x = data->image.player->instances[0].x + SIZE / 2;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) && !compmovy(x, y, SIZE, data))
@@ -92,13 +90,13 @@ void	hook(void *param)
 		data->image.player->instances[0].x -= 2;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) && !compmovx2(y, x, SIZE, data))
 		data->image.player->instances[0].x += 2;
-	if (data->player->ppoint.x != data->image.player->instances[0].x + SIZE / 2
-		|| data->player->ppoint.y != data->image.player->instances[0].y + SIZE / 2)
-		deletepix(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_Q))
 		data->ang++;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
 		data->ang--;
+	deletepix(data);
+	data->player->ppoint.y = data->image.player->instances[0].y + SIZE / 2;
+	data->player->ppoint.x = data->image.player->instances[0].x + SIZE / 2;
 	t_point end;
 	t_point	v;
 	t_point	h;
@@ -111,10 +109,21 @@ void	hook(void *param)
 			puts("entra");
 			h.y = 0;
 		}
-		printf("ang %d\n", data->ang);
 		draw(data, h, data->player->ppoint, 0xFF0000FF); */
-	//data->ang = 1;
 	int aux = data->ang;
+		//printf("ang %d\n", data->ang);
+		//v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
+		//h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
+		//if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) < hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
+ 			//printf("hipo ver %d hipo hor %d ang %d\n", hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x),
+			//	hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x), aux);
+			//printf("vx %d vy %d hx %d hy %d\n",v.x, v.y, h.x, h.y);
+			//puts("llega");
+		//if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) >= hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
+		//if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) >= hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
+			//draw(data, h, data->player->ppoint, 0xFF0000FF);
+ 		//else
+			//draw(data, v, data->player->ppoint, 0xFFFFFFFF); 
 	while (aux > data->ang - ANG)
 	{
 		if (data->ang == 0 || data->ang == 90 || data->ang == 180 || data->ang == 270)
@@ -123,9 +132,12 @@ void	hook(void *param)
 			data->ang++;
 		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
 		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
-		//if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) > hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
-			printf("hipo ver %d hipo hor %d ang %d\n", hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x),
+		if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) < hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
+		{
+			printf("hipo ver(blanca) %d hipo hor(roja) %d ang %d\n", hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x),
 				hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x), aux);
+			printf("vx %f vy %f hx %f hy %f\n",v.x, v.y, h.x, h.y);
+		}
 		if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) >= hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
 			draw(data, h, data->player->ppoint, 0xFF0000FF);
 		else
