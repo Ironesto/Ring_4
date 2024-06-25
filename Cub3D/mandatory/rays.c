@@ -44,7 +44,7 @@ void	draw(t_map *data, t_point end, t_point begin, int color)
 	}
 }
 
-t_point	dist_ver(t_map *data, int py, int px, int ang)
+t_point	dist_ver(t_map *data, float py, float px, int ang)
 {
 	int	x;
 	int	auxy;
@@ -68,20 +68,20 @@ t_point	dist_ver(t_map *data, int py, int px, int ang)
 	x = end.x / SIZE;
 	if (x >= data->w - 1)
 	{
-		end.x = data->w * SIZE - SIZE ;
+		end.x = data->w * SIZE - SIZE + 1;
 		end.y = data->player->ppoint.y - catopo(end.x - data->player->ppoint.x, ang);
 		//printf("endy %d endx %d hipo %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
 		//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x));
 		return (end);
 	}
 	if (data->map[y - 1][x] != '1' && x < data->w && y - 1 > 0)
-		return (dist_ver(data, end.y, end.x , ang));		//no se por que es -1
+		return (dist_ver(data, end.y, end.x, ang));		//no se por que es -1
 	//printf("endy %d endx %d hipo %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
 	//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x));
 	return (end);
 }
 
-t_point	dist_hor(t_map *data, int py, int px, int ang)
+t_point	dist_hor(t_map *data, float py, float px, int ang)
 {
 
 	int	x;
@@ -97,17 +97,15 @@ t_point	dist_hor(t_map *data, int py, int px, int ang)
 		//mlx_put_pixel(data->image.aux, auxx, py, 0xFF0000FF);
 		auxx++;
 	}
-	float dx = abs(px - auxx);
+	float dx = fabs(px - auxx);
 	float dy = catopo(dx, ang);
-	//mlx_put_pixel(data->image.aux, auxx, py - opo, 0xa413da);
 	end.x = dx + px;
 	end.y = py - dy;
-	y = end.y / SIZE;
+	y = (end.y + 1) / SIZE;
 	if (y <= 0)
 	{
 		end.y = 0;
 		end.x = data->player->ppoint.x + catady(data->player->ppoint.y, ang);
-		end.y = 1;
 		return (end);
 	}
 /* 	if (data->map[y][x] == '1')
@@ -117,7 +115,7 @@ t_point	dist_hor(t_map *data, int py, int px, int ang)
 		return (end);
 	} */
 	if (data->map[y][x + 1] != '1' && x < data->w && end.y > 0)
-		return (dist_hor(data, end.y - 1, end.x + 1, ang));
+		return (dist_hor(data, end.y, end.x, ang));
 	return (end);
 
 }

@@ -112,29 +112,29 @@ void	hook(void *param)
 		draw(data, h, data->player->ppoint, 0xFF0000FF); */
 	int aux = data->ang;
 		//printf("ang %d\n", data->ang);
-		//v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
-		//h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
+/* 		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
+		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
 		//if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) < hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
- 			//printf("hipo ver %d hipo hor %d ang %d\n", hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x),
-			//	hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x), aux);
+ 			printf("hipo ver %f hipo hor %f ang %d\n", hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x),
+				hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x), aux);
 			//printf("vx %d vy %d hx %d hy %d\n",v.x, v.y, h.x, h.y);
 			//puts("llega");
 		//if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) >= hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
 		//if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) >= hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
-			//draw(data, h, data->player->ppoint, 0xFF0000FF);
+			draw(data, h, data->player->ppoint, 0xFF0000FF);
  		//else
-			//draw(data, v, data->player->ppoint, 0xFFFFFFFF); 
+			draw(data, v, data->player->ppoint, 0xFFFFFFFF);  */
 	while (aux > data->ang - ANG)
 	{
-		if (data->ang == 0 || data->ang == 90 || data->ang == 180 || data->ang == 270)
-			data->ang--;
- 		if (data->ang == 0 || data->ang == -90 || data->ang == -180 || data->ang == -270)
-			data->ang++;
+	//	if (data->ang == 0 || data->ang == 90 || data->ang == 180 || data->ang == 270)
+	//		data->ang--;
+ 	//	if (data->ang == 0 || data->ang == -90 || data->ang == -180 || data->ang == -270)
+	//		data->ang++;
 		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
 		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
-		if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) < hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
+		if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) > hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
 		{
-			printf("hipo ver(blanca) %d hipo hor(roja) %d ang %d\n", hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x),
+			printf("hipo ver(blanca) %f hipo hor(roja) %f ang %d\n", hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x),
 				hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x), aux);
 			printf("vx %f vy %f hx %f hy %f\n",v.x, v.y, h.x, h.y);
 		}

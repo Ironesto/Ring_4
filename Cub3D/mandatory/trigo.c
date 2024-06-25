@@ -24,9 +24,9 @@ float	catady(int opo, int ang)
 	return (res);
 }
 
-int	hipo(float y, float x)
+float	hipo(float y, float x)
 {
-	int	h;
+	float	h;
 
 	h = sqrt((y * y) + (x * x));
 	return (h);

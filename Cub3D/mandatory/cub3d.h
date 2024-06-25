@@ -98,12 +98,12 @@ int	compmovx(int posy, int pos, int size, t_map *data);
 	//rays
 void	draw(t_map *data, t_point end, t_point begin, int color);
 void	deletepix(t_map *data);
-t_point	dist_ver(t_map *data, int py, int px, int ang);
-t_point	dist_hor(t_map *data, int py, int px, int ang);
+t_point	dist_ver(t_map *data, float py, float px, int ang);
+t_point	dist_hor(t_map *data, float py, float px, int ang);
 t_point	dist_ver_down(t_map *data, int py, int px, int ang);
 
 	//trigo
 float	rads(float x);
 float	catopo(int ady, int ang);
 float	catady(int opo, int ang);
-int		hipo(float y, float x);
+float		hipo(float y, float x);

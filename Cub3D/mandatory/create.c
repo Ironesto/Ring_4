@@ -29,7 +29,7 @@ int	createimage(t_map *map)
 
 void	drawcube(t_map *data, int by, int bx)
 {
-	int y = by * SIZE;
+	int y = (by * SIZE) - 1;
 	int x = bx * SIZE;
 	int aux = x;
 	int	aux2 = y;
