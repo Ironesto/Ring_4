@@ -66,18 +66,32 @@ t_point	dist_ver(t_map *data, float py, float px, int ang)
 	end.x = dx + px;
 	end.y = py - dy;
 	x = end.x / SIZE;
+/* 	if (end.x <= 0)
+	{
+		//puts("entra");
+		end.x = 0;
+		//end.x = catady(data->player->ppoint.y - end.y, ang);
+		end.y = data->player->ppoint.y + catopo(data->player->ppoint.x, ang);
+		//printf("endy %f endx %f hipo %f\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+		//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x));
+		return (end);
+	} */
+	if (-end.y > data->h * SIZE)
+	{
+		puts("entra");
+	}
 	if (x >= data->w - 1)
 	{
 		end.x = data->w * SIZE - SIZE + 1;
 		end.y = data->player->ppoint.y - catopo(end.x - data->player->ppoint.x, ang);
-		//printf("endy %d endx %d hipo %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+		//printf("endy %f endx %f hipo %f\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
 		//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x));
 		return (end);
 	}
 	if (data->map[y - 1][x] != '1' && x < data->w && y - 1 > 0)
 		return (dist_ver(data, end.y, end.x, ang));		//no se por que es -1
-	//printf("endy %d endx %d hipo %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
-	//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x));
+	//printf("endy %2f endx %2f hipo %2f ang %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+	//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
 	return (end);
 }
 
@@ -102,7 +116,16 @@ t_point	dist_hor(t_map *data, float py, float px, int ang)
 	end.x = dx + px;
 	end.y = py - dy;
 	y = (end.y + 1) / SIZE;
-	if (y <= 0)
+	if (ang == 90)
+	{
+		//puts("entra");
+		end.y = 0;
+		end.x = data->player->ppoint.x;
+		printf("endy %2f endx %2f hipo %2f ang %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+			hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
+		return (end);
+	}
+	if (end.y <= 0)
 	{
 		end.y = 0;
 		end.x = data->player->ppoint.x + catady(data->player->ppoint.y, ang);
@@ -116,6 +139,8 @@ t_point	dist_hor(t_map *data, float py, float px, int ang)
 	} */
 	if (data->map[y][x + 1] != '1' && x < data->w && end.y > 0)
 		return (dist_hor(data, end.y, end.x, ang));
+		printf("endy %2f endx %2f hipo %2f ang %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+			hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
 	return (end);
 
 }
