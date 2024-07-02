@@ -62,30 +62,22 @@ t_point	dist_ver(t_map *data, float py, float px, int ang)
 	}
 	float dy = py - auxy;
 	float dx = catady(dy, ang);
-	//mlx_put_pixel(data->image.aux, px, py - opo, 0xa413da);
 	end.x = dx + px;
 	end.y = py - dy;
-	x = end.x / SIZE;
-/* 	if (end.x <= 0)
+	if (ang <= 90)
+		x = (end.x) / SIZE;
+	else
+		x = (end.x) / SIZE;
+	if (end.x <= 0)
 	{
-		//puts("entra");
 		end.x = 0;
-		//end.x = catady(data->player->ppoint.y - end.y, ang);
 		end.y = data->player->ppoint.y + catopo(data->player->ppoint.x, ang);
-		//printf("endy %f endx %f hipo %f\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
-		//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x));
 		return (end);
-	} */
-	if (-end.y > data->h * SIZE)
-	{
-		puts("entra");
 	}
 	if (x >= data->w - 1)
 	{
 		end.x = data->w * SIZE - SIZE + 1;
 		end.y = data->player->ppoint.y - catopo(end.x - data->player->ppoint.x, ang);
-		//printf("endy %f endx %f hipo %f\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
-		//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x));
 		return (end);
 	}
 	if (data->map[y - 1][x] != '1' && x < data->w && y - 1 > 0)
@@ -115,14 +107,14 @@ t_point	dist_hor(t_map *data, float py, float px, int ang)
 	float dy = catopo(dx, ang);
 	end.x = dx + px;
 	end.y = py - dy;
-	y = (end.y + 1) / SIZE;
+	y = (end.y + 1) / SIZE;		//+1 para corregir rayos
 	if (ang == 90)
 	{
 		//puts("entra");
 		end.y = 0;
 		end.x = data->player->ppoint.x;
-		printf("endy %2f endx %2f hipo %2f ang %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
-			hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
+		//printf("endy %2f endx %2f hipo %2f ang %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+		//	hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
 		return (end);
 	}
 	if (end.y <= 0)
@@ -130,6 +122,14 @@ t_point	dist_hor(t_map *data, float py, float px, int ang)
 		end.y = 0;
 		end.x = data->player->ppoint.x + catady(data->player->ppoint.y, ang);
 		return (end);
+	}
+	if (end.y > data->h * SIZE)
+	{
+		end.y = data->h * SIZE;
+		end.x = data->player->ppoint.x - catady(end.y - data->player->ppoint.y, ang);
+		//printf("endy %2f endx %2f hipo %2f ang %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+		//	hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
+		return(end);
 	}
 /* 	if (data->map[y][x] == '1')
 	{
@@ -139,8 +139,56 @@ t_point	dist_hor(t_map *data, float py, float px, int ang)
 	} */
 	if (data->map[y][x + 1] != '1' && x < data->w && end.y > 0)
 		return (dist_hor(data, end.y, end.x, ang));
-		printf("endy %2f endx %2f hipo %2f ang %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
-			hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
+
+	return (end);
+
+}
+
+t_point	dist_hor_left(t_map *data, float py, float px, int ang)
+{
+
+	int	x;
+	int	auxx;
+	int	y;
+	t_point end;
+
+	x = px / SIZE;
+	auxx = px;
+	y = py / SIZE;
+	while (auxx >= x * SIZE)
+	{
+		//mlx_put_pixel(data->image.aux, auxx, py, 0xFF0000FF);
+		auxx--;
+	}
+	float dx = fabs(px - auxx);
+	float dy = catopo(dx, ang);
+	end.x = px - dx;
+	end.y = py + dy;
+	y = (end.y) / SIZE;
+	//printf("x %d y %d \n",x, y);
+	if (end.y <= 0)
+	{
+		end.y = 0;
+		end.x = data->player->ppoint.x + catady(data->player->ppoint.y, ang);
+		return (end);
+	}
+	if (end.y > data->h * SIZE)
+	{
+		end.y = data->h * SIZE;
+		end.x = data->player->ppoint.x - catady(end.y - data->player->ppoint.y, ang);
+		//printf("endy %2f endx %2f hipo %2f ang %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+		//	hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
+		return(end);
+	}
+/*  	if (data->map[y][x] == '1')
+	{
+		end.y = y * SIZE + SIZE;
+		end.x = data->player->ppoint.x + catady(data->player->ppoint.y - end.y, ang);
+		return (end);
+	} */
+	if (data->map[y][x - 1] != '1')
+		return (dist_hor_left(data, end.y, end.x, ang));
+
 	return (end);
 
 }

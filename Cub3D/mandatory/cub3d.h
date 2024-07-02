@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpaez-ga <gpaez-ga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/25 18:49:39 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/02 03:47:05 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@
 #ifndef ANG
  #define ANG 20
 #endif
+
+#define CBLU 0x6cffeb
+#define CGRN 0xa413da
+#define CRED 0xFF0000FF
+#define CWHI 0xFFFFFFFF
+#define CCIA 0xaf3add
 
 #define TEST 1
 
@@ -100,6 +106,7 @@ void	draw(t_map *data, t_point end, t_point begin, int color);
 void	deletepix(t_map *data);
 t_point	dist_ver(t_map *data, float py, float px, int ang);
 t_point	dist_hor(t_map *data, float py, float px, int ang);
+t_point	dist_hor_left(t_map *data, float py, float px, int ang);
 t_point	dist_ver_down(t_map *data, int py, int px, int ang);
 
 	//trigo

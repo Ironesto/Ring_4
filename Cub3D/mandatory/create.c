@@ -29,29 +29,42 @@ int	createimage(t_map *map)
 
 void	drawcube(t_map *data, int by, int bx)
 {
-	int y = (by * SIZE) - 1;
-	int x = bx * SIZE;
+	int	y;
+	if ( by == 0)
+		y = 0;
+	else
+		y = (by * SIZE) - 1;
+	int x;
+	if (bx == 0)
+		x = 0;
+	else
+		x = (bx * SIZE) - 1;
 	int aux = x;
 	int	aux2 = y;
 	while (aux < x + SIZE)
 	{
-		mlx_put_pixel(data->image.back, aux, aux2, 0xa413da);
-		mlx_put_pixel(data->image.back, aux, aux2 + SIZE, 0xa413da);
+		mlx_put_pixel(data->image.back, aux, y, CGRN);
+		if (y == 0)
+			mlx_put_pixel(data->image.back, aux, SIZE - 1, CGRN);
+		else
+			mlx_put_pixel(data->image.back, aux, y + SIZE, CGRN);
+		aux++;
+	}
+	aux = y;
+	while (aux < y + SIZE)
+	{
+		mlx_put_pixel(data->image.back, x, aux, CGRN);
+		if (x == 0)
+			mlx_put_pixel(data->image.back, SIZE - 1, aux, CGRN);
+		else
+			mlx_put_pixel(data->image.back, x + SIZE, aux, CGRN);
 		aux++;
 	}
 	aux2 = x;
 	aux = y;
-	while (aux < y + SIZE)
+/* 	while (aux < y + SIZE)
 	{
-		mlx_put_pixel(data->image.back, aux2, aux, 0xa413da);
-		mlx_put_pixel(data->image.back, aux2 + SIZE, aux, 0xa413da);
-		aux++;
-	}
-	aux2 = x;
-	aux = y;
-	while (aux < y + SIZE)
-	{
-		mlx_put_pixel(data->image.back, aux2, aux, 0x6cffeb);
+		mlx_put_pixel(data->image.back, aux2, aux, CBLU);
 		aux++;
 		aux2++;
 	}
@@ -59,10 +72,10 @@ void	drawcube(t_map *data, int by, int bx)
 	aux = y + SIZE;
 	while (aux > y)
 	{
-		mlx_put_pixel(data->image.back, aux2, aux, 0x6cffeb);
+		mlx_put_pixel(data->image.back, aux2, aux, CBLU);
 		aux--;
 		aux2++;
-	}
+	} */
 }
 
 int imagetomap(t_map *map)

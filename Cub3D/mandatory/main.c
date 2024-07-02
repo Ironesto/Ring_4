@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpaez-ga <gpaez-ga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/06/25 19:35:11 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/02 05:37:55 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,31 +71,54 @@ void	ft_init(t_map *map)
 	map->player->posy = -1;
 }
 
-void drawang(t_map *data, int ang)
+void drawang(t_map *data, int py, int px, int ang)
 {
 	t_point v;
 	t_point h;
 	
 	int aux = data->ang;
-	while (aux > data->ang - ANG)
+	int color = 0;
+	int	count = data->ang;
+	while (count > data->ang - ANG)
 	{
-	//	if (data->ang == 0 || data->ang == 90 || data->ang == 180 || data->ang == 270)
-	//		data->ang--;
- 	//	if (data->ang == 0 || data->ang == -90 || data->ang == -180 || data->ang == -270)
-	//		data->ang++;
-		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
-		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, aux);
-		if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) > hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
+		if (count >= 360)
+			aux = count - 360;
+		if (count < 0)
+			aux = 360 + count;
+		//printf("count %d y aux %d\n", count, aux);
+		//horizontal
+		if ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360))
 		{
-			printf("hipo ver(blanca) %f hipo hor(roja) %f ang %d\n", hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x),
-				hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x), aux);
-			printf("vx %f vy %f hx %f hy %f\n",v.x, v.y, h.x, h.y);
+			h = dist_hor(data, py, px, aux);
+			color = 1;
 		}
-		if (hipo(data->player->ppoint.y - v.y,data->player->ppoint.x - v.x) >= hipo(data->player->ppoint.y - h.y,data->player->ppoint.x - h.x))
-			draw(data, h, data->player->ppoint, 0xFF0000FF);
+		if (aux > 90 && aux <= 270)
+		{
+			h = dist_hor_left(data, py, px, aux);
+			color = 2;
+		}
+		//vertical
+		if (aux >= 0 && aux < 180)
+		{
+			v = dist_ver(data, py, px, aux);
+			color = 3;
+		}
+		if (hipo(py - v.y,px - v.x) > hipo(py - h.y,px - h.x) && (aux >= 0 && aux <= 90) || (aux > 270 && aux < 360))
+			draw(data, h, data->player->ppoint, CRED);
+		else if (hipo(py - v.y,px - v.x) > hipo(py - h.y,px - h.x) && (aux > 90 && aux <= 270))
+			draw(data, h, data->player->ppoint, CCIA);
 		else
-			draw(data, v, data->player->ppoint, 0xFFFFFFFF);
+			draw(data, v, data->player->ppoint, CWHI);
+		if (hipo(py - v.y,px - v.x) < hipo(py - h.y,px - h.x))
+		{
+			printf("hipo ver(blanca) %f hipo hor(roja) %f ang %d\n", hipo(py - v.y,px - v.x),
+				hipo(py - h.y,px - h.x), aux);
+			printf("vx %f vy %f hx %f hy %f\n",v.x, v.y, h.x, h.y);
+			//draw(data, h, data->player->ppoint, CCIA);
+		}
+		//else
 		aux--;
+		count--;
 	}
 }
 
@@ -131,9 +154,10 @@ void	hook(void *param)
 	//printf("ang %d\n", data->ang);
 		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
 			draw(data, v, data->player->ppoint, 0xFFFFFFFF);
-		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
-		draw(data, h, data->player->ppoint, 0xFF0000FF);
-	//drawang(data, data->ang);
+		//h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
+		h = dist_hor_left(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
+			draw(data, h, data->player->ppoint, 0xFF0000FF);
+	//drawang(data, data->player->ppoint.y, data->player->ppoint.x, data->ang);
 
 
 	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 + 1, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
