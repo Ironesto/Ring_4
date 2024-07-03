@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: gpaez-ga <gpaez-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/02 03:47:05 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:44:28 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 #endif
 
 #ifndef ANG
- #define ANG 20
+ #define ANG 45
 #endif
 
 #define CBLU 0x6cffeb
@@ -111,6 +111,6 @@ t_point	dist_ver_down(t_map *data, int py, int px, int ang);
 
 	//trigo
 float	rads(float x);
-float	catopo(int ady, int ang);
-float	catady(int opo, int ang);
+float	catopo(float ady, int ang);
+float	catady(float opo, int ang);
 float		hipo(float y, float x);

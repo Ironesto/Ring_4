@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: gpaez-ga <gpaez-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/02 05:37:55 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:42:54 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,34 @@ void drawang(t_map *data, int py, int px, int ang)
 			draw(data, h, data->player->ppoint, CCIA);
 		else
 			draw(data, v, data->player->ppoint, CWHI);
-		if (hipo(py - v.y,px - v.x) < hipo(py - h.y,px - h.x))
+		if (hipo(py - v.y,px - v.x) > hipo(py - h.y,px - h.x))
 		{
-			printf("hipo ver(blanca) %f hipo hor(roja) %f ang %d\n", hipo(py - v.y,px - v.x),
+			printf("y en v %f, x en v %f\n",v.y / SIZE, v.x / SIZE);
+			printf("%sy en h %f, x en h %f%s\n",RED, h.y / SIZE, h.x / SIZE, RST);
+ 			printf("hipo ver(blanca) %f hipo hor(roja) %f ang %d\n", hipo(py - v.y,px - v.x),
 				hipo(py - h.y,px - h.x), aux);
-			printf("vx %f vy %f hx %f hy %f\n",v.x, v.y, h.x, h.y);
+			printf("vx %f vy %f\n%shx %f hy %f%s\n",v.x, v.y, RED, h.x, h.y, RST);
 			//draw(data, h, data->player->ppoint, CCIA);
 		}
 		//else
 		aux--;
 		count--;
 	}
+}
+
+void drawline(t_map *data)
+{
+	t_point	v;
+	t_point	h;
+	v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
+		draw(data, v, data->player->ppoint, CWHI);
+	h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
+	//h = dist_hor_left(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
+		draw(data, h, data->player->ppoint, CRED);
+	//printf("%spposx %f pposy %f%s\n",MAG, data->player->ppoint.x, data->player->ppoint.y, RST);
+	printf("y en v %f, x en v %f\n",v.y / SIZE, v.x / SIZE);
+	printf("%sy en h %f, x en h %f%s\n",RED, h.y / SIZE, h.x / SIZE, RST);
+	printf("vx %f vy %f\n%shx %f hy %f%s\n",v.x, v.y, RED, h.x, h.y, RST);
 }
 
 void	hook(void *param)
@@ -148,16 +165,14 @@ void	hook(void *param)
 	deletepix(data);
 	data->player->ppoint.y = data->image.player->instances[0].y + SIZE / 2;
 	data->player->ppoint.x = data->image.player->instances[0].x + SIZE / 2;
-	t_point end;
-	t_point	v;
-	t_point	h;
+
 	//printf("ang %d\n", data->ang);
-		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
-			draw(data, v, data->player->ppoint, 0xFFFFFFFF);
-		//h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
-		h = dist_hor_left(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, data->ang);
-			draw(data, h, data->player->ppoint, 0xFF0000FF);
-	//drawang(data, data->player->ppoint.y, data->player->ppoint.x, data->ang);
+
+	int i = 1;
+	if (i == 1)
+		drawline(data);
+	else
+		drawang(data, data->player->ppoint.y, data->player->ppoint.x, data->ang);
 
 
 	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 + 1, data->image.player->instances[0].y + SIZE / 2, 0xa413da);

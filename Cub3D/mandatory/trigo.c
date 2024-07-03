@@ -8,7 +8,7 @@ float	rads(float x)
 	return (res);
 }
 
-float	catopo(int ady, int ang)
+float	catopo(float ady, int ang)
 {
 	float	res;
 
@@ -16,7 +16,7 @@ float	catopo(int ady, int ang)
 	return (res);
 }
 
-float	catady(int opo, int ang)
+float	catady(float opo, int ang)
 {
 	float	res;
 
