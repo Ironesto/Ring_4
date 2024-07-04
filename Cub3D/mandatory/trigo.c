@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-float	rads(int x)
+float	rads(float x)
 {
 	float	res;
 

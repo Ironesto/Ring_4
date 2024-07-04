@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/04 05:39:30 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/05 01:17:31 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ void drawang(t_map *data, int py, int px, int ang)
 	int	count = data->ang + (ANG / 2);
 	while (count > data->ang - (ANG / 2))
 	{
-/* 		if (count >= 360)
+		if (count >= 360)
 			aux = count - 360;
 		if (count < 0)
-			aux = 360 + count; */
+			aux = 360 + count;
 		//printf("count %d y aux %d\n", count, aux);
 		//horizontal
 		if ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360))
@@ -117,9 +117,9 @@ void drawang(t_map *data, int py, int px, int ang)
 			//printf("%sy en h %f, x en h %f%s\n",RED, h.y / SIZE, h.x / SIZE, RST);
  			printf("hipo ver(blanca) %f hipo hor(roja) %f ang %d\n", hipo(py - v.y,px - v.x),
 				hipo(py - h.y,px - h.x), aux);
-			printf("DISTANCIA: vx %f vy %f\n%sDISTANCIA: hx %f hy %f%s\n", px - v.x, py - v.y, RED, px - h.x, py - h.y, RST);
+			//printf("DISTANCIA: vx %f vy %f\n%sDISTANCIA: hx %f hy %f%s\n", px - v.x, py - v.y, RED, px - h.x, py - h.y, RST);
 			printf("vx %f vy %f\n%shx %f hy %f%s\n",v.x,v.y, RED, h.x, h.y, RST);
-			//draw(data, v, data->player->ppoint, CCIA);
+			//draw(data, h, data->player->ppoint, CCIA);
 		}
 		//else
 		aux--;
@@ -174,7 +174,7 @@ void	hook(void *param)
 
 	//printf("ang %d\n", data->ang);
 
-	int i = 3;
+	int i = 2;
 		//drawline(data, 135);
 		//drawline(data, 45);
 	
