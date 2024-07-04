@@ -52,19 +52,18 @@ t_point	dist_ver(t_map *data, float py, float px, int ang)
 	t_point end;
 
 
-	x = px / SIZE;
+	x = (px) / SIZE;
 	auxy = py;
-	y = py / SIZE;
-	while (auxy >= y * SIZE)
+	y = (py - 1) / SIZE;
+	while (auxy > y * SIZE)
 	{
 		//mlx_put_pixel(data->image.aux, px, auxy, 0xFFFFFFFF);
 		auxy--;
 	}
-	float dy = py - auxy;
+	float dy = fabs(py - auxy);
 	float dx = catady(dy, ang);
 	end.x = dx + px;
 	end.y = py - dy;
-	x = end.x / SIZE;
 	if (end.x <= 0)
 	{
 		end.x = 0;
@@ -77,8 +76,10 @@ t_point	dist_ver(t_map *data, float py, float px, int ang)
 		end.y = data->player->ppoint.y - catopo(end.x - data->player->ppoint.x, ang);
 		return (end);
 	}
+	x = (end.x) / SIZE;
+	y = (end.y) / SIZE;
 	if (data->map[y - 1][x] != '1')
-		return (dist_ver(data, end.y, end.x, ang));
+		return (dist_ver(data, end.y , end.x, ang));
 	//printf("endy %f endx %f hipo %f ang %d\n", end.y, end.x,
 	//		hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
 	//printf("pposx %f pposy %f\n",data->player->ppoint.x, data->player->ppoint.y);
@@ -101,17 +102,15 @@ t_point	dist_hor(t_map *data, float py, float px, int ang)
 		//mlx_put_pixel(data->image.aux, auxx, py, 0xFF0000FF);
 		auxx++;
 	}
+	//printf("%d\n", auxx);
 	float dx = fabs(px - auxx);
 	float dy = catopo(dx, ang);
 	end.x = dx + px;
 	end.y = py - dy;
 	if (ang == 90)
 	{
-		//puts("entra");
 		end.y = 0;
 		end.x = data->player->ppoint.x;
-		//printf("endy %2f endx %2f hipo %2f ang %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
-		//	hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
 		return (end);
 	}
 	if (end.y <= 0)
@@ -131,7 +130,7 @@ t_point	dist_hor(t_map *data, float py, float px, int ang)
 
 	y = end.y / SIZE;		//+1 para corregir rayos
 	if (data->map[y][x + 1] != '1')
-		return (dist_hor(data, end.y, end.x, ang));
+		return (dist_hor(data, end.y , end.x, ang));
 		//printf("%sendy %f endx %f hipo %f ang %d%s\n", RED, end.y, end.x,
 		//	hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang, RST);
 	return (end);
@@ -146,16 +145,10 @@ t_point	dist_hor_left(t_map *data, float py, float px, int ang)
 	int	y;
 	t_point end;
 
-	x = px / SIZE;
+	x = (px - 1) / SIZE;
 	auxx = px;
-	y = py / SIZE;
-/* 	if (data->map[y][x] == '1')
-	{
-		end.x = px;
-		end.y = py;
-		return (end);
-	} */
-	while (auxx >= x * SIZE)
+	y = (py) / SIZE;
+	while (auxx > x * SIZE)
 	{
 		//mlx_put_pixel(data->image.aux, auxx, py, 0xFF0000FF);
 		auxx--;
@@ -179,10 +172,68 @@ t_point	dist_hor_left(t_map *data, float py, float px, int ang)
 		//	hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
 		return(end);
 	}
+	x = (end.x) / SIZE;
 	y = (end.y) / SIZE;
 	if (data->map[y][x - 1] != '1')
 		return (dist_hor_left(data, end.y, end.x, ang));
+	return (end);
 
+}
+
+t_point	prueba(t_map *data, float py, float px, int ang)
+{
+
+	int	x;
+	int	auxx;
+	int	y;
+	t_point end;
+
+	x = px / SIZE;
+	auxx = px;
+	y = py / SIZE;
+	int auxy = py;
+	while (auxx < (x * SIZE) + SIZE)
+	{
+		mlx_put_pixel(data->image.aux, auxx, auxy, CRED);
+		auxx++;
+	}
+	//printf("%d\n", auxx);
+	float dx = fabs(px - auxx);
+	float dy = catopo(dx, ang);
+	end.x = dx + px;
+	end.y = py - dy;
+	if (ang == 90)
+	{
+		end.y = 0;
+		end.x = data->player->ppoint.x;
+		return (end);
+	}
+	if (end.y <= 0)
+	{
+		end.y = 0;
+		end.x = data->player->ppoint.x + catady(data->player->ppoint.y, ang);
+		return (end);
+	}
+	if (end.y > data->h * SIZE)
+	{
+		end.y = data->h * SIZE;
+		end.x = data->player->ppoint.x - catady(end.y - data->player->ppoint.y, ang);
+		//printf("endy %2f endx %2f hipo %2f ang %d\n", data->player->ppoint.y - end.y, end.x - data->player->ppoint.x,
+		//	hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang);
+		return(end);
+	}
+	y = (end.y) / SIZE;		//+1 para corregir rayos
+	if (data->map[y][x] == '1')
+	{
+		puts("entra");
+		end.y = y * SIZE + SIZE;
+		end.x = data->player->ppoint.x + catady(data->player->ppoint.y - end.y , ang);
+		return(end);
+	}
+	if (data->map[y][x + 1] != '1')
+		return (prueba(data, end.y , end.x, ang));
+		//printf("%sendy %f endx %f hipo %f ang %d%s\n", RED, end.y, end.x,
+		//	hipo(data->player->ppoint.y - end.y, end.x - data->player->ppoint.x), ang, RST);
 	return (end);
 
 }

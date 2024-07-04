@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpaez-ga <gpaez-ga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/03 19:44:28 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/04 04:51:56 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 #endif
 
 #ifndef ANG
- #define ANG 45
+ #define ANG 20
 #endif
 
 #define CBLU 0x6cffeb
@@ -114,3 +114,6 @@ float	rads(float x);
 float	catopo(float ady, int ang);
 float	catady(float opo, int ang);
 float		hipo(float y, float x);
+
+
+t_point	prueba(t_map *data, float py, float px, int ang);
