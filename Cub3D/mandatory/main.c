@@ -81,10 +81,10 @@ void drawang(t_map *data, int py, int px, int ang)
 	int	count = data->ang + (ANG / 2);
 	while (count > data->ang - (ANG / 2))
 	{
-		if (count >= 360)
+/* 		if (count >= 360)
 			aux = count - 360;
 		if (count < 0)
-			aux = 360 + count;
+			aux = 360 + count; */
 		//printf("count %d y aux %d\n", count, aux);
 		//horizontal
 		if ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360))
@@ -119,7 +119,7 @@ void drawang(t_map *data, int py, int px, int ang)
 				hipo(py - h.y,px - h.x), aux);
 			printf("DISTANCIA: vx %f vy %f\n%sDISTANCIA: hx %f hy %f%s\n", px - v.x, py - v.y, RED, px - h.x, py - h.y, RST);
 			printf("vx %f vy %f\n%shx %f hy %f%s\n",v.x,v.y, RED, h.x, h.y, RST);
-			//draw(data, h, data->player->ppoint, CCIA);
+			//draw(data, v, data->player->ppoint, CCIA);
 		}
 		//else
 		aux--;
@@ -165,16 +165,16 @@ void	hook(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) && !compmovx2(y, x, SIZE, data))
 		data->image.player->instances[0].x += 2;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		data->ang += 1;
+		data->ang += 2;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		data->ang -= 1;
+		data->ang -= 2;
 	deletepix(data);
 	data->player->ppoint.y = data->image.player->instances[0].y + SIZE / 2;
 	data->player->ppoint.x = data->image.player->instances[0].x + SIZE / 2;
 
 	//printf("ang %d\n", data->ang);
 
-	int i = 0;
+	int i = 3;
 		//drawline(data, 135);
 		//drawline(data, 45);
 	

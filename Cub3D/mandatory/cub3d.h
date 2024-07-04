@@ -110,7 +110,7 @@ t_point	dist_hor_left(t_map *data, float py, float px, int ang);
 t_point	dist_ver_down(t_map *data, int py, int px, int ang);
 
 	//trigo
-float	rads(float x);
+float	rads(int x);
 float	catopo(float ady, int ang);
 float	catady(float opo, int ang);
 float		hipo(float y, float x);
