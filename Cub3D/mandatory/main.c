@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/05 02:21:17 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/05 03:01:59 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void drawline(t_map *data, int ang)
 {
 	t_point	v;
 	t_point	h;
-	v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
+	v = dist_ver_down(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
 		draw(data, v, data->player->ppoint, CWHI);
 	h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
  	if (ang <= 90)
@@ -173,7 +173,7 @@ void	hook(void *param)
 
 	//printf("ang %d\n", data->ang);
 
-	int i = 3;
+	int i = 2;
 		//drawline(data, 135);
 		//drawline(data, 45);
 	

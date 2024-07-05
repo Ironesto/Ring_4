@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/04 04:51:56 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/05 02:52:27 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ int	compmovx(int posy, int pos, int size, t_map *data);
 void	draw(t_map *data, t_point end, t_point begin, int color);
 void	deletepix(t_map *data);
 t_point	dist_ver(t_map *data, float py, float px, int ang);
+t_point	dist_ver_down(t_map *data, float py, float px, int ang);
 t_point	dist_hor(t_map *data, float py, float px, int ang);
 t_point	dist_hor_left(t_map *data, float py, float px, int ang);
-t_point	dist_ver_down(t_map *data, int py, int px, int ang);
 
 	//trigo
 float	rads(float x);
