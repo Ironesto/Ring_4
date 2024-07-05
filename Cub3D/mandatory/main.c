@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/05 01:17:31 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/05 02:21:17 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void drawang(t_map *data, int py, int px, int ang)
 			aux = count - 360;
 		if (count < 0)
 			aux = 360 + count;
-		//printf("count %d y aux %d\n", count, aux);
 		//horizontal
 		if ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360))
 		{
@@ -111,7 +110,7 @@ void drawang(t_map *data, int py, int px, int ang)
 			draw(data, h, data->player->ppoint, CCIA);
 		else
 			draw(data, v, data->player->ppoint, CWHI);
-		if (hipov >= hipoh)
+		if (hipov <= hipoh)
 		{
 			//printf("y en v %f, x en v %f\n",v.y / SIZE, v.x / SIZE);
 			//printf("%sy en h %f, x en h %f%s\n",RED, h.y / SIZE, h.x / SIZE, RST);
@@ -174,7 +173,7 @@ void	hook(void *param)
 
 	//printf("ang %d\n", data->ang);
 
-	int i = 2;
+	int i = 3;
 		//drawline(data, 135);
 		//drawline(data, 45);
 	
