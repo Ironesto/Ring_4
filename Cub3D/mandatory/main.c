@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/05 03:01:59 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/05 05:30:26 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ void drawang(t_map *data, int py, int px, int ang)
 	int	count = data->ang + (ANG / 2);
 	while (count > data->ang - (ANG / 2))
 	{
-		if (count >= 360)
-			aux = count - 360;
-		if (count < 0)
-			aux = 360 + count;
+		if (aux >= 360)
+			aux = aux - 360;
+		if (aux < 0)
+			aux = 360 + aux;
 		//horizontal
 		if ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360))
 		{
@@ -102,15 +102,22 @@ void drawang(t_map *data, int py, int px, int ang)
 			v = dist_ver(data, py, px, aux);
 			color = 3;
 		}
+		if (aux >= 180 && aux < 360)
+		{
+			v = dist_ver_down(data, py, px, aux);
+			color = 4;
+		}
 		float hipov = hipo(py - v.y,px - v.x);
 		float hipoh = hipo(py - h.y,px - h.x);
 		if (hipov >= hipoh && ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360)))
 			draw(data, h, data->player->ppoint, CRED);
 		else if (hipov >= hipoh && (aux > 90 && aux <= 270))
 			draw(data, h, data->player->ppoint, CCIA);
-		else
+		else if (hipov < hipoh && (aux >= 180 && aux < 360))
+			draw(data, v, data->player->ppoint, CGRN);
+		else if (hipov < hipoh && (aux >= 0 && aux < 180))
 			draw(data, v, data->player->ppoint, CWHI);
-		if (hipov <= hipoh)
+		if (hipov >= hipoh)
 		{
 			//printf("y en v %f, x en v %f\n",v.y / SIZE, v.x / SIZE);
 			//printf("%sy en h %f, x en h %f%s\n",RED, h.y / SIZE, h.x / SIZE, RST);
@@ -130,18 +137,24 @@ void drawline(t_map *data, int ang)
 {
 	t_point	v;
 	t_point	h;
-	v = dist_ver_down(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
-		draw(data, v, data->player->ppoint, CWHI);
-	h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
- 	if (ang <= 90)
+	if (ang >= 360)
+		ang -= 360;
+	if (ang < 0)
+		ang += 360;
+	if (ang >= 0 && ang < 180)
+		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
+ 	else
+		v = dist_ver_down(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
+ 	draw(data, v, data->player->ppoint, CWHI);
+ 	/* if (ang <= 90)
 		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
 	else 
 		h = dist_hor_left(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
-	draw(data, h, data->player->ppoint, CRED);
+	draw(data, h, data->player->ppoint, CRED); */
 	//printf("%spposx %f pposy %f%s\n",MAG, data->player->ppoint.x, data->player->ppoint.y, RST);
 	//printf("y en v %f, x en v %f\n",v.y / SIZE, v.x / SIZE);
 	//printf("%sy en h %f, x en h %f%s\n",RED, h.y / SIZE, h.x / SIZE, RST);
-	printf("vx %f vy %f\n%shx %f hy %f%s\n",v.x, v.y, RED, h.x, h.y, RST);
+	printf("vx %f vy %f\n%shx %f hy %f%s	ang %d\n",v.x, v.y, RED, h.x, h.y, RST, ang);
 }
 
 void	hook(void *param)

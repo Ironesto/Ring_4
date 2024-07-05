@@ -64,6 +64,8 @@ t_point	dist_ver(t_map *data, float py, float px, int ang)
 	float dx = catady(dy, ang);
 	end.x = dx + px;
 	end.y = py - dy;
+	x = (end.x) / SIZE;
+	y = (end.y) / SIZE;
 	if (end.x <= 0)
 	{
 		end.x = 0;
@@ -76,8 +78,6 @@ t_point	dist_ver(t_map *data, float py, float px, int ang)
 		end.y = data->player->ppoint.y - catopo(end.x - data->player->ppoint.x, ang);
 		return (end);
 	}
-	x = (end.x) / SIZE;
-	y = (end.y) / SIZE;
 	float prueba = 0.5;
 	if ((int)(end.x) % SIZE == 0 && (int)end.y % SIZE == 0 && ang > 90)
 	{
@@ -102,15 +102,16 @@ t_point	dist_ver_down(t_map *data, float py, float px, int ang)
 	y = (py) / SIZE;
 	while (auxy < y * SIZE + SIZE)
 	{
-		mlx_put_pixel(data->image.aux, px, auxy, 0xFFFFFFFF);
+		//mlx_put_pixel(data->image.aux, px, auxy, 0xFFFFFFFF);
 		auxy++;
 	}
-	float dy = fabs(auxy -py);
-	float dx = catady(dy, ang);
-	//printf("dy %f dx %f\n", dy, dx);
-	end.x = +dx - px;	//modificar si es necesario
+	float dy = auxy - py;
+	float dx = catopo(dy, ang - 90);
+	end.x = dx + px;
 	end.y = py + dy;
-	if (end.x <= 0)		//las comprobaciones dan error
+	x = (end.x) / SIZE;
+	y = (end.y) / SIZE;
+	if (end.x <= 0)
 	{
 		end.x = 0;
 		end.y = data->player->ppoint.y + catopo(data->player->ppoint.x, ang);
@@ -122,14 +123,16 @@ t_point	dist_ver_down(t_map *data, float py, float px, int ang)
 		end.y = data->player->ppoint.y - catopo(end.x - data->player->ppoint.x, ang);
 		return (end);
 	}
-	x = (end.x) / SIZE;
-	y = (end.y) / SIZE;
-	if ((int)(end.x) % SIZE == 0 && (int)end.y % SIZE == 0 && ang > 90)
+	if ((int)(end.x) % SIZE == 0 && (int)end.y % SIZE == 0 && ang > 90)		//probar
 	{
-		if (data->map[y - 1][x - 1] == '1' && data->map[y][x -1] != '1')
+		//printf("x %d y %d\n",x ,y);
+		if (data->map[y][x] == '1')
+		{
+			puts("es 1");
 			return (end);
+		}
 	}
-	if (data->map[y][x] != '1')
+	if (data->map[y][x] != '1' && y < data->h)
 		return (dist_ver_down(data, end.y , end.x, ang));
 	return (end);
 }
@@ -202,15 +205,13 @@ t_point	dist_hor_left(t_map *data, float py, float px, int ang)
 	float dy = catopo(dx, ang);
 	end.x = px - dx;
 	end.y = py + dy;
-	//printf("endx %f endy %f\n", end.x, end.y);
-	//printf("x %d y %d \n",x, y);
 	if (end.y <= 0)
 	{
 		end.y = 0;
 		end.x = data->player->ppoint.x + catady(data->player->ppoint.y, ang);
 		return (end);
 	}
-	if (end.y > data->h * SIZE)
+	if (end.y > data->h * SIZE)		//esya mal en ang 180?
 	{
 		end.y = data->h * SIZE;
 		end.x = data->player->ppoint.x - catady(end.y - data->player->ppoint.y, ang);

@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/05 02:52:27 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/05 05:22:09 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 #define CGRN 0xa413da
 #define CRED 0xFF0000FF
 #define CWHI 0xFFFFFFFF
-#define CCIA 0xaf3add
+#define CCIA 0x3498dbff
 
 #define TEST 1
 
