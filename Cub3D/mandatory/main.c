@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/05 05:30:26 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/06 02:18:15 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,68 +71,6 @@ void	ft_init(t_map *map)
 	map->player->posy = -1;
 }
 
-void drawang(t_map *data, int py, int px, int ang)
-{
-	t_point v;
-	t_point h;
-	
-	int aux = data->ang + (ANG / 2);
-	int color = 0;
-	int	count = data->ang + (ANG / 2);
-	while (count > data->ang - (ANG / 2))
-	{
-		if (aux >= 360)
-			aux = aux - 360;
-		if (aux < 0)
-			aux = 360 + aux;
-		//horizontal
-		if ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360))
-		{
-			h = dist_hor(data, py, px, aux);
-			color = 1;
-		}
-		if (aux > 90 && aux <= 270)
-		{
-			h = dist_hor_left(data, py, px, aux);
-			color = 2;
-		}
-		//vertical
-		if (aux >= 0 && aux < 180)
-		{
-			v = dist_ver(data, py, px, aux);
-			color = 3;
-		}
-		if (aux >= 180 && aux < 360)
-		{
-			v = dist_ver_down(data, py, px, aux);
-			color = 4;
-		}
-		float hipov = hipo(py - v.y,px - v.x);
-		float hipoh = hipo(py - h.y,px - h.x);
-		if (hipov >= hipoh && ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360)))
-			draw(data, h, data->player->ppoint, CRED);
-		else if (hipov >= hipoh && (aux > 90 && aux <= 270))
-			draw(data, h, data->player->ppoint, CCIA);
-		else if (hipov < hipoh && (aux >= 180 && aux < 360))
-			draw(data, v, data->player->ppoint, CGRN);
-		else if (hipov < hipoh && (aux >= 0 && aux < 180))
-			draw(data, v, data->player->ppoint, CWHI);
-		if (hipov >= hipoh)
-		{
-			//printf("y en v %f, x en v %f\n",v.y / SIZE, v.x / SIZE);
-			//printf("%sy en h %f, x en h %f%s\n",RED, h.y / SIZE, h.x / SIZE, RST);
- 			printf("hipo ver(blanca) %f hipo hor(roja) %f ang %d\n", hipo(py - v.y,px - v.x),
-				hipo(py - h.y,px - h.x), aux);
-			//printf("DISTANCIA: vx %f vy %f\n%sDISTANCIA: hx %f hy %f%s\n", px - v.x, py - v.y, RED, px - h.x, py - h.y, RST);
-			printf("vx %f vy %f\n%shx %f hy %f%s\n",v.x,v.y, RED, h.x, h.y, RST);
-			//draw(data, h, data->player->ppoint, CCIA);
-		}
-		//else
-		aux--;
-		count--;
-	}
-}
-
 void drawline(t_map *data, int ang)
 {
 	t_point	v;
@@ -141,16 +79,16 @@ void drawline(t_map *data, int ang)
 		ang -= 360;
 	if (ang < 0)
 		ang += 360;
-	if (ang >= 0 && ang < 180)
-		v = dist_ver(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
- 	else
-		v = dist_ver_down(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
+/* 	if (ang >= 0 && ang < 180)
+		v = dist_up(data, data->player->ppoint.y, data->player->ppoint.x, ang);
+ 	else */
+		v = dist_down(data, data->player->ppoint.y, data->player->ppoint.x, ang);
  	draw(data, v, data->player->ppoint, CWHI);
- 	/* if (ang <= 90)
-		h = dist_hor(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
-	else 
-		h = dist_hor_left(data, data->image.player->instances[0].y + SIZE / 2, data->image.player->instances[0].x + SIZE / 2, ang);
-	draw(data, h, data->player->ppoint, CRED); */
+ 	//if (ang <= 90)
+		h = dist_right(data, data->player->ppoint.y, data->player->ppoint.x, ang);
+	//else 
+	//	h = dist_left(data, data->player->ppoint.y, data->player->ppoint.x, ang);
+	draw(data, h, data->player->ppoint, CRED);
 	//printf("%spposx %f pposy %f%s\n",MAG, data->player->ppoint.x, data->player->ppoint.y, RST);
 	//printf("y en v %f, x en v %f\n",v.y / SIZE, v.x / SIZE);
 	//printf("%sy en h %f, x en h %f%s\n",RED, h.y / SIZE, h.x / SIZE, RST);
@@ -184,28 +122,22 @@ void	hook(void *param)
 	data->player->ppoint.y = data->image.player->instances[0].y + SIZE / 2;
 	data->player->ppoint.x = data->image.player->instances[0].x + SIZE / 2;
 
-	//printf("ang %d\n", data->ang);
-
 	int i = 2;
-		//drawline(data, 135);
-		//drawline(data, 45);
-	
 	if (i == 1)
 		drawline(data, data->ang);
 	else
 		drawang(data, data->player->ppoint.y, data->player->ppoint.x, data->ang);
 
-
-	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 + 1, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 + 2, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 + 3, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 - 3, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 - 2, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2 - 1, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2, data->image.player->instances[0].y + SIZE / 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2, data->image.player->instances[0].y + SIZE / 2 + 1, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2, data->image.player->instances[0].y + SIZE / 2 + 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->image.player->instances[0].x + SIZE / 2, data->image.player->instances[0].y + SIZE / 2 + 3, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->ppoint.x + 1, data->player->ppoint.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->ppoint.x + 2, data->player->ppoint.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->ppoint.x + 3, data->player->ppoint.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->ppoint.x - 3, data->player->ppoint.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->ppoint.x - 2, data->player->ppoint.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->ppoint.x - 1, data->player->ppoint.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->ppoint.x, data->player->ppoint.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->ppoint.x, data->player->ppoint.y + 1, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->ppoint.x, data->player->ppoint.y + 2, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->ppoint.x, data->player->ppoint.y + 3, 0xa413da);
 /* 	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
 		data->image.player->instances[0].z += 2; */
 /* 	if (data->map[data->player->posy][data->player->posx] == 'C')

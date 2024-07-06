@@ -39,11 +39,20 @@ int	savelines(t_map *map)
 	return (0);
 }
 
-int	savepoint(t_player *point, int y, int x)
+int	savepoint(t_map *data, int y, int x)
 {
-	point->n_pl++;
-	point->posx = x;
-	point->posy = y;
+	data->player->n_pl++;
+	data->player->posx = x;
+	data->player->posy = y;
+	data->player->ppoint.dir = data->map[y][x];
+	if (data->player->ppoint.dir == 'N')
+		data->ang = 90;
+	if (data->player->ppoint.dir == 'S')
+		data->ang = 270;
+	if (data->player->ppoint.dir == 'E')
+		data->ang = 0;
+	if (data->player->ppoint.dir == 'W')
+		data->ang = 180;
 	return (0);
 }
 

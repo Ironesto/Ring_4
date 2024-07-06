@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/05 05:22:09 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/06 02:29:00 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,17 @@
 
 typedef	struct	s_point
 {
-	float x;
+	float	x;
 	float	y;
+	float	h;
+	char	dir;
 }	t_point;
 
 typedef	struct s_player
 {
-	int	n_pl;
-	int	posy;
-	int	posx;
+	int		n_pl;
+	int		posy;
+	int		posx;
 	t_point	ppoint;
 }	t_player;
 
@@ -81,18 +83,18 @@ typedef struct s_map
 	//validations
 int	validargs(int argc, char **argv, t_map *map);
 int	validclose(t_map *map, size_t k, int i);
-int validlines(t_map *map);
+int	validlines(t_map *map);
 int	validmap(t_map *map);
 
 	//utils
 int	ft_error(char *str);
 int	savelines(t_map *map);
-int	savepoint(t_player *point, int y, int x);
+int	savepoint(t_map * data, int y, int x);
 int	ft_fd(char *str);
 
 	//create
 int	createimage(t_map *map);
-int imagetomap(t_map *map);
+int	imagetomap(t_map *map);
 
 	//moves
 int	compmovy(int posx, int pos, int size, t_map *data);
@@ -100,20 +102,23 @@ int	compmovy2(int posx, int pos, int size, t_map *data);
 int	compmovx2(int posy, int pos, int size, t_map *data);
 int	compmovx(int posy, int pos, int size, t_map *data);
 
-
 	//rays
 void	draw(t_map *data, t_point end, t_point begin, int color);
 void	deletepix(t_map *data);
-t_point	dist_ver(t_map *data, float py, float px, int ang);
-t_point	dist_ver_down(t_map *data, float py, float px, int ang);
-t_point	dist_hor(t_map *data, float py, float px, int ang);
-t_point	dist_hor_left(t_map *data, float py, float px, int ang);
+void	drawang(t_map *data, int py, int px, int ang);
+
+	//updown
+t_point	if_updown(t_map *data, t_point end, int x, int ang);
+t_point	dist_up(t_map *data, float py, float px, int ang);
+t_point	dist_down(t_map *data, float py, float px, int ang);
+
+	//leftright
+t_point	if_leftright(t_map *data, t_point end, int ang);
+t_point	dist_right(t_map *data, float py, float px, int ang);
+t_point	dist_left(t_map *data, float py, float px, int ang);
 
 	//trigo
 float	rads(float x);
 float	catopo(float ady, int ang);
 float	catady(float opo, int ang);
-float		hipo(float y, float x);
-
-
-t_point	prueba(t_map *data, float py, float px, int ang);
+float	hipo(float y, float x);

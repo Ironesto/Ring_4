@@ -1,5 +1,5 @@
 NAME		= cub3d
-SRC			:= $(wildcard ./mandatory/*.c)
+SRC			:= $(wildcard ./mandatory/*.c) $(wildcard ./mandatory/raytracing/*.c)
 
 OBJS		= $(SRC:.c=.o)
 CC			= clang

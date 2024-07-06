@@ -47,7 +47,7 @@ int validlines(t_map *map)
 				return (ft_error("ERROR: map not closed\n"));
 			if (ft_strchr("NSWE",map->map[k][i]))
 			{
-				savepoint(map->player, k, i);
+				savepoint(map, k, i);
 				if (map->player->n_pl != 1)
 					return(ft_error("ERROR: number of players is not 1\n"));
 			}
