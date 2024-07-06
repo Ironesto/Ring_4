@@ -33,7 +33,7 @@ t_point	dist_up(t_map *data, float py, float px, int ang)
 	end.x = catady(fabs(py - auxy), ang) + px;
 	x = (end.x) / SIZE;
 	y = (end.y) / SIZE;
-	end.h = hipo(data->player->ppoint.y - end.y, data->player->ppoint.x - end.x);
+	//end.h = hipo(data->player->ppoint.y - end.y, data->player->ppoint.x - end.x);
 	if (end.x <= 0 || x >= data->w - 1)
 		return (if_updown(data, end, x, ang));
 	if ((int)(end.x) % SIZE == 0 && (int)end.y % SIZE == 0 && ang > 90)
@@ -62,7 +62,7 @@ t_point	dist_down(t_map *data, float py, float px, int ang)
 	end.y = py + auxy - py;
 	x = (end.x) / SIZE;
 	y = (end.y) / SIZE;
-	end.h = hipo(data->player->ppoint.y - end.y, data->player->ppoint.x - end.x);
+	//end.h = hipo(data->player->ppoint.y - end.y, data->player->ppoint.x - end.x);
 	if (end.x <= 0 || x >= data->w - 1)
 		return (if_updown(data, end, x, ang));
 	if ((int)(end.x) % SIZE == 0 && (int)end.y % SIZE == 0 && ang > 90)

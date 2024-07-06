@@ -45,6 +45,10 @@ void	deletepix(t_map *data)
 
 void	drawlines(t_map *data, t_point h, t_point v, int aux)
 {
+	//Probar aqui en vez de en la funcion para optimizar
+	h.h = hipo(data->player->ppoint.y - h.y, data->player->ppoint.x - h.x);
+	v.h = hipo(data->player->ppoint.y - v.y, data->player->ppoint.x - v.x);
+	//
 	if (v.h >= h.h && ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360)))
 		draw(data, h, data->player->ppoint, CRED);
 	else if (v.h >= h.h && (aux > 90 && aux <= 270))
