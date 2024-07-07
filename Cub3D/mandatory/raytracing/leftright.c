@@ -31,7 +31,7 @@ t_point	dist_right(t_map *data, float py, float px, int ang)
 		auxx++;
 	end.x = fabs(px - auxx) + px;
 	end.y = py - catopo(fabs(px - auxx), ang);
-	//end.h = hipo(data->player->ppoint.y - end.y, data->player->ppoint.x - end.x);
+	end.dir = 'R';
 	if (ang == 90)
 	{
 		end.y = 0;
@@ -60,7 +60,7 @@ t_point	dist_left(t_map *data, float py, float px, int ang)
 		auxx--;
 	end.x = px - fabs(px - auxx);
 	end.y = py + catopo(fabs(px - auxx), ang);
-	//end.h = hipo(data->player->ppoint.y - end.y, data->player->ppoint.x - end.x);
+	end.dir = 'L';
 	if (end.y <= 0 || end.y > data->h * SIZE)
 		return(if_leftright(data, end, ang));
 	x = end.x / SIZE;

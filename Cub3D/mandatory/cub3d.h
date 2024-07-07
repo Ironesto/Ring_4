@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/06 02:29:00 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/07 04:53:27 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@
 
 #define RST "\e[0m"
 
-#ifndef SIZE
- #define SIZE 64
-#endif
+#define SRCNW	800
+#define SRCNH	600
+#define SRCNUP	20
+#define FOW		60
 
-#ifndef ANG
- #define ANG 20
-#endif
+#define SIZE	64
+
+#define ANG		20
 
 #define CBLU 0x6cffeb
 #define CGRN 0xa413da
@@ -77,6 +78,7 @@ typedef struct s_map
 	size_t		w;
 	size_t		h;
 	t_image		image;
+	//t_point		**ray;
 }	t_map;
 
 

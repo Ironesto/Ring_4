@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/06 02:18:15 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/07 04:53:37 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,30 +69,39 @@ void	ft_init(t_map *map)
 	map->player->n_pl = 0;
 	map->player->posx = -1;
 	map->player->posy = -1;
+	//map->ray = malloc(sizeof(t_point *) * ANG);
 }
 
-void drawline(t_map *data, int ang)
+void drawline(t_map *data, int py, int px, int ang)
 {
-	t_point	v;
-	t_point	h;
-	if (ang >= 360)
-		ang -= 360;
-	if (ang < 0)
-		ang += 360;
-/* 	if (ang >= 0 && ang < 180)
-		v = dist_up(data, data->player->ppoint.y, data->player->ppoint.x, ang);
- 	else */
-		v = dist_down(data, data->player->ppoint.y, data->player->ppoint.x, ang);
- 	draw(data, v, data->player->ppoint, CWHI);
- 	//if (ang <= 90)
-		h = dist_right(data, data->player->ppoint.y, data->player->ppoint.x, ang);
-	//else 
-	//	h = dist_left(data, data->player->ppoint.y, data->player->ppoint.x, ang);
-	draw(data, h, data->player->ppoint, CRED);
-	//printf("%spposx %f pposy %f%s\n",MAG, data->player->ppoint.x, data->player->ppoint.y, RST);
-	//printf("y en v %f, x en v %f\n",v.y / SIZE, v.x / SIZE);
-	//printf("%sy en h %f, x en h %f%s\n",RED, h.y / SIZE, h.x / SIZE, RST);
-	printf("vx %f vy %f\n%shx %f hy %f%s	ang %d\n",v.x, v.y, RED, h.x, h.y, RST, ang);
+	t_point v;
+	t_point h;
+	int aux;
+
+/* 	if (aux >= 360)
+		aux = aux - 360;
+	if (aux < 0)
+		aux = 360 + aux; */
+	if ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360))
+		h = dist_right(data, py, px, aux);
+	if (aux > 90 && aux <= 270)
+		h = dist_left(data, py, px, aux);
+	if (aux >= 0 && aux < 180)			
+		v = dist_up(data, py, px, aux);
+	if (aux >= 180 && aux < 360)
+		v = dist_down(data, py, px, aux);
+	//Probar aqui en vez de en la funcion para optimizar
+	h.h = hipo(data->player->ppoint.y - h.y, data->player->ppoint.x - h.x);
+	v.h = hipo(data->player->ppoint.y - v.y, data->player->ppoint.x - v.x);
+	//
+	if (v.h >= h.h && ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360)))
+		draw(data, h, data->player->ppoint, CRED);
+	else if (v.h >= h.h && (aux > 90 && aux <= 270))
+		draw(data, h, data->player->ppoint, CCIA);
+	if (v.h <= h.h && (aux >= 180 && aux < 360))
+		draw(data, v, data->player->ppoint, CGRN);
+	else if (v.h < h.h && (aux >= 0 && aux < 180))
+		draw(data, v, data->player->ppoint, CWHI);
 }
 
 void	hook(void *param)
@@ -124,7 +133,7 @@ void	hook(void *param)
 
 	int i = 2;
 	if (i == 1)
-		drawline(data, data->ang);
+		drawline(data, data->player->ppoint.y, data->player->ppoint.x, data->ang);
 	else
 		drawang(data, data->player->ppoint.y, data->player->ppoint.x, data->ang);
 
@@ -138,8 +147,6 @@ void	hook(void *param)
 	mlx_put_pixel(data->image.aux, data->player->ppoint.x, data->player->ppoint.y + 1, 0xa413da);
 	mlx_put_pixel(data->image.aux, data->player->ppoint.x, data->player->ppoint.y + 2, 0xa413da);
 	mlx_put_pixel(data->image.aux, data->player->ppoint.x, data->player->ppoint.y + 3, 0xa413da);
-/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
-		data->image.player->instances[0].z += 2; */
 /* 	if (data->map[data->player->posy][data->player->posx] == 'C')
 		erase_coll(data);
 	if (data->player == 1 || data->player == 0)
@@ -152,7 +159,7 @@ int	main(int argc, char **argv)
 	ft_init(&map);
 	if (ft_tester(argc, argv, &map) == 1)
 		return (ft_free(&map), 1);
-	map.mlx = mlx_init((map.w - 1) * SIZE, map.h * SIZE, argv[1], true);
+	map.mlx = mlx_init(SRCNW, SRCNH, argv[1], true);
 	createimage(&map);
 	imagetomap(&map);
 	mlx_loop_hook(map.mlx, &hook, &map);
