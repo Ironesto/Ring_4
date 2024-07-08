@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/08 04:22:43 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/08 05:19:31 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_init(t_map *map)
 	map->fd = 0;
 	map->h = 0;
 	map->w = 0;
-	map->ang = ANG;
+	map->ang = rads(ANG);
 	map->player = malloc(sizeof(t_player));
 	map->player->n_pl = 0;
 	map->player->posx = -1;
@@ -124,10 +124,15 @@ void	hook(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) && !compmovx2(y, x, SIZE, data))
 		data->image.player->instances[0].x += 2;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		data->ang += 2;
+		data->ang += 0.05;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		data->ang -= 2;
+		data->ang -= 0.05;
 	deletepix(data);
+		if (data->ang >= 2 * PI)
+			data->ang = data->ang - (2 * PI);
+		if (data->ang < 0)
+			data->ang = (2 * PI) + data->ang;
+	printf("%f\n", data->ang);
 	data->player->pp.y = data->image.player->instances[0].y + SIZE / 2;
 	data->player->pp.x = data->image.player->instances[0].x + SIZE / 2;
 

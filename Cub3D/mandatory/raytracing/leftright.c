@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-t_point	if_leftright(t_map *data, t_point end, int ang)
+t_point	if_leftright(t_map *data, t_point end, float ang)
 {	
 	if (end.y <= 0)
 	{
@@ -17,7 +17,7 @@ t_point	if_leftright(t_map *data, t_point end, int ang)
 	return (end);
 }
 
-t_point	dist_right(t_map *data, float py, float px, int ang)
+t_point	dist_right(t_map *data, float py, float px, float ang)
 {
 	int	x;
 	int	auxx;
@@ -46,7 +46,7 @@ t_point	dist_right(t_map *data, float py, float px, int ang)
 	return (end);
 }
 
-t_point	dist_left(t_map *data, float py, float px, int ang)
+t_point	dist_left(t_map *data, float py, float px, float ang)
 {
 	int	x;
 	int	auxx;

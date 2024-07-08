@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/08 04:18:35 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/08 04:47:17 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_map
 	char		**map;
 	char		*route;
 	int			fd;
-	int			ang;
+	float		ang;
 	size_t		w;
 	size_t		h;
 	t_image		image;
@@ -111,17 +111,17 @@ void	deletepix(t_map *data);
 void	drawang(t_map *data);
 
 	//updown
-t_point	if_updown(t_map *data, t_point end, int x, int ang);
-t_point	dist_up(t_map *data, float py, float px, int ang);
-t_point	dist_down(t_map *data, float py, float px, int ang);
+t_point	if_updown(t_map *data, t_point end, int x, float ang);
+t_point	dist_up(t_map *data, float py, float px, float ang);
+t_point	dist_down(t_map *data, float py, float px, float ang);
 
 	//leftright
-t_point	if_leftright(t_map *data, t_point end, int ang);
-t_point	dist_right(t_map *data, float py, float px, int ang);
-t_point	dist_left(t_map *data, float py, float px, int ang);
+t_point	if_leftright(t_map *data, t_point end, float ang);
+t_point	dist_right(t_map *data, float py, float px, float ang);
+t_point	dist_left(t_map *data, float py, float px, float ang);
 
 	//trigo
 float	rads(float x);
-float	catopo(float ady, int ang);
-float	catady(float opo, int ang);
+float	catopo(float ady, float ang);
+float	catady(float opo, float ang);
 float	hipo(float y, float x);

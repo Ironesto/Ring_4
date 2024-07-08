@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-t_point	if_updown(t_map *data, t_point end, int x, int ang)
+t_point	if_updown(t_map *data, t_point end, int x, float ang)
 {
 	if (end.x <= 0)
 	{
@@ -17,7 +17,7 @@ t_point	if_updown(t_map *data, t_point end, int x, int ang)
 	return (end);
 }
 
-t_point	dist_up(t_map *data, float py, float px, int ang)
+t_point	dist_up(t_map *data, float py, float px, float ang)
 {
 	int	x;
 	int	auxy;
@@ -36,7 +36,7 @@ t_point	dist_up(t_map *data, float py, float px, int ang)
 	end.dir = 'U';
 	if (end.x <= 0 || x >= data->w - 1)
 		return (if_updown(data, end, x, ang));
-	if ((int)(end.x) % SIZE == 0 && (int)end.y % SIZE == 0 && ang > 90)
+	if ((int)(end.x) % SIZE == 0 && (int)end.y % SIZE == 0 && ang > (PI / 2))
 	{
 		if (data->map[y - 1][x - 1] == '1' && data->map[y][x -1] != '1')
 			return (end);
@@ -46,7 +46,7 @@ t_point	dist_up(t_map *data, float py, float px, int ang)
 	return (end);
 }
 
-t_point	dist_down(t_map *data, float py, float px, int ang)
+t_point	dist_down(t_map *data, float py, float px, float ang)
 {
 	int	x;
 	int	auxy;
@@ -58,14 +58,14 @@ t_point	dist_down(t_map *data, float py, float px, int ang)
 	y = (py) / SIZE;
 	while (auxy < y * SIZE + SIZE)
 		auxy++;
-	end.x = catopo(auxy - py, ang - 90) + px;
+	end.x = catopo(auxy - py, ang - (PI / 2)) + px;
 	end.y = py + auxy - py;
 	x = (end.x) / SIZE;
 	y = (end.y) / SIZE;
 	end.dir = 'D';
 	if (end.x <= 0 || x >= data->w - 1)
 		return (if_updown(data, end, x, ang));
-	if ((int)(end.x) % SIZE == 0 && (int)end.y % SIZE == 0 && ang > 90)
+	if ((int)(end.x) % SIZE == 0 && (int)end.y % SIZE == 0 && ang > (PI / 2))
 	{
 		if (data->map[y][x] == '1')
 			return (end);

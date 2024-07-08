@@ -4,23 +4,23 @@ float	rads(float x)
 {
 	float	res;
 
-	res = x * (3.14159265 / 180);
+	res = x * (PI / 180);
 	return (res);
 }
 
-float	catopo(float ady, int ang)
+float	catopo(float ady, float ang)
 {
 	float	res;
 
-	res = ady * tan(rads(ang));
+	res = ady * tan(ang);
 	return (res);
 }
 
-float	catady(float opo, int ang)
+float	catady(float opo, float ang)
 {
 	float	res;
 
-	res = opo / tan(rads(ang));
+	res = opo / tan(ang);
 	return (res);
 }
 
