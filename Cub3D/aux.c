@@ -22,12 +22,12 @@ void	deletepixeldiag(t_map *data, int by, int bx, int ang)
 	int py = by + SIZE / 2;
 	//int y = (by + SIZE / 2) / SIZE;
 	//int x = (bx + SIZE / 2) / SIZE;
-	int auxx = (px + cos(rads(ang))) / SIZE;
-	int auxy = (py + cos(rads(ang))) / SIZE;
+	int auxx = (px + cos((ang))) / SIZE;
+	int auxy = (py + cos((ang))) / SIZE;
 	while (data->map[auxy][auxx] != '1')
 	{
-		auxx = (px + cos(rads(ang))) / SIZE;
-		auxy = (py + cos(rads(ang))) / SIZE;
+		auxx = (px + cos((ang))) / SIZE;
+		auxy = (py + cos((ang))) / SIZE;
 		px--;
 		py--;
 	}
@@ -41,7 +41,7 @@ void	deletepixeldiag(t_map *data, int by, int bx, int ang)
 		while (px > (auxx * SIZE) + SIZE || py > (auxy * SIZE) + SIZE)
 		{
 			//puts("entra");
-			mlx_put_pixel(data->image.aux, px + cos(rads(ang)), py + cos(rads(ang)), 0x00000000);
+			mlx_put_pixel(data->image.aux, px + cos((ang)), py + cos((ang)), 0x00000000);
 			py--;
 			px--;
 		}
@@ -105,22 +105,22 @@ void	putpixelx(t_map *data)
 	int py = data->image.player->instances[0].y + SIZE / 2;
 	//int y = (data->image.player->instances[0].y + SIZE / 2) / SIZE;
 	//int x = (data->image.player->instances[0].x + SIZE / 2) / SIZE;
-	int auxx = (px + cos(rads(ang))) / SIZE;
-	int auxy = (py + cos(rads(ang))) / SIZE;
+	int auxx = (px + cos((ang))) / SIZE;
+	int auxy = (py + cos((ang))) / SIZE;
 	while (data->map[auxy][auxx] != '1')
 	{
-		auxx = (px + cos(rads(ang))) / SIZE;
-		auxy = (py + cos(rads(ang))) / SIZE;
+		auxx = (px + cos((ang))) / SIZE;
+		auxy = (py + cos((ang))) / SIZE;
 		px--;
 		py--;
 	}
 	px = data->image.player->instances[0].x + SIZE / 2;
 	py = data->image.player->instances[0].y + SIZE / 2;
 
-	//printf("cos %f sin %f\n", cos(rads(ang)), sin(rads(ang)));
+	//printf("cos %f sin %f\n", cos((ang)), sin((ang)));
 	while (px > (auxx * SIZE) + SIZE || py > (auxy * SIZE) + SIZE)
 	{
-		mlx_put_pixel(data->image.aux, px + cos(rads(ang)), py + cos(rads(ang)), 0xFFFFFFFF);
+		mlx_put_pixel(data->image.aux, px + cos((ang)), py + cos((ang)), 0xFFFFFFFF);
 		py--;
 		px--;
 	}
@@ -134,7 +134,7 @@ float	hipo(float len, int ang)
 {
 	float res;
 
-	res = len / cos(rads(ang));
+	res = len / cos((ang));
 	return (res);
 }
 
@@ -156,7 +156,7 @@ void	putpixeldiag(t_map *data, int ang)
 	px = (data->image.player->instances[0].x + SIZE / 2);
 	py =( data->image.player->instances[0].y + SIZE / 2);
 	float h = hipo(px, ang);
-	//printf("rads %f cos %f sin %f  tan %f\n",rads(ang), cos(rads(ang)), sin(rads(ang)), tan(rads(ang)));
+	//printf(" %f cos %f sin %f  tan %f\n",(ang), cos((ang)), sin((ang)), tan((ang)));
 	ft_printf("px %d (auxx * SIZE) + SIZE %d\n", px, (auxx * SIZE) + SIZE);
 	ft_printf("hipo %d\n", h);
 	while (px > (auxx * SIZE) + SIZE || py > (auxy * SIZE) + SIZE)
@@ -181,13 +181,13 @@ void	putpixeldiag(t_map *data, int ang)
 		x--;
 	while (data->map[y][(data->image.player->instances[0].x + SIZE / 2) / SIZE] != '1')
 		y--;
-	printf("x %d pxcos %f y %d\n", x, (px + cos(rads(40))) / SIZE, y);
+	printf("x %d pxcos %f y %d\n", x, (px + cos((40))) / SIZE, y);
 	if (x - (data->image.player->instances[0].x + SIZE / 2) / SIZE < y - (data->image.player->instances[0].y + SIZE / 2) / SIZE)
 	{
 		while (px > (x * SIZE) + SIZE)
 		{
 			//puts("entra");
-			mlx_put_pixel(data->image.aux, px + cos(rads(40)), py + cos(rads(40)), 0xFFFFFFFF);
+			mlx_put_pixel(data->image.aux, px + cos((40)), py + cos((40)), 0xFFFFFFFF);
 			py--;
 			px--;
 		}
@@ -196,7 +196,7 @@ void	putpixeldiag(t_map *data, int ang)
 		while (py > (y * SIZE) + SIZE)
 		{
 			//puts("entra");
-			mlx_put_pixel(data->image.aux, px + cos(rads(40)), py + cos(rads(40)), 0xFFFFFFFF);
+			mlx_put_pixel(data->image.aux, px + cos((40)), py + cos((40)), 0xFFFFFFFF);
 			py--;
 			px--;
 		}

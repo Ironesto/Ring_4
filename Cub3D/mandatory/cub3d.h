@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/07 04:53:27 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/08 04:18:35 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@
 
 #define SRCNW	800
 #define SRCNH	600
-#define SRCNUP	20
+#define SRCNUP	150
 #define FOW		60
 
 #define SIZE	64
+#define PI		3.14159265
 
 #define ANG		20
 
@@ -56,7 +57,7 @@ typedef	struct s_player
 	int		n_pl;
 	int		posy;
 	int		posx;
-	t_point	ppoint;
+	t_point	pp;
 }	t_player;
 
 typedef struct s_image
@@ -107,7 +108,7 @@ int	compmovx(int posy, int pos, int size, t_map *data);
 	//rays
 void	draw(t_map *data, t_point end, t_point begin, int color);
 void	deletepix(t_map *data);
-void	drawang(t_map *data, int py, int px, int ang);
+void	drawang(t_map *data);
 
 	//updown
 t_point	if_updown(t_map *data, t_point end, int x, int ang);

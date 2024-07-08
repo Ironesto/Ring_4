@@ -47,18 +47,18 @@ void	deletepix(t_map *data)
 void	drawlines(t_map *data, t_point h, t_point v, int aux)
 {
 	//Probar aqui en vez de en la funcion para optimizar
-	h.h = hipo(data->player->ppoint.y - h.y, data->player->ppoint.x - h.x);
-	v.h = hipo(data->player->ppoint.y - v.y, data->player->ppoint.x - v.x);
+	h.h = hipo(data->player->pp.y - h.y, data->player->pp.x - h.x);
+	v.h = hipo(data->player->pp.y - v.y, data->player->pp.x - v.x);
 	//
 	printf("hor %f ver %f\n", h.h, v.h);
 	if (v.h >= h.h && ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360)))
-		draw(data, h, data->player->ppoint, CRED);
+		draw(data, h, data->player->pp, CRED);
 	else if (v.h >= h.h && (aux > 90 && aux <= 270))
-		draw(data, h, data->player->ppoint, CCIA);
+		draw(data, h, data->player->pp, CCIA);
 	if (v.h <= h.h && (aux >= 180 && aux < 360))
-		draw(data, v, data->player->ppoint, CGRN);
+		draw(data, v, data->player->pp, CGRN);
 	else if (v.h < h.h && (aux >= 0 && aux < 180))
-		draw(data, v, data->player->ppoint, CWHI);
+		draw(data, v, data->player->pp, CWHI);
 } */
 
 int	create(t_map *data, t_point point)
@@ -75,66 +75,91 @@ int	create(t_map *data, t_point point)
 	return (0);
 }
 
-void	drawlines(t_map *data, t_point h, int aux)
+void	drawlines(t_map *data, t_point h)
 {
 	if (h.dir == 'U')
-		draw(data, h, data->player->ppoint, CWHI);
+		draw(data, h, data->player->pp, CWHI);
 	if (h.dir == 'D')
-		draw(data, h, data->player->ppoint, CCIA);
+		draw(data, h, data->player->pp, CCIA);
 	if (h.dir == 'R')
-		draw(data, h, data->player->ppoint, CRED);
+		draw(data, h, data->player->pp, CRED);
 	if (h.dir == 'L')
-		draw(data, h, data->player->ppoint, CGRN);
+		draw(data, h, data->player->pp, CGRN);
 }
 
-void	draw3d(t_map *data, t_point p)
+void	draw3d(t_map *data, t_point p, int aux)
 {
 	
-	printf("x %f y %f h %f\n", p.x, p.y, p.h);
-	printf("ang en rad %f\n",rads(FOW / 2));
-	float	dist_adap = catady(SRCNW / 2, rads(FOW / 2));
-	printf("distancia es %f\n", dist_adap);
-	int	h_adap = (p.h / SRCNUP) * dist_adap;
-	printf("altura es %d\n", h_adap);
+	//printf("x %f y %f h %f\n", p.x, p.y, p.h);
+	//printf("ang en rad %f\n",rads(FOW / 2));
+	float	dist_adap = catady(SRCNH / 2, FOW / 2) - data->player->pp.y;
+	//printf("distancia es %f\n", dist_adap);
+	int	alt_adap = (SRCNUP / p.h) * dist_adap;
+	int corr_x = SRCNW / ANG;
+	t_point init;
+	init.y = SRCNH / 2 + alt_adap / 2;
+	init.x = corr_x * aux;
+	t_point end;
+	end.y = SRCNH / 2 - alt_adap / 2;
+	end.x = corr_x * aux;
+
+	if (init.y >= SRCNH)
+		init.y = SRCNH;
+	if (end.y <= 0)
+		end.y = 0;
+
+		if (p.dir == 'U')
+			draw(data, end, init, CWHI);
+		if (p.dir == 'D')
+			draw(data, end, init, CCIA);
+		if (p.dir == 'R')
+			draw(data, end, init, CRED);
+		if (p.dir == 'L')
+			draw(data, end, init, CGRN);
 }
 
-void	choose_line(t_map *data, int px, int py, int aux)
+void	choose_line(t_map *data, int ang, int aux)
 {
 	t_point v;
 	t_point h;
+	int		py = data->player->pp.y;
+	int		px = data->player->pp.x;
 
-	if ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360))
-		h = dist_right(data, py, px, aux);
-	if (aux > 90 && aux <= 270)
-		h = dist_left(data, py, px, aux);
-	if (aux >= 0 && aux < 180)			
-		v = dist_up(data, py, px, aux);
-	if (aux >= 180 && aux < 360)
-		v = dist_down(data, py, px, aux);
-	h.h = hipo(data->player->ppoint.y - h.y, data->player->ppoint.x - h.x);
-	v.h = hipo(data->player->ppoint.y - v.y, data->player->ppoint.x - v.x);
+	if ((ang >= 0 && ang <= 90) || (ang > 270 && ang < 360))
+		h = dist_right(data, py, px, ang);
+	if (ang > 90 && ang <= 270)
+		h = dist_left(data, py, px, ang);
+	if (ang >= 0 && ang < 180)			
+		v = dist_up(data, py, px, ang);
+	if (ang >= 180 && ang < 360)
+		v = dist_down(data, py, px, ang);
+	h.h = hipo(data->player->pp.y - h.y, data->player->pp.x - h.x);
+	v.h = hipo(data->player->pp.y - v.y, data->player->pp.x - v.x);
 	if (v.h < h.h)
 		h = v;
-	draw3d(data, h);
+	draw3d(data, h, aux);
 	//create(data, h);
-	drawlines(data, h, aux);
+	drawlines(data, h);
 }
 
-void	drawang(t_map *data, int py, int px, int ang)
+void	drawang(t_map *data)
 {
-	int aux;
+	int ang;
 	int	count;
+	int	aux;
 
-	aux = data->ang + (ANG / 2);
+	aux = 0;
+	ang = data->ang + (ANG / 2);
 	count = data->ang + (ANG / 2);
 	while (count > data->ang - (ANG / 2))
 	{
-		if (aux >= 360)
-			aux = aux - 360;
-		if (aux < 0)
-			aux = 360 + aux;
-		choose_line(data, px, py, aux);
-		aux--;
+		if (ang >= 360)
+			ang = ang - 360;
+		if (ang < 0)
+			ang = 360 + ang;
+		choose_line(data, ang, aux);
+		ang--;
 		count--;
+		aux++;
 	}
 }

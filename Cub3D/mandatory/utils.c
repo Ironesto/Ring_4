@@ -44,14 +44,14 @@ int	savepoint(t_map *data, int y, int x)
 	data->player->n_pl++;
 	data->player->posx = x;
 	data->player->posy = y;
-	data->player->ppoint.dir = data->map[y][x];
-	if (data->player->ppoint.dir == 'N')
+	data->player->pp.dir = data->map[y][x];
+	if (data->player->pp.dir == 'N')
 		data->ang = 90;
-	if (data->player->ppoint.dir == 'S')
+	if (data->player->pp.dir == 'S')
 		data->ang = 270;
-	if (data->player->ppoint.dir == 'E')
+	if (data->player->pp.dir == 'E')
 		data->ang = 0;
-	if (data->player->ppoint.dir == 'W')
+	if (data->player->pp.dir == 'W')
 		data->ang = 180;
 	return (0);
 }

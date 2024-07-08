@@ -6,7 +6,7 @@
 /*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/07 04:53:37 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/08 04:22:43 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,17 +91,17 @@ void drawline(t_map *data, int py, int px, int ang)
 	if (aux >= 180 && aux < 360)
 		v = dist_down(data, py, px, aux);
 	//Probar aqui en vez de en la funcion para optimizar
-	h.h = hipo(data->player->ppoint.y - h.y, data->player->ppoint.x - h.x);
-	v.h = hipo(data->player->ppoint.y - v.y, data->player->ppoint.x - v.x);
+	h.h = hipo(data->player->pp.y - h.y, data->player->pp.x - h.x);
+	v.h = hipo(data->player->pp.y - v.y, data->player->pp.x - v.x);
 	//
 	if (v.h >= h.h && ((aux >= 0 && aux <= 90) || (aux > 270 && aux < 360)))
-		draw(data, h, data->player->ppoint, CRED);
+		draw(data, h, data->player->pp, CRED);
 	else if (v.h >= h.h && (aux > 90 && aux <= 270))
-		draw(data, h, data->player->ppoint, CCIA);
+		draw(data, h, data->player->pp, CCIA);
 	if (v.h <= h.h && (aux >= 180 && aux < 360))
-		draw(data, v, data->player->ppoint, CGRN);
+		draw(data, v, data->player->pp, CGRN);
 	else if (v.h < h.h && (aux >= 0 && aux < 180))
-		draw(data, v, data->player->ppoint, CWHI);
+		draw(data, v, data->player->pp, CWHI);
 }
 
 void	hook(void *param)
@@ -128,25 +128,25 @@ void	hook(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		data->ang -= 2;
 	deletepix(data);
-	data->player->ppoint.y = data->image.player->instances[0].y + SIZE / 2;
-	data->player->ppoint.x = data->image.player->instances[0].x + SIZE / 2;
+	data->player->pp.y = data->image.player->instances[0].y + SIZE / 2;
+	data->player->pp.x = data->image.player->instances[0].x + SIZE / 2;
 
 	int i = 2;
 	if (i == 1)
-		drawline(data, data->player->ppoint.y, data->player->ppoint.x, data->ang);
+		drawline(data, data->player->pp.y, data->player->pp.x, data->ang);
 	else
-		drawang(data, data->player->ppoint.y, data->player->ppoint.x, data->ang);
+		drawang(data);
 
-	mlx_put_pixel(data->image.aux, data->player->ppoint.x + 1, data->player->ppoint.y, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->player->ppoint.x + 2, data->player->ppoint.y, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->player->ppoint.x + 3, data->player->ppoint.y, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->player->ppoint.x - 3, data->player->ppoint.y, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->player->ppoint.x - 2, data->player->ppoint.y, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->player->ppoint.x - 1, data->player->ppoint.y, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->player->ppoint.x, data->player->ppoint.y, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->player->ppoint.x, data->player->ppoint.y + 1, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->player->ppoint.x, data->player->ppoint.y + 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->player->ppoint.x, data->player->ppoint.y + 3, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->pp.x + 1, data->player->pp.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->pp.x + 2, data->player->pp.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->pp.x + 3, data->player->pp.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->pp.x - 3, data->player->pp.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->pp.x - 2, data->player->pp.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->pp.x - 1, data->player->pp.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->pp.x, data->player->pp.y, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->pp.x, data->player->pp.y + 1, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->pp.x, data->player->pp.y + 2, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->pp.x, data->player->pp.y + 3, 0xa413da);
 /* 	if (data->map[data->player->posy][data->player->posx] == 'C')
 		erase_coll(data);
 	if (data->player == 1 || data->player == 0)

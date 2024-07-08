@@ -5,13 +5,13 @@ t_point	if_updown(t_map *data, t_point end, int x, int ang)
 	if (end.x <= 0)
 	{
 		end.x = 0;
-		end.y = data->player->ppoint.y + catopo(data->player->ppoint.x, ang);
+		end.y = data->player->pp.y + catopo(data->player->pp.x, ang);
 		return (end);
 	}
 	if (x >= data->w - 1)
 	{
 		end.x = data->w * SIZE - SIZE;
-		end.y = data->player->ppoint.y - catopo(end.x - data->player->ppoint.x, ang);
+		end.y = data->player->pp.y - catopo(end.x - data->player->pp.x, ang);
 		return (end);
 	}
 	return (end);

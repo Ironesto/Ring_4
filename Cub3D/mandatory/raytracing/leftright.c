@@ -5,13 +5,13 @@ t_point	if_leftright(t_map *data, t_point end, int ang)
 	if (end.y <= 0)
 	{
 		end.y = 0;
-		end.x = data->player->ppoint.x + catady(data->player->ppoint.y, ang);
+		end.x = data->player->pp.x + catady(data->player->pp.y, ang);
 		return (end);
 	}
 	if (end.y > data->h * SIZE)
 	{
 		end.y = data->h * SIZE;
-		end.x = data->player->ppoint.x - catady(end.y - data->player->ppoint.y, ang);
+		end.x = data->player->pp.x - catady(end.y - data->player->pp.y, ang);
 		return (end);
 	}
 	return (end);
@@ -35,7 +35,7 @@ t_point	dist_right(t_map *data, float py, float px, int ang)
 	if (ang == 90)
 	{
 		end.y = 0;
-		end.x = data->player->ppoint.x;
+		end.x = data->player->pp.x;
 		return (end);
 	}
 	if (end.y <= 0 || end.y > data->h * SIZE)
