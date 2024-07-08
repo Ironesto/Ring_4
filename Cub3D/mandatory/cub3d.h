@@ -26,9 +26,9 @@
 
 #define RST "\e[0m"
 
-#define SRCNW	800
-#define SRCNH	600
-#define SRCNUP	150
+#define SCRNW	800
+#define SCRNH	600
+#define SCRNUP	150
 #define FOW		60
 
 #define SIZE	64

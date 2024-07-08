@@ -132,7 +132,7 @@ void	hook(void *param)
 			data->ang = data->ang - (2 * PI);
 		if (data->ang < 0)
 			data->ang = (2 * PI) + data->ang;
-	printf("%f\n", data->ang);
+	//printf("%f\n", data->ang);
 	data->player->pp.y = data->image.player->instances[0].y + SIZE / 2;
 	data->player->pp.x = data->image.player->instances[0].x + SIZE / 2;
 
@@ -142,7 +142,7 @@ void	hook(void *param)
 	else
 		drawang(data);
 
-	mlx_put_pixel(data->image.aux, data->player->pp.x + 1, data->player->pp.y, 0xa413da);
+/* 	mlx_put_pixel(data->image.aux, data->player->pp.x + 1, data->player->pp.y, 0xa413da);
 	mlx_put_pixel(data->image.aux, data->player->pp.x + 2, data->player->pp.y, 0xa413da);
 	mlx_put_pixel(data->image.aux, data->player->pp.x + 3, data->player->pp.y, 0xa413da);
 	mlx_put_pixel(data->image.aux, data->player->pp.x - 3, data->player->pp.y, 0xa413da);
@@ -151,7 +151,7 @@ void	hook(void *param)
 	mlx_put_pixel(data->image.aux, data->player->pp.x, data->player->pp.y, 0xa413da);
 	mlx_put_pixel(data->image.aux, data->player->pp.x, data->player->pp.y + 1, 0xa413da);
 	mlx_put_pixel(data->image.aux, data->player->pp.x, data->player->pp.y + 2, 0xa413da);
-	mlx_put_pixel(data->image.aux, data->player->pp.x, data->player->pp.y + 3, 0xa413da);
+	mlx_put_pixel(data->image.aux, data->player->pp.x, data->player->pp.y + 3, 0xa413da); */
 /* 	if (data->map[data->player->posy][data->player->posx] == 'C')
 		erase_coll(data);
 	if (data->player == 1 || data->player == 0)
@@ -164,7 +164,7 @@ int	main(int argc, char **argv)
 	ft_init(&map);
 	if (ft_tester(argc, argv, &map) == 1)
 		return (ft_free(&map), 1);
-	map.mlx = mlx_init(SRCNW, SRCNH, argv[1], true);
+	map.mlx = mlx_init(SCRNW, SCRNH, argv[1], true);
 	createimage(&map);
 	imagetomap(&map);
 	mlx_loop_hook(map.mlx, &hook, &map);

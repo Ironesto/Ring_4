@@ -89,8 +89,8 @@ int imagetomap(t_map *map)
 		i = 0;
 		while (i < map->w)
 		{
-			if (map->map[k][i] == '1')
-				drawcube(map, k, i);
+			//if (map->map[k][i] == '1')
+			//	drawcube(map, k, i);
 			i++;
 		}
 		k++;
