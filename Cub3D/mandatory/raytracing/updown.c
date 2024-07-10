@@ -34,12 +34,14 @@ t_point	dist_up(t_map *data, float py, float px, float ang)
 	x = (end.x) / SIZE;
 	y = (end.y) / SIZE;
 	end.dir = 'U';
+/* 	if (data->map[y][x] == '1')
+		puts("es 1"); */
 	if (end.x <= 0 || x >= data->w - 1)
 		return (if_updown(data, end, x, ang));
-	if ((int)(end.x) % SIZE == 0 && (int)end.y % SIZE == 0 && ang > (PI / 2))
+	//if ((int)(end.x) % SIZE == 0 && (int)end.y % SIZE == 0 && ang > (PI / 2))
 	{
-		if (data->map[y - 1][x - 1] == '1' && data->map[y][x -1] != '1')
-			return (end);
+		//if (data->map[y - 1][x - 1] == '1' && data->map[y][x -1] != '1')
+			//return (end);
 	}
 	if (data->map[y - 1][x] != '1')
 		return (dist_up(data, end.y , end.x, ang));

@@ -4,24 +4,24 @@ int	createimage(t_map *map)
 {
 	map->image.player = mlx_new_image(map->mlx, SIZE, SIZE);
 	//map->image.wall = mlx_new_image(map->mlx, SIZE, SIZE);
-	map->image.aux = mlx_new_image(map->mlx, map->w * SIZE, map->h* SIZE);
-	mlx_image_to_window(map->mlx, map->image.aux, 0, 0);
-	map->image.back = mlx_new_image(map->mlx, map->w * SIZE, map->h* SIZE);
+	map->image.back = mlx_new_image(map->mlx, SCRNW, SCRNH);
 	mlx_image_to_window(map->mlx, map->image.back, 0, 0);
+	map->image.aux = mlx_new_image(map->mlx, SCRNW, SCRNH);
+	mlx_image_to_window(map->mlx, map->image.aux, 0, 0);
 	size_t y = 0;
 	size_t x;
-/* 	while (y <= (map->h * SIZE) / 2)
+	while (y <= (SCRNH) / 2)
 	{
 		x = -1;
-		while (++x < map->w * SIZE)
-			mlx_put_pixel(map->image.back, x, y, 0x6cffeb);
+		while (++x < SCRNW)
+			mlx_put_pixel(map->image.back, x, y, 0x6cffebFF);
 		y++;
-	} */
-	while (y > (map->h * SIZE) / 2 && y < map->h *SIZE)
+	}
+	while (y > (SCRNH) / 2 && y < SCRNH)
 	{
 		x = -1;
-		while (++x < map->w * SIZE)
-			mlx_put_pixel(map->image.back, x, y, 0x13DA1F);
+		while (++x < SCRNW)
+			mlx_put_pixel(map->image.back, x, y, 0x13DA1FFF);
 		y++;
 	}
 	return (0);
@@ -62,20 +62,6 @@ void	drawcube(t_map *data, int by, int bx)
 	}
 	aux2 = x;
 	aux = y;
-/* 	while (aux < y + SIZE)
-	{
-		mlx_put_pixel(data->image.back, aux2, aux, CBLU);
-		aux++;
-		aux2++;
-	}
-	aux2 = x;
-	aux = y + SIZE;
-	while (aux > y)
-	{
-		mlx_put_pixel(data->image.back, aux2, aux, CBLU);
-		aux--;
-		aux2++;
-	} */
 }
 
 int imagetomap(t_map *map)
@@ -89,8 +75,8 @@ int imagetomap(t_map *map)
 		i = 0;
 		while (i < map->w)
 		{
-			//if (map->map[k][i] == '1')
-			//	drawcube(map, k, i);
+/* 			if (map->map[k][i] == '1')
+				drawcube(map, k, i); */
 			i++;
 		}
 		k++;

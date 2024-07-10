@@ -65,11 +65,12 @@ t_point	dist_left(t_map *data, float py, float px, float ang)
 		return(if_leftright(data, end, ang));
 	x = end.x / SIZE;
 	y = end.y / SIZE;
-	if ((int)end.x % SIZE == 0 && (int)end.y % SIZE == 0 && end.y >= 0)
+
+/* 	if ((int)end.x % SIZE == 0 && (int)end.y % SIZE == 0 && end.y >= 0)
 	{
 		if (y > 0 && data->map[y - 1][x - 1] == '1' && data->map[y - 1][x] != '1')
 			return (end);
-	}
+	} */
 	if (data->map[y][x - 1] != '1')
 		return (dist_left(data, end.y, end.x, ang));
 	return (end);

@@ -31,10 +31,10 @@ void	deletepix(t_map *data)
 
 	i = 0;
 	k = 0;
-	while (i < data->h * SIZE)
+	while (i < SCRNH)
 	{
 		k = 0;
-		while (k < data->w * SIZE)
+		while (k < SCRNW)
 		{
 			mlx_put_pixel(data->image.aux, k, i, 0x00000000);
 			k++;
@@ -57,24 +57,33 @@ void	drawlines(t_map *data, t_point h)
 
 void	draw3d(t_map *data, t_point p, float aux)
 {
-	float	dist_adap = catady(SCRNH / 2, FOW / 2) - data->player->pp.y;
+	//float	dist_adap = catady(SCRNH / 2, FOW / 2) - data->player->pp.y;
+	float	dist_adap = catady(SCRNW / 2, FOW / 2) - data->player->pp.y;
+	//float	dist_adap = catady(SCRNH / 2, FOW / 2);
 	int	alt_adap = (100 / p.h) * dist_adap;
-	int corr_x = SCRNW / rads(ANG);
+	//int corr_x = SCRNW / rads(ANG);
 	t_point init;
 	init.y = SCRNH / 2 + alt_adap / 2;
 	init.x = aux;
 	t_point end;
 	end.y = SCRNH / 2 - alt_adap / 2;
 	end.x =  aux;
-
+	if (end.x == SCRNW - 1)
+		puts("es el ancho");
+/* 	if (end.y >= SCRNW)
+		puts("mayor");
+	if (end.y <= 0)
+		puts("menor"); */
+/* 	if (aux == SCRNW - 1)
+		printf("aux %f\n", aux); */
 	if (init.y >= SCRNH)
-		init.y = SCRNH;
+		init.y = SCRNH - 1;
 	if (init.y <= 0)
 		init.y = 0;
 	if (end.y <= 0)
 		end.y = 0;
 	if (end.y >= SCRNH)
-		end.y = SCRNH;
+		end.y = SCRNH - 1;
 /* 	int i = 0;
 	int k = end.x + corr_x;
 	while (end.x < k)
@@ -104,7 +113,7 @@ void	choose_line(t_map *data, float ang, float aux)
 		h = dist_right(data, py, px, ang);
 	if (ang > (PI / 2) && ang <= PI + (PI / 2))
 		h = dist_left(data, py, px, ang);
-	if (ang >= 0 && ang < PI)			
+	if (ang > 0 && ang < PI)			
 		v = dist_up(data, py, px, ang);
 	if (ang >= PI && ang < 2 * PI)
 		v = dist_down(data, py, px, ang);
@@ -116,14 +125,16 @@ void	choose_line(t_map *data, float ang, float aux)
 	v.y = (int)v.y; */
 	h.h = hipo(data->player->pp.y - h.y, data->player->pp.x - h.x);
 	v.h = hipo(data->player->pp.y - v.y, data->player->pp.x - v.x);
-	if (h.h < v.h && (ang >= 0 && ang < PI) && (int)h.h == (int)v.h)
+	//if (h.h < v.h)
+/* 	if (h.h < v.h && (ang >= 0 && ang < PI) && (int)h.h == (int)v.h)
 	{
 		printf("left %f up %f ang %f\n", h.h, v.h, ang);
 		printf("left x %f left y %f\n", h.x, h.y);
 		printf("up x %f up y %f\n", v.x, v.y);
-	}
+	} */
 	if (v.h < h.h)
 		h = v;
+
 	draw3d(data, h, aux);
 	//create(data, h);
 	drawlines(data, h);
@@ -138,7 +149,7 @@ void	drawang(t_map *data)
 	aux = 0;
 	ang = data->ang + (rads(ANG) / 2);
 	count = data->ang + (rads(ANG) / 2);
-	float totang =  0.0174533 / SIZE;
+	float totang =  rads(ANG) / SCRNW;
 	while (aux < SCRNW)
 	{
 		if (ang >= 2 * PI)

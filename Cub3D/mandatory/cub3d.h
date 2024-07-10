@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: gpaez-ga <gpaez-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:50:08 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/08 04:47:17 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/11 00:54:58 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 
 #define RST "\e[0m"
 
-#define SCRNW	800
-#define SCRNH	600
-#define SCRNUP	150
+#define SCRNW	1920
+#define SCRNH	1080
+#define SCRNUP	75
 #define FOW		60
 
 #define SIZE	64
@@ -36,8 +36,8 @@
 
 #define ANG		20
 
-#define CBLU 0x6cffeb
-#define CGRN 0xa413da
+#define CBLU 0x6cffebFF
+#define CGRN 0xa413daFF
 #define CRED 0xFF0000FF
 #define CWHI 0xFFFFFFFF
 #define CCIA 0x3498dbff
