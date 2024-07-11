@@ -2,8 +2,16 @@
 
 int	createimage(t_map *map)
 {
+	mlx_texture_t	*texture;
+
+	puts("antes");
+	texture = mlx_load_png("./assets/wall.png");
+	map->image.wall = mlx_texture_to_image(map->mlx, texture);
+	puts("durente");
+	mlx_delete_texture(texture);
+	puts("despues");
+
 	map->image.player = mlx_new_image(map->mlx, SIZE, SIZE);
-	//map->image.wall = mlx_new_image(map->mlx, SIZE, SIZE);
 	map->image.back = mlx_new_image(map->mlx, SCRNW, SCRNH);
 	mlx_image_to_window(map->mlx, map->image.back, 0, 0);
 	map->image.aux = mlx_new_image(map->mlx, SCRNW, SCRNH);
