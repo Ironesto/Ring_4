@@ -55,6 +55,15 @@ void	drawlines(t_map *data, t_point h)
 		draw(data, h, data->player->pp, CGRN);
 }
 
+int	get_color(mlx_image_t *img, int p)
+{
+	int	c;
+
+	c = img->pixels[p] << 24 | img->pixels[p + 1] << 16 | img->pixels[p + 2]
+		<< 8 | img->pixels[p + 3];
+	return (c);
+}
+
 void	draw3d(t_map *data, t_point p, float aux)
 {
 	float	dist_adap = catady(SCRNW / 2, FOW / 2) - data->player->pp.y;
@@ -74,28 +83,26 @@ void	draw3d(t_map *data, t_point p, float aux)
 		end.y = 0;
 	if (end.y >= SCRNH)
 		end.y = SCRNH - 1;
-
-/* 	if (p.dir == 'U' || p.dir == 'D')
+	if (p.dir == 'U')
+		draw(data, end, init, CWHI);
+	if (p.dir == 'D')
+		draw(data, end, init, CCIA);
+	if (p.dir == 'R')
+		draw(data, end, init, CRED);
+	if (p.dir == 'L')
+		draw(data, end, init, CGRN);
+	if ((int)(end.y - init.y) % SIZE == 0)
 	{
-		int col = (int)end.y % SIZE;
-		printf("columna %d\n", col);
-	} */
-/* 	int i = 0;
-	int k = end.x + corr_x;
-	while (end.x < k)
-	{
-		end.x = end.x + i;
-		init.x = init.x + i; */
-		if (p.dir == 'U')
-			draw(data, end, init, CWHI);
-		if (p.dir == 'D')
-			draw(data, end, init, CCIA);
-		if (p.dir == 'R')
-			draw(data, end, init, CRED);
-		if (p.dir == 'L')
-			draw(data, end, init, CGRN);
-/* 		i++;
-	} */
+		puts("entra");
+		int i = (int)p.x % SIZE;
+		printf("i es %d\n", i);
+		while (end.y >= init.y)
+		{
+			mlx_put_pixel(data->image.aux, init.x, init.y, get_color(data->image.wall, i));
+			i = i + SIZE;
+			init.y++;
+		}
+	}
 }
 
 void	choose_line(t_map *data, float ang, float aux)
@@ -122,7 +129,7 @@ void	choose_line(t_map *data, float ang, float aux)
 
 	draw3d(data, h, aux);
 	//create(data, h);
-	drawlines(data, h);
+	//drawlines(data, h);
 }
 
 void	drawang(t_map *data)

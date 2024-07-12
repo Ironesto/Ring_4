@@ -26,8 +26,8 @@
 
 #define RST "\e[0m"
 
-#define SCRNW	1920
-#define SCRNH	1080
+#define SCRNW	800
+#define SCRNH	600
 #define SCRNUP	75
 #define FOW		60
 
