@@ -93,13 +93,19 @@ void	draw3d(t_map *data, t_point p, float aux)
 		draw(data, end, init, CGRN);
 	if ((int)(end.y - init.y) % SIZE == 0)
 	{
+		
 		puts("entra");
 		int i = (int)p.x % SIZE;
 		printf("i es %d\n", i);
 		while (end.y >= init.y)
 		{
-			mlx_put_pixel(data->image.aux, init.x, init.y, get_color(data->image.wall, i));
+			mlx_put_pixel(data->image.aux, init.x, init.y, get_color(data->image.wall, 31));
 			i = i + SIZE;
+			if (i > SIZE * SIZE)
+			{
+				puts ("es maoyer");
+				i = SIZE * SIZE - 1;
+			}
 			init.y++;
 		}
 	}
