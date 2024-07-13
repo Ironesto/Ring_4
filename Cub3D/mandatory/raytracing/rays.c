@@ -91,26 +91,30 @@ void	draw3d(t_map *data, t_point p, float aux)
 		draw(data, end, init, CRED);
 	if (p.dir == 'L')
 		draw(data, end, init, CGRN);
-	if ((int)(end.y - init.y) % SIZE == 0)
+/* 	if ((int)(end.y - init.y) % SIZE == 0)
 	{
-		
+		 */
 		int i;
 		int pixel;
 		pixel = ((SIZE * SIZE) - SIZE + ((int)p.x % SIZE)) * 4;
+		int	multi;
+		multi = (int)(end.y - init.y) / SIZE;
+		if (aux == SCRNW / 2)
+			printf("end - init / SIZE = %d\n", (int)(end.y - init.y) / SIZE);
 		while (end.y >= init.y)
 		{
-			//i = p.x;
-			//printf("pixel %d\n", pixel);
-			mlx_put_pixel(data->image.aux, init.x, init.y, get_color(data->image.wall, pixel));
-			pixel = pixel - (SIZE * 4);
-/* 			if (i > SIZE * SIZE)
+			i = 0;
+			while ( i < multi)
 			{
-				//puts ("es maoyer");
-				i = SIZE * SIZE - 1;
-			} */
-			init.y++;
+				mlx_put_pixel(data->image.aux, init.x, init.y + i, get_color(data->image.wall, pixel));
+				i++;
+				//pixel = pixel - (SIZE * 4);
+				//init.y++;
+			}
+			pixel = pixel - (SIZE * 4);
+			init.y += i;
 		}
-	}
+/* 	} */
 }
 
 void	choose_line(t_map *data, float ang, float aux)
@@ -144,21 +148,21 @@ void	drawang(t_map *data)
 {
 	float	ang;
 	float	count;
-	float	aux;
+	float	rays;
 
-	aux = 0;
+	rays = 0;
 	ang = data->ang + (rads(ANG) / 2);
 	count = data->ang + (rads(ANG) / 2);
 	float totang =  rads(ANG) / SCRNW;
-	while (aux < SCRNW)
+	while (rays < SCRNW)
 	{
 		if (ang >= 2 * PI)
 			ang = ang - (2 * PI);
 		if (ang < 0)
 			ang = (2 * PI) + ang;
-		choose_line(data, ang, aux);
+		choose_line(data, ang, rays);
 		ang = ang - totang;
 		count = count - totang;
-		aux = aux + 1;
+		rays = rays + 1;
 	}
 }
