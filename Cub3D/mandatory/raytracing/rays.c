@@ -46,7 +46,7 @@ void	deletepix(t_map *data)
 void	drawlines(t_map *data, t_point h)
 {
 	if (h.dir == 'U')
-		draw(data, h, data->player->pp, CWHI);
+		draw(data, h, data->player->pp, CBLK);
 	if (h.dir == 'D')
 		draw(data, h, data->player->pp, CCIA);
 	if (h.dir == 'R')
@@ -63,19 +63,100 @@ int	get_color(mlx_image_t *img, int p)
 		<< 8 | img->pixels[p + 3];
 	return (c);
 }
+/*  void	drawtexture(t_map *data, t_point init, t_point end, t_point p, float aux)
+ {
+	float i;
+	int pixel;
+	float	multi;
+	int	x;
+
+	x = (int)p.x / SIZE;
+	pixel = ((SIZE * SIZE) - SIZE + ((int)p.x % SIZE)) * 4;
+	multi = (end.y - init.y) / SIZE;
+	i = i + (multi / (int)multi);
+	while (SCRNH / 2 > init.y)
+	{
+		//i = multi - (multi / (int)multi);
+		i =  -1;
+		while (i < multi - (multi / (int)multi))
+		{
+			if (init.y + i >= 0 && init.y < SCRNH / 2)
+				mlx_put_pixel(data->image.aux, init.x, (int)init.y + i, get_color(data->image.wall, pixel));
+			i = i + (multi / (int)multi);
+		}
+		pixel = pixel - (SIZE * 4);
+		init.y = init.y + i;
+	}
+	init.y = SCRNH / 2;
+	pixel = ((SIZE * SIZE) - SIZE + ((int)p.x % SIZE)) * 4;
+	while (end.y >= init.y)
+	{
+		//i = multi - (multi / (int)multi);
+		i =  -1;
+		while (i < multi - (multi / (int)multi))
+		{
+			if (init.y + i >= 0 && init.y < SCRNH)
+				mlx_put_pixel(data->image.aux, init.x, (int)init.y + i, get_color(data->image.wall, pixel));
+			i = i + (multi / (int)multi);
+		}
+		pixel = pixel - (SIZE * 4);
+		init.y = init.y + i;
+	}
+ } */
+
+
+
+void	drawtexture(t_map *data, t_point init, t_point end, t_point p, float aux)
+{
+		float i;
+		int pixel;
+		float	multi;
+		pixel = ((SIZE * SIZE) - SIZE + ((int)p.x % SIZE)) * 4;
+		multi = (end.y - init.y) / SIZE;
+		//if (aux == SCRNW / 2)
+			//printf("end - init / SIZE = %f\n", (end.y - init.y) / SIZE);
+		while (end.y >= init.y)
+		{
+			i =  0;
+			while (i <= (int)multi && init.y + i <= end.y)
+			{
+				if (init.y + i >= 0 && init.y < SCRNH)
+					mlx_put_pixel(data->image.aux, init.x, (int)(init.y  + i), get_color(data->image.wall, pixel));
+				//if (aux == SCRNW / 2 && get_color(data->image.wall, pixel) == 0 && init.y < SCRNH)
+				//	printf("color %d en y %f\n", get_color(data->image.wall, pixel), init.y);
+				i++;
+			}
+				if (init.y >= 0 && init.y < SCRNH)
+					mlx_put_pixel(data->image.aux, init.x, (init.y + i), CBLK);
+			i = 0;
+			while (i < (int)multi && init.y + i <= end.y)
+				i = i + (multi / (int)multi);
+			/* if ((init.y + i) > (int)init.y + (int)i + 1 && init.y + 1 >= 0 && init.y + 1 < SCRNH)
+				printf("se salta\n"); */
+			init.y = init.y + i;
+/* 			if (init.y - 1 >= 0 && init.y - 1 < SCRNH)
+				mlx_put_pixel(data->image.aux, init.x, (int)(init.y - 1), get_color(data->image.wall, pixel)); */
+			pixel = pixel - (SIZE * 4);
+		}
+}
 
 void	draw3d(t_map *data, t_point p, float aux)
 {
-	float	dist_adap = catady(SCRNW / 2, FOW / 2) - data->player->pp.y;
-	//float	dist_adap = catady(SCRNH / 2, FOW / 2);
-	int	alt_adap = (100 / p.h) * dist_adap;
 	t_point init;
+	t_point end;
+	float	dist_adap;
+	int	alt_adap;
+
+	//dist_adap = catady(SCRNW / 2, 62 / 2) - data->player->pp.y;	//CAMBIAR
+	dist_adap = catady(SCRNW / 2, FOW / 2) - data->player->pp.y;	//CAMBIAR
+	//dist_adap = catady(SCRNH / 2, FOW / 2);
+	alt_adap = (300 / p.h) * dist_adap;		//CAMBIAR
 	init.y = SCRNH / 2 + alt_adap / 2;
 	init.x = aux;
-	t_point end;
 	end.y = SCRNH / 2 - alt_adap / 2;
 	end.x =  aux;
-	if (init.y >= SCRNH)
+
+/*  	if (init.y >= SCRNH)
 		init.y = SCRNH - 1;
 	if (init.y <= 0)
 		init.y = 0;
@@ -90,31 +171,9 @@ void	draw3d(t_map *data, t_point p, float aux)
 	if (p.dir == 'R')
 		draw(data, end, init, CRED);
 	if (p.dir == 'L')
-		draw(data, end, init, CGRN);
-/* 	if ((int)(end.y - init.y) % SIZE == 0)
-	{
-		 */
-		int i;
-		int pixel;
-		pixel = ((SIZE * SIZE) - SIZE + ((int)p.x % SIZE)) * 4;
-		int	multi;
-		multi = (int)(end.y - init.y) / SIZE;
-		if (aux == SCRNW / 2)
-			printf("end - init / SIZE = %d\n", (int)(end.y - init.y) / SIZE);
-		while (end.y >= init.y)
-		{
-			i = 0;
-			while ( i < multi)
-			{
-				mlx_put_pixel(data->image.aux, init.x, init.y + i, get_color(data->image.wall, pixel));
-				i++;
-				//pixel = pixel - (SIZE * 4);
-				//init.y++;
-			}
-			pixel = pixel - (SIZE * 4);
-			init.y += i;
-		}
-/* 	} */
+		draw(data, end, init, CGRN); */
+	drawtexture(data, init, end, p, aux);
+
 }
 
 void	choose_line(t_map *data, float ang, float aux)

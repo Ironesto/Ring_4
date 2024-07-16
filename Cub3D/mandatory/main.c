@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpaez-ga <gpaez-ga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:47:49 by gpaez-ga          #+#    #+#             */
-/*   Updated: 2024/07/11 00:32:24 by gpaez-ga         ###   ########.fr       */
+/*   Updated: 2024/07/16 05:38:45 by gpaez-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,13 +116,13 @@ void	hook(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) && !compmovy(x, y, SIZE, data))
-		data->image.player->instances[0].y -= 2;
+		data->image.player->instances[0].y -= 4;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) && !compmovy2(x, y, SIZE, data))
-		data->image.player->instances[0].y += 2;
+		data->image.player->instances[0].y += 4;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A) && !compmovx(y, x, SIZE, data))
-		data->image.player->instances[0].x -= 2;
+		data->image.player->instances[0].x -= 4;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D) && !compmovx2(y, x, SIZE, data))
-		data->image.player->instances[0].x += 2;
+		data->image.player->instances[0].x += 4;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		data->ang += 0.05;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
