@@ -104,7 +104,10 @@ int	get_color(mlx_image_t *img, int p)
 	}
  } */
 
-
+/* int	drawpart(t_map *data, t_point init, t_point end, t_point p, float aux)
+{
+	
+} */
 
 void	drawtexture(t_map *data, t_point init, t_point end, t_point p, float aux)
 {
@@ -118,7 +121,7 @@ void	drawtexture(t_map *data, t_point init, t_point end, t_point p, float aux)
 		while (end.y >= init.y)
 		{
 			i =  0;
-			while (i <= (int)multi && init.y + i <= end.y)
+			while (i <= (ceil)(multi) && init.y + i <= end.y)
 			{
 				if (init.y + i >= 0 && init.y < SCRNH)
 					mlx_put_pixel(data->image.aux, init.x, (int)(init.y  + i), get_color(data->image.wall, pixel));
@@ -126,14 +129,14 @@ void	drawtexture(t_map *data, t_point init, t_point end, t_point p, float aux)
 				//	printf("color %d en y %f\n", get_color(data->image.wall, pixel), init.y);
 				i++;
 			}
-				if (init.y >= 0 && init.y < SCRNH)
-					mlx_put_pixel(data->image.aux, init.x, (init.y + i), CBLK);
+			if (init.y >= 0 && init.y < SCRNH && init.y + i <= end.y)
+				mlx_put_pixel(data->image.aux, init.x, (int)(init.y + i + 1), get_color(data->image.wall, pixel));
 			i = 0;
-			while (i < (int)multi && init.y + i <= end.y)
-				i = i + (multi / (int)multi);
+			while (i < (ceil)(multi) && init.y + i <= end.y)
+				i = i + (multi / (ceil)(multi));
 			/* if ((init.y + i) > (int)init.y + (int)i + 1 && init.y + 1 >= 0 && init.y + 1 < SCRNH)
 				printf("se salta\n"); */
-			init.y = init.y + i;
+			init.y = (init.y) + (i);
 /* 			if (init.y - 1 >= 0 && init.y - 1 < SCRNH)
 				mlx_put_pixel(data->image.aux, init.x, (int)(init.y - 1), get_color(data->image.wall, pixel)); */
 			pixel = pixel - (SIZE * 4);
@@ -147,10 +150,10 @@ void	draw3d(t_map *data, t_point p, float aux)
 	float	dist_adap;
 	int	alt_adap;
 
-	//dist_adap = catady(SCRNW / 2, 62 / 2) - data->player->pp.y;	//CAMBIAR
-	dist_adap = catady(SCRNW / 2, FOW / 2) - data->player->pp.y;	//CAMBIAR
+	dist_adap = catady(SCRNW / 2, 62 / 2) - data->player->pp.y;	//CAMBIAR
+	//dist_adap = catady(SCRNW / 2, FOW / 2) - data->player->pp.y;	//CAMBIAR
 	//dist_adap = catady(SCRNH / 2, FOW / 2);
-	alt_adap = (300 / p.h) * dist_adap;		//CAMBIAR
+	alt_adap = (100 / p.h) * dist_adap;		//CAMBIAR
 	init.y = SCRNH / 2 + alt_adap / 2;
 	init.x = aux;
 	end.y = SCRNH / 2 - alt_adap / 2;
