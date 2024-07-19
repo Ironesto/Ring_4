@@ -58,14 +58,39 @@ int Phonebook::resultsearch()
 	std::string str;
 	std::getline(std::cin, str);
 	int i;
-	i = atoi(str.data()) - 1;
-	if (i < 0 || i > 8)
+
+	i = 0;
+	while(i < (int)str.length())
 	{
-		std::cout<<"invalid number try again(0 to exit)"<<std::endl;
+		if (!std::isdigit(str[0]))
+		{
+			std::cout<<"Only numbers are accepted"<<std::endl;
+			return (resultsearch());
+		}
+		i++;
+	}
+	i = atoi(str.data()) - 1;
+	if (i == -1)
+		return (0);
+	if (i < 0 || i >= 8)
+	{
+		std::cout<<"Invalid number try again(0 to exit)"<<std::endl;
 		std::getline(std::cin, str);
-		i = atoi(str.data());
-		if (i == 0)
+			i = 0;
+		while(i < (int)str.length())
+		{
+			if (!std::isdigit(str[0]))
+			{
+				std::cout<<"Only numbers are accepted"<<std::endl;
+				return (resultsearch());
+			}
+			i++;
+		}
+		i = atoi(str.data()) - 1;
+		if (i == -1)
 			return (0);
+		else
+			return resultsearch();
 	}
 	std::cout<<"Number: "<<i + 1<<std::endl;
 	std::cout<<"His name: "<<_contact[i].getName()<<std::endl;
