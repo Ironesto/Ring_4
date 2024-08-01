@@ -1,57 +1,61 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: gpaez-ga <gpaez-ga@student.42malaga.com    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/09/11 17:05:44 by gpaez-ga          #+#    #+#              #
-#    Updated: 2024/04/11 19:15:23 by gpaez-ga         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = libft.a
 
 LIB = ar rcs
-RM = rm -f
 
 CC = gcc
-CCFLAGS = -Wall -Wextra -Werror
 
-NAME = libft.a
-SRC =	ft_memset.c ft_bzero.c ft_strlen.c ft_atoi.c ft_isdigit.c ft_isalpha.c\
-ft_isprint.c ft_isascii.c ft_isalnum.c ft_memchr.c ft_memcpy.c\
-ft_memcmp.c ft_memmove.c ft_strchr.c ft_strdup.c ft_strlcat.c ft_strlcpy.c\
-ft_strncmp.c ft_toupper.c ft_tolower.c ft_strnstr.c ft_strrchr.c ft_calloc.c\
-ft_putchar_fd.c ft_putstr_fd.c ft_putnbr_fd.c ft_putendl_fd.c ft_substr.c\
-ft_strjoin.c ft_strtrim.c ft_strmapi.c ft_itoa.c ft_split.c ft_striteri.c\
-get_next_line.c ft_putnbr.c ft_putnbr_hexa.c ft_putnbr_u.c ft_putchar.c\
-ft_putstr.c ft_putpointer.c ft_printf.c
+CFLAGS = -Wall -Werror -Wextra
 
-OBJ = $(SRC:.c=.o)
-INCLUDE = libft.h
+RM = rm -rf
 
-BONUSSRC = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c\
-ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c\
-ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c\
+SRC_DIR = src/
+PRINTF_DIR = ft_printf/
+BONUS_DIR = bonus/
+GNL_DIR = get_next_line/
+OBJ_DIR = obj/
+INC_DIR = include/
 
-BONUSOBJ = $(BONUSSRC:.c=.o)
+SRC_FILES = $(notdir $(wildcard $(SRC_DIR)*.c))
+PRINTF_FILES = $(notdir $(wildcard $(PRINTF_DIR)*.c))
+GNL_FILES = $(notdir $(wildcard $(GNL_DIR)*.c))
+BONUS_FILES = $(notdir $(wildcard $(BONUS_DIR)*.c))
+OBJ_FILES = $(SRC_FILES:.c=.o) $(PRINTF_FILES:.c=.o) $(GNL_FILES:.c=.o)
+OBJ_BONUS_FILES = $(BONUS_FILES:.c=.o)
 
-all: $(NAME)
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
+OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
+BONUS = $(addprefix $(BONUS_DIR), $(BONUS_FILES))
+OBJ_BONUS = $(addprefix $(OBJ_DIR), $(OBJ_BONUS_FILES))
 
-$(NAME): $(OBJ) $(INCLUDE)
+all: obj $(NAME)
+
+obj:
+	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
+
+$(OBJ_DIR)%.o: $(PRINTF_DIR)%.c
+	@$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
+
+$(OBJ_DIR)%.o: $(GNL_DIR)%.c
+	@$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
+
+$(OBJ_DIR)%.o: $(BONUS_DIR)%.c
+	@$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
+
+$(NAME): $(OBJ)
 	@$(LIB) $(NAME) $(OBJ)
 
-bonus: $(OBJ) $(BONUSOBJ) $(INCLUDE)
-	@$(LIB) $(NAME) $(BONUSOBJ) $(OBJ)
-
-%.o: %.c
-	@$(CC) $(CCFLAGS) -c -o $@ $<
+bonus: obj $(OBJ_BONUS) $(OBJ)
+	@$(LIB) $(NAME) $(OBJ) $(OBJ_BONUS)
 
 clean:
-	@$(RM) $(OBJ) $(BONUSOBJ)
+	@$(RM) $(OBJ_DIR)
 
 fclean: clean
 	@$(RM) $(NAME)
 
 re: fclean all
 
-rebonus: fclean bonus
+.PHONY: all clean fclean re bonus

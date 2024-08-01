@@ -1,49 +1,73 @@
-NAME		= cub3d
-SRC			:= $(wildcard ./mandatory/*.c) $(wildcard ./mandatory/raytracing/*.c)
+NAME = cub3D
 
-OBJS		= $(SRC:.c=.o)
-CC			= clang
-CFLAGS		= -g #-Wall -Wextra -Werror
-GLFW_FLAGS  = -ldl -lglfw -lm		#Linux
-#GLFW_FLAGS = -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ -lm
-MLX42_PATH  = ./MLX42
-LIBFT_PATH	= ./libft
-RM			= rm -f
+CC = gcc
 
-BLK = \e[0;30m
-RED = \e[0;31m
-GRN = \e[0;32m
-YEL = \e[0;33m
-BLU = \e[0;34m
-MAG = \e[0;35m
-CYN = \e[0;36m
-WHT = \e[0;37m
+CFLAGS = -Wall -Wextra -Werror -O3 -ffast-math -g
 
-RST = \e[0m
+RM = rm -rf
 
-.c.o:
-	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+SRC_DIR = src/
+#BONUS_DIR = src_bonus/
+LIBFT_DIR = libft/
+MLX_DIR = MLX42/build/
+OBJ_DIR = obj/
 
-all: $(NAME)
-$(NAME): $(OBJS)
-	@echo "$(YEL)make: work in progress$(RST)"
-	@make -C $(LIBFT_PATH)
-	@make -C $(MLX42_PATH)
-	@$(CC) $(OBJS) $(LIBFT_PATH)/libft.a $(G) $(MLX42_PATH)/libmlx42.a \
-	$(GLFW_FLAGS) -o $(NAME)
-	@echo "$(GRN)ALL COMPILED SUCCESSFULLY$(RST)"
+SRC_FILES = $(notdir $(wildcard $(SRC_DIR)*.c))
+# BONUS_FILES = $(notdir $(wildcard $(BONUS_DIR)*.c))
+OBJ_FILES = $(SRC_FILES:.c=.o)
+# OBJ_FILES_BONUS = $(BONUS_FILES:.c=.o)
+
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
+SRC_BONUS = $(addprefix $(BONUS_DIR), $(BONUS_FILES))
+LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
+MLX = $(addprefix $(MLX_DIR), libmlx42.a)
+OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
+# OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES_BONUS))
+
+INCLUDES = -I include/
+LIBS := -ldl -lglfw -pthread -lm
+
+all: obj $(NAME)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(NAME): $(OBJ) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(INCLUDES) $(LIBS) -o $(NAME)
+
+$(LIBFT):
+	@make -C libft all
+
+$(MLX):
+	@cd MLX42 && cmake -B build && cd ..
+	@make -C MLX42/build
+
+obj:
+	mkdir -p $(OBJ_DIR)
+
+# bonus: obj $(NAME)
+# 	$(OBJ_DIR)%.o: $(BONUS_DIR)%.c
+# 		$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+# 	$(NAME): $(OBJ) $(LIBFT) $(MLX)
+# 		$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(INCLUDES) $(LIBS) -o $(NAME)
+
+# 	$(LIBFT):
+# 		@make -C libft all
+
+# 	$(MLX):
+# 		@cd MLX42 && cmake -B build && cd ..
+# 		@make -C MLX42/build
 
 clean:
-	@echo "$(BLU)cleaning...$(RST)"
-	@make -C $(LIBFT_PATH) clean
-	@make -C $(MLX42_PATH) clean
-	@$(RM) $(OBJS)
+	@make -C libft clean
+	@make -C MLX42/build clean
+	@$(RM) $(OBJ_DIR)
 
-fclean:
-	@echo "$(YEL)cleaning... $(RED)ALL$(RST)"
-	@make -C $(LIBFT_PATH) clean
-	@make -C $(MLX42_PATH) fclean
-	@$(RM) $(OBJS) $(NAME)
-	@echo "$(GRN)ALL CLEANED SUCCESSFULLY$(RST)"
+fclean: clean
+	@make -C libft fclean
+	@$(RM) $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re bonus
