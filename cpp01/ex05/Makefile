@@ -1,4 +1,4 @@
-NAME	= losers
+NAME	= harl
 SRC		= $(wildcard ./*.cpp)
 OBJS	= $(SRC:.cpp=.o)
 CC		= c++
