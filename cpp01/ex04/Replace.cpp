@@ -26,22 +26,14 @@ int Replace::DoThings(std::string wan, std::string rep)
 	//std::cout << _outfile << std::endl;
 	//std::cout << dst << " " << dst2 << std::endl;
 	std::getline(ifs, content, '\0');
-/* 	while (content != ifs.end())
+	size_t	pos = content.find(wan);
+/* 	for (pos < content.length())
 	{
-		size_t	pos = content.find(wan);
-		if (pos != std::string::npos)
 
-
-		std::getline(ifs, content, '\0');
 	} */
-/* 	for (size_t i = 0; i < content.length(); i++)
-	{
-		for (size_t k = 0; content[i] == wan[k]; k++)
-		{
-
-		}
-	} */
-	std::cout<<content<<std::endl;
+	std::cout<<content.substr(0, pos);
+	std::cout<<rep;
+	std::cout<<content.substr(pos + wan.length(), content.length() )<<std::endl;
 	ofs << content;
 	return 0;
 }

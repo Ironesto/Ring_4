@@ -2,7 +2,7 @@ NAME	= losers
 SRC		= $(wildcard ./*.cpp)
 OBJS	= $(SRC:.cpp=.o)
 CC		= c++
-CPPFLAGS = -Wall -Werror -Wextra -std=c++98
+CPPFLAGS = #-Wall -Werror -Wextra -std=c++98
 RM		= rm -rf
 
 BOLD	= \033[1m
