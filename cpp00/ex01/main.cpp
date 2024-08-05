@@ -1,4 +1,4 @@
-#include "phonebook.hpp"
+#include "Phonebook.hpp"
 
 
 
@@ -6,8 +6,11 @@ int main(int argc, char ** argv)
 {
 	Phonebook pbook;
 	//int	num;
-	if (argv[0] && argc == 0) //para que no de el coñazo
-			std::cout<<"sueltame el brazo";
+	if (argc != 1 || argv[1]) //para que no de el coñazo
+	{
+		std::cout<<"Too many arguments"<<std::endl;
+		return 1;
+	}
 	std::cout<<"WELCOME TO YOUR PHONEBOOK\n";
 	pbook.loop();
 	//int list = 0;

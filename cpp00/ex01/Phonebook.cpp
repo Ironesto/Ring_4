@@ -103,24 +103,37 @@ int Phonebook::resultsearch()
 
 int	Phonebook::add(int nlist)
 {
-	std::string command;
+	std::string name;
+	std::string lstname;
+	std::string nick;
+	std::string number;
+	std::string secret;
 	std::cout<<"\nAdding\n";
 	std::cout<<"Please, enter the first name\n";
-	std::getline(std::cin, command);
-	_contact[nlist].setName(command);
-	//test->_name.assign(command);
+	std::getline(std::cin, name);
+	if (name[0] == '\0')
+		return 1;
 	std::cout<<"Please, enter the last name\n";
-	std::getline(std::cin, command);
-	_contact[nlist].setLstName(command);
+	std::getline(std::cin, lstname);
+	if (lstname[0] == '\0')
+		return 1;
 	std::cout<<"Please, enter the nickname\n";
-	std::getline(std::cin, command);
-	_contact[nlist].setNickname(command);
+	std::getline(std::cin, nick);
+	if (nick[0] == '\0')
+		return 1;
 	std::cout<<"Please, enter the number\n";
-	std::getline(std::cin, command);
-	_contact[nlist].setNumber(command);
+	std::getline(std::cin, number);
+	if (number[0] == '\0')
+		return 1;
 	std::cout<<"Please, enter the secret\n";
-	std::getline(std::cin, command);
-	_contact[nlist].setSecret(command);
+	std::getline(std::cin, secret);
+	if (secret[0] == '\0')
+		return 1;
+	_contact[nlist].setName(name);
+	_contact[nlist].setLstName(lstname);
+	_contact[nlist].setNickname(nick);
+	_contact[nlist].setNumber(number);
+	_contact[nlist].setSecret(secret);
 	return (0);
 }
 
@@ -137,13 +150,12 @@ int Phonebook::loop()
 			nlist = -0;
 		std::cout<<"What do you want to do?\n";
 		std::getline(std::cin, command);
-		while (command[++aux])	//poner el comando en mayuscula para comodidad
-			command[aux] = toupper(command[aux]);
-		//std::cout<<command<<std::endl;
 		if (!command.compare("ADD"))
 		{
-			add(nlist);
-			nlist++;
+			if (add(nlist) == 0)
+				nlist++;
+			else
+				std::cout<<"Invalid empty fields"<<std::endl;
 		}
 		if (!command.compare("SEARCH"))
 			search();
