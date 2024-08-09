@@ -21,19 +21,16 @@ int Replace::DoThings(std::string wan, std::string rep)
 		return (std::cerr<<"Error opening file"<<std::endl, 1);
 	std::string content;
 	std::ofstream	ofs(_outfile.data());
-
-	//ifs >> dst >> dst2;
-	//std::cout << _outfile << std::endl;
-	//std::cout << dst << " " << dst2 << std::endl;
 	std::getline(ifs, content, '\0');
-	size_t	pos = content.find(wan);
-/* 	for (pos < content.length())
-	{
+	size_t	poswan = content.find(wan);
 
-	} */
-	std::cout<<content.substr(0, pos);
-	std::cout<<rep;
-	std::cout<<content.substr(pos + wan.length(), content.length() )<<std::endl;
-	ofs << content;
+	ofs <<content.substr(0, poswan);
+	while (poswan < content.length())
+	{
+		ofs <<rep;
+		content = content.substr(poswan + wan.length(), content.length());
+		poswan = content.find(wan);
+		ofs << content.substr(0, poswan);
+	}
 	return 0;
 }
