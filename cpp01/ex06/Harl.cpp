@@ -34,19 +34,26 @@ void Harl::_error( void )
 
 void Harl::complain( std::string level )
 {
-	t_func		function[] = {&Harl::_debug, &Harl::_info, &Harl::_warning, &Harl::_error};
 	std::string	options[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	int			num = 0;
 
 	while (num < 4)
 	{
 		if (!level.compare(options[num]))
-		{
-			(this->*function[num])();
 			break;
-		}
 		num++;
 	}
+	switch (num)
+	{
+		case 0:
+			this->_debug();
+		case 1:
+			this->_info();
+		case 2:
+			this->_warning();
+		case 3:
+			this->_error();
+	}
 	if (num == 4)
-		std::cout<<"Invalid option"<<std::endl;
+		std::cout<<"[ Probably complaining about insignificant problems ]"<<std::endl;
 }
