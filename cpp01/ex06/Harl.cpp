@@ -48,5 +48,5 @@ void Harl::complain( std::string level )
 		num++;
 	}
 	if (num == 4)
-		std::cout<<"[ Probably complaining about insignificant problems ]"<<std::endl;
+		std::cout<<"Invalid option"<<std::endl;
 }
