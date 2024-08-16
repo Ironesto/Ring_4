@@ -6,7 +6,7 @@ ClapTrap::ClapTrap()
 	_health = 10;
 	_energy = 10;
 	_damage = 0;
-	std::cout <<"Empty ClapTrap constructor called" << std::endl << std::endl;
+	std::cout <<"Empty ClapTrap constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string name)
@@ -15,13 +15,13 @@ ClapTrap::ClapTrap(std::string name)
 	_health = 10;
 	_energy = 10;
 	_damage = 0;
-	std::cout <<"Filled ClapTrap constructor called" << std::endl << std::endl;
+	std::cout <<"Filled ClapTrap constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &src)
 {
 	*this = src;
-	std::cout <<"Copy ClapTrap constructor called" << std::endl << std::endl;
+	std::cout <<"Copy ClapTrap constructor called" << std::endl;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &src)
@@ -36,7 +36,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &src)
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << std::endl << "ClapTrap destructor called" << std::endl;
+	std::cout << "ClapTrap destructor called" << std::endl;
 }
 
 void ClapTrap::attack(const std::string& target)

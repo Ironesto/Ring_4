@@ -1,4 +1,4 @@
-NAME	= scavtrap
+NAME	= fragtrap
 SRC		= $(wildcard ./*.cpp)
 OBJS	= $(SRC:.cpp=.o)
 CC		= c++
