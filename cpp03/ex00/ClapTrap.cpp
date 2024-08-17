@@ -27,7 +27,6 @@ ClapTrap::ClapTrap(const ClapTrap &src)
 ClapTrap &ClapTrap::operator=(const ClapTrap &src)
 {
 	_name = src._name;
-	//por que se puede esto y no es con getName()?
 	_health = src._health;
 	_energy = src._energy;
 	_damage = src._damage;

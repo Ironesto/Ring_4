@@ -5,7 +5,7 @@ ScavTrap::ScavTrap() : ClapTrap()
 	this->_health = 100;
 	this->_energy = 50;
 	this->_damage = 20;
-	std::cout <<"Empty ScavTrap constructor called" << std::endl << std::endl;
+	std::cout <<"Empty ScavTrap constructor called" << std::endl;
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
@@ -14,7 +14,7 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 	this->_health = 100;
 	this->_energy = 50;
 	this->_damage = 20;
-	std::cout <<"Filled ScavTrap constructor called" << std::endl << std::endl;
+	std::cout <<"Filled ScavTrap constructor called" << std::endl;
 }
 
 ScavTrap::~ScavTrap()
