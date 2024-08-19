@@ -67,7 +67,7 @@ void Harl::complain( std::string level )
 		case 3:
 			this->_error();
 			break ;
+		default:
+			std::cout<<"[ Probably complaining about insignificant problems ]"<<std::endl;
 	}
-	if (num == 4)
-		std::cout<<"[ Probably complaining about insignificant problems ]"<<std::endl;
 }
