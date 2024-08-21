@@ -1,6 +1,6 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap()
+FragTrap::FragTrap() : ClapTrap()
 {
 	this->_health = 100;
 	this->_energy = 100;
@@ -8,7 +8,7 @@ FragTrap::FragTrap()
 	std::cout <<"Empty FragTrap constructor called" << std::endl << std::endl;
 }
 
-FragTrap::FragTrap(std::string name)
+FragTrap::FragTrap(std::string name) : ClapTrap(name)
 {
     this->_name = name;
 	this->_health = 100;
