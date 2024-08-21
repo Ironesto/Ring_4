@@ -2,12 +2,17 @@
 
 int main()
 {
-    DiamondTrap di1;
     DiamondTrap dia("juancho");
 
-    //di1.attack("Pepe");
+    dia.attack("Pepe");
+    dia.guardGate();
+    dia.highFivesGuys();
+    std::cout << std::endl;
     dia.whoAmI();
-    //std::cout << di1.getName() << std::endl;
-    //std::cout << dia.getName() << std::endl;
+    //std::cout << std::endl;
+
+    // dia.setName("Ramón");
+    // std::cout << dia.getName() << std::endl;
+    // std::cout << dia.ClapTrap::getName() << std::endl;
     return 0;
 }

@@ -18,6 +18,7 @@ int	main()
 	scav.attack(target);
     std::cout << "Perfect now " << target << " is angry" << std::endl;
     scav.takeDamage(30);
+	scav.guardGate();
     std::cout << "ScavTrap " << scav.getName() <<std::endl;
     std::cout << "Health " << scav.getHealth() <<std::endl;
     std::cout << "Energy " << scav.getEnergy() <<std::endl;
