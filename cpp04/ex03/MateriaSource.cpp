@@ -32,3 +32,18 @@ AMateria* MateriaSource::createMateria(std::string const & type)
     std::cout << "That´s not a learned materia" << std::endl;
     return NULL;
 }
+
+MateriaSource::MateriaSource(const MateriaSource &src) { *this = src; }
+
+MateriaSource &MateriaSource::operator=(const MateriaSource &src)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        if (src._materia[i] == NULL)
+            this->_materia[i] = NULL;
+        this->_materia[i] = src._materia[i];
+    }
+    return *this;
+}
+
+MateriaSource::~MateriaSource() {}
