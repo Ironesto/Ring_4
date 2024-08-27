@@ -78,3 +78,4 @@ std::ostream &operator<<(std::ostream &o, const Bureaucrat &src)
 	o << src.getName() << ", bureaucrat grade " << src.getGrade();
 	return o;
 }
+
