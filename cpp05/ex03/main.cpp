@@ -9,10 +9,15 @@ int main()
 	{
 		std::cout << "\n| Test 1|" << std::endl;
 		Intern i1;
+		Bureaucrat b1("Sebastian", 20);
+		Bureaucrat b2("Alejandro", 2);
 		AForm* rrf;
 		try
 		{
-			rrf = i1.makeForm("Robotomy", "Ignacio");
+			rrf = i1.makeForm("presidential request", "Ignacio");
+			b1.signForm(*rrf);
+			b2.executeForm(*rrf);
+			std::cout << *rrf;
 		}
 		catch (std::exception &e)
 		{
@@ -21,6 +26,76 @@ int main()
 		catch (bool &e)
 		{
 			std::cout << "bool exception" << std::endl;
+		}
+		catch (std::string &e)
+		{
+			std::cout << e << std::endl;
+		}
+	}
+	{
+		std::cout << "\n| Test 2|" << std::endl;
+		Intern i1;
+		AForm* rrf;
+		try
+		{
+			rrf = i1.makeForm("robotomy request", "Ignacio");
+			std::cout << *rrf;
+		}
+		catch (std::exception &e)
+		{
+			std::cout << e.what() << std::endl;
+		}
+		catch (bool &e)
+		{
+			std::cout << "bool exception" << std::endl;
+		}
+		catch (std::string &e)
+		{
+			std::cout << e << std::endl;
+		}
+	}
+	{
+		std::cout << "\n| Test 3|" << std::endl;
+		Intern i1;
+		AForm* rrf;
+		try
+		{
+			rrf = i1.makeForm("shrubbery request", "Ignacio");
+			std::cout << *rrf;
+		}
+		catch (std::exception &e)
+		{
+			std::cout << e.what() << std::endl;
+		}
+		catch (bool &e)
+		{
+			std::cout << "bool exception" << std::endl;
+		}
+		catch (std::string &e)
+		{
+			std::cout << e << std::endl;
+		}
+	}
+	{
+		std::cout << "\n| Test 4|" << std::endl;
+		Intern i1;
+		AForm* rrf;
+		try
+		{
+			rrf = i1.makeForm("void request", "Ignacio");
+			std::cout << *rrf;
+		}
+		catch (std::exception &e)
+		{
+			std::cout << e.what() << std::endl;
+		}
+		catch (bool &e)
+		{
+			std::cout << "bool exception" << std::endl;
+		}
+		catch (std::string &e)
+		{
+			std::cout << e << std::endl;
 		}
 	}
 	return 0;
