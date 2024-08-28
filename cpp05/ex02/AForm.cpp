@@ -75,17 +75,9 @@ void AForm::beExec() const {}
 
 bool AForm::execute(Bureaucrat const & executor) const
 {
-	try
-	{
-		if (this->_signed == 0)
-			throw std::string("This form is not signed");
-		else if (this->_gradexe < executor.getGrade())
-			throw std::string(executor.getName() + " can´t execute " + this->_name);
-	}
-	catch (std::string &e)
-	{
-		std::cout << e << std::endl;
-		return 0;
-	}
-	return 1;
+	if (this->_signed == 0)
+		throw std::string("This form is not signed");
+	else if (this->_gradexe < executor.getGrade())
+		throw std::string(executor.getName() + " can´t execute " + this->_name);
+	return true;
 }

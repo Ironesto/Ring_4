@@ -81,7 +81,7 @@ std::ostream &operator<<(std::ostream &o, const Bureaucrat &src)
 
 void Bureaucrat::executeForm(AForm const & form)
 {
-	if (form.execute(*this) == 1)
+	if (form.execute(*this) == true)
 	{
 		std::cout << this->_name << " executed " << form.getName() << std::endl;
 		form.beExec();
