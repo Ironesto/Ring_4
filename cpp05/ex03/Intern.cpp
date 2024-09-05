@@ -2,7 +2,7 @@
 
 Intern::Intern() {}
 Intern::Intern(const Intern &src) { *this = src; }
-Intern &Intern::operator=(const Intern &src) { return *this; }
+Intern &Intern::operator=(const Intern &src) { (void)src; return *this; }
 Intern::~Intern() {}
 
 AForm *Intern::makeForm(std::string namef, std::string target)

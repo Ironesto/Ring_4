@@ -8,6 +8,18 @@ ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("Shrubb
 {
 	this->_target = target;
 }
+
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &src)
+{
+	*this = src;
+}
+
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &src)
+{
+	this->_target = src._target;
+	return *this;
+}
+
 ShrubberyCreationForm::~ShrubberyCreationForm() {}
 
 void ShrubberyCreationForm::beExec() const

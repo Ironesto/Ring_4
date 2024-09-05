@@ -8,6 +8,18 @@ RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRe
 {
 	this->_target = target;
 }
+
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &src)
+{
+	*this = src;
+}
+
+RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &src)
+{
+	this->_target = src._target;
+	return *this;
+}
+
 RobotomyRequestForm::~RobotomyRequestForm() {}
 
 void RobotomyRequestForm::beExec() const

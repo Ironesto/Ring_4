@@ -31,14 +31,18 @@ int main()
 		{
 			std::cout << e << std::endl;
 		}
+		delete rrf;
 	}
 	{
 		std::cout << "\n| Test 2|" << std::endl;
 		Intern i1;
+		Bureaucrat b1("Sebastian", 20);
 		AForm* rrf;
 		try
 		{
 			rrf = i1.makeForm("robotomy request", "Ignacio");
+			b1.signForm(*rrf);
+			b1.executeForm(*rrf);
 			std::cout << *rrf;
 		}
 		catch (std::exception &e)
@@ -53,14 +57,18 @@ int main()
 		{
 			std::cout << e << std::endl;
 		}
+		delete rrf;
 	}
 	{
 		std::cout << "\n| Test 3|" << std::endl;
 		Intern i1;
+		Bureaucrat b1("Garden", 20);
 		AForm* rrf;
 		try
 		{
 			rrf = i1.makeForm("shrubbery request", "Ignacio");
+			b1.signForm(*rrf);
+			b1.executeForm(*rrf);
 			std::cout << *rrf;
 		}
 		catch (std::exception &e)
@@ -75,14 +83,18 @@ int main()
 		{
 			std::cout << e << std::endl;
 		}
+		delete rrf;
 	}
 	{
 		std::cout << "\n| Test 4|" << std::endl;
 		Intern i1;
+		Bureaucrat b1("Sebastian", 20);
 		AForm* rrf;
 		try
 		{
 			rrf = i1.makeForm("void request", "Ignacio");
+			b1.signForm(*rrf);
+			b1.executeForm(*rrf);
 			std::cout << *rrf;
 		}
 		catch (std::exception &e)

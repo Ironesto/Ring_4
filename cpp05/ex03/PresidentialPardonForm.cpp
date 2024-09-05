@@ -8,6 +8,18 @@ PresidentialPardonForm::PresidentialPardonForm(std::string target) : AForm("Pres
 {
 	this->_target = target;
 }
+
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &src)
+{
+	*this = src;
+}
+
+PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &src)
+{
+	this->_target = src._target;
+	return *this;
+}
+
 PresidentialPardonForm::~PresidentialPardonForm() {}
 
 void PresidentialPardonForm::beExec() const
