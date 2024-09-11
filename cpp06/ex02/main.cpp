@@ -55,8 +55,11 @@ void identify(Base& p)
 
 int main()
 {
-	Base *random = generate();
+	Base *random = NULL;
+	random = generate();
 	identify (random);
 	identify(*random);
+	if (random != NULL)
+		delete random;
 	return 0;
 }

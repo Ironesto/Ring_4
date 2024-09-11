@@ -2,7 +2,7 @@
 
 Serializer::Serializer() {}
 Serializer::Serializer(const Serializer &src) { *this = src; }
-Serializer &Serializer::operator=(const Serializer &src) { *this = src; return *this; }
+Serializer &Serializer::operator=(const Serializer &src) { (void)src; return *this; }
 Serializer::~Serializer() {}
 
 uintptr_t Serializer::serialize(Data* ptr)

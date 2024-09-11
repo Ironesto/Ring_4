@@ -50,13 +50,13 @@ int main()
 		{
 			std::cout << e.what() << std::endl;
 		}
-		catch (bool &e)
-		{
-			std::cout << "bool exception" << std::endl;
-		}
 		catch (std::string &e)
 		{
 			std::cout << e << std::endl;
+		}
+		catch (bool &e)
+		{
+			std::cout << "bool exception" << std::endl;
 		}
 		if (rrf != NULL)
 			delete rrf;

@@ -4,7 +4,7 @@
 int main()
 {
 	Data *target = new Data;
-	Data *des;
+	Data *des = NULL;
 	uintptr_t ser;
 	
 	target->str = "hola mundo";
