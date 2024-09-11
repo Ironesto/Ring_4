@@ -2,7 +2,7 @@
 
 ScalarConverter::ScalarConverter() {}
 ScalarConverter::ScalarConverter(const ScalarConverter &src) { *this = src; }
-ScalarConverter &ScalarConverter::operator=(const ScalarConverter &src) { *this = src; return *this; }
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &src) { (void)src; return *this; }
 ScalarConverter::~ScalarConverter() {}
 
 static void isChar (const std::string src)

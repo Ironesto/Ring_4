@@ -26,6 +26,12 @@ int main()
 			std::cout << "bool exception" << std::endl;
 			std::cout << presi << std::endl;
 		}
+		catch (std::string &e)
+		{
+			std::cout << "string exception" << std::endl;
+			std::cout << e << std::endl;
+			std::cout << presi << std::endl;
+		}
 	}
 	{
 		std::cout << "\n| Test 2|" << std::endl;

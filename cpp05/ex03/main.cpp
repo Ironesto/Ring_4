@@ -11,7 +11,7 @@ int main()
 		Intern i1;
 		Bureaucrat b1("Sebastian", 20);
 		Bureaucrat b2("Alejandro", 2);
-		AForm* rrf;
+		AForm* rrf = NULL;
 		try
 		{
 			rrf = i1.makeForm("presidential request", "Ignacio");
@@ -31,13 +31,14 @@ int main()
 		{
 			std::cout << e << std::endl;
 		}
-		delete rrf;
+		if (rrf != NULL)
+			delete rrf;
 	}
 	{
 		std::cout << "\n| Test 2|" << std::endl;
 		Intern i1;
 		Bureaucrat b1("Sebastian", 20);
-		AForm* rrf;
+		AForm* rrf = NULL;
 		try
 		{
 			rrf = i1.makeForm("robotomy request", "Ignacio");
@@ -57,16 +58,17 @@ int main()
 		{
 			std::cout << e << std::endl;
 		}
-		delete rrf;
+		if (rrf != NULL)
+			delete rrf;
 	}
 	{
 		std::cout << "\n| Test 3|" << std::endl;
 		Intern i1;
-		Bureaucrat b1("Garden", 20);
-		AForm* rrf;
+		Bureaucrat b1("Sancho", 20);
+		AForm* rrf = NULL;
 		try
 		{
-			rrf = i1.makeForm("shrubbery request", "Ignacio");
+			rrf = i1.makeForm("shrubbery request", "Garden");
 			b1.signForm(*rrf);
 			b1.executeForm(*rrf);
 			std::cout << *rrf;
@@ -83,13 +85,14 @@ int main()
 		{
 			std::cout << e << std::endl;
 		}
-		delete rrf;
+		if (rrf != NULL)
+			delete rrf;
 	}
 	{
 		std::cout << "\n| Test 4|" << std::endl;
 		Intern i1;
 		Bureaucrat b1("Sebastian", 20);
-		AForm* rrf;
+		AForm* rrf = NULL;
 		try
 		{
 			rrf = i1.makeForm("void request", "Ignacio");
@@ -109,6 +112,8 @@ int main()
 		{
 			std::cout << e << std::endl;
 		}
+		if (rrf != NULL)
+			delete rrf;
 	}
 	return 0;
 }
