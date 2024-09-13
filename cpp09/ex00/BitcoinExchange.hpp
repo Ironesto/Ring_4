@@ -7,12 +7,12 @@
 class BitcoinExchange
 {
 	private:
-		std::map<char, int> _src;
+		std::map<std::string, std::string> _src;
+
+	public:
 		BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange &src);
 		BitcoinExchange &operator=(const BitcoinExchange &src);
 		~BitcoinExchange();
-
-	public:
 		void Exchange(std::string src);
 };
