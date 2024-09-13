@@ -29,8 +29,21 @@ void Span::shortestSpan()
 {
 	std::vector<int> src = this->_num;
 	std::sort(src.begin(), src.end());
-	//for (size_t i = 0; i < src.capacity(); i++)
-	//	std::cout << "src[" << i << "] = " << src[i] << ", ";
+	// for (size_t i = 0; i < src.capacity(); i++)
+	// 	std::cout << "src[" << i << "] = " << src[i] << ", ";
+	// std::cout << std::endl;
+	size_t i = 0;
+	int res = src[src.capacity() - 1] - src[0];
+	while (i < src.capacity())
+	{
+		for (size_t j = i + 1; j < src.capacity(); j++)
+		{
+			if (src[j] - src[i] < res)
+				res = src[j] - src[i];
+		}
+		i++;
+	}
+	std::cout << "shortest span: " << res << std::endl;
 }
 
 void Span::longestSpan()
