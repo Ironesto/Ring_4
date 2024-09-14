@@ -8,6 +8,6 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	BitcoinExchange bit;
-	bit.Exchange(argv[1]);
+	bit.exchange(argv[1]);
 	return 0;
 }
