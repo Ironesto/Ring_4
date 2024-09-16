@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+#include <string>
 #include <cstdlib>
 #include <map>
 
