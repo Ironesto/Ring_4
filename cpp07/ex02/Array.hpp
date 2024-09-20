@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 
 template<typename T>
 class Array
@@ -12,24 +14,28 @@ class Array
 	public:
 		Array<T>() : _i(0) { _array = new T[0]; }
 		Array<T>(unsigned int n) : _i(n) { _array = new T[n]; }
-		Array<T>(const Array &src) { *this = src; }
+		Array<T>(const Array &src) { _array = NULL; *this = src; }
 		Array &operator=(const Array &src)
 		{
 			if (this != &src)
 			{
 				delete []_array;
-				this->_i = src->_i;
+				this->_i = src._i;
 				this->_array = new T[this->_i];
-				for (int j = 0; j < this->_i; j++)
+				for (unsigned int j = 0; j < this->_i; j++)
 					this->_array[j] = src._array[j];
 			}
 			return *this;
 		}
-		~Array<T>() { delete []_array; }
+		~Array<T>() 
+		{
+			if (_array != NULL)
+				delete []_array;
+		}
 
 		T &operator[](unsigned int n) const 
 		{
-			if (n >= this->_i)
+			if (n >= this->_i || _array == NULL)
 				throw (ArrayException());
 			return this->_array[n];
 		}
