@@ -50,8 +50,8 @@ void Span::longestSpan()
 {
 	int min = *std::min_element(this->_num.begin(),this->_num.end());
 	int max = *std::max_element(this->_num.begin(),this->_num.end());
-	std::cout << "min: " << min << std::endl;
-	std::cout << "max: " << max << std::endl;
+	// std::cout << "min: " << min << std::endl;
+	// std::cout << "max: " << max << std::endl;
 	std::cout << "largest span: " << max - min << std::endl;
 	//for (size_t i = 0; i < this->_num.capacity(); i++)
 	//	std::cout << "src[" << i << "] = " << this->_num[i] << ", ";

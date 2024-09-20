@@ -8,11 +8,9 @@ int main()
 		s1.addNumber(46);
 		s1.addNumber(22);
 		Span s2 = s1;
-		//s1.addNumber(33);
 		s1.addNumber(333);
-		//s2.addNumber(44);
-		s2.addNumber(45);
-		s2.shortestSpan();	//sin terminar
+		s2.addNumber(48);
+		s2.shortestSpan();
 		s2.longestSpan();
 	}
 	catch (std::string &e)
