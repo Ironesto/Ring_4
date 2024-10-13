@@ -100,9 +100,8 @@ void PMerge::DoThings(int argc, char **argv)
 		std::cout  << " " << vec[i];
 	std::cout << std::endl;
 
-std::cout << std::fixed << std::setprecision(5);  // Establece dos decimales
-std::cout << "Time to process a range of " << argc << " elements with std::vector : " 
-          << static_cast<double>(tvec) / CLOCKS_PER_SEC * 1e6 << " us" << std::endl;
-std::cout << "Time to process a range of " << argc << " elements with std::deque  : " 
-          << static_cast<double>(tdeq) / CLOCKS_PER_SEC * 1e6 << " us" << std::endl;
+	std::cout << "Time to process a range of " << argc << " elements with std::vector : " 
+			<< static_cast<double>(tvec) / CLOCKS_PER_SEC * 1e6 << " us" << std::endl;
+	std::cout << "Time to process a range of " << argc << " elements with std::deque  : " 
+			<< static_cast<double>(tdeq) / CLOCKS_PER_SEC * 1e6 << " us" << std::endl;
 }
