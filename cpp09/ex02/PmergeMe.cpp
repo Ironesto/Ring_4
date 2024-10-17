@@ -100,8 +100,13 @@ void PMerge::DoThings(int argc, char **argv)
 		std::cout  << " " << vec[i];
 	std::cout << std::endl;
 
-	std::cout << "Time to process a range of " << argc << " elements with std::vector : " 
+	// std::cout << "after:\t";
+	// for (size_t i = 0; i < deq.size(); i++)
+	// 	std::cout  << " " << deq[i];
+	// std::cout << std::endl;
+
+	std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector : " 
 			<< static_cast<double>(tvec) / CLOCKS_PER_SEC * 1e6 << " us" << std::endl;
-	std::cout << "Time to process a range of " << argc << " elements with std::deque  : " 
+	std::cout << "Time to process a range of " << argc -1 << " elements with std::deque  : " 
 			<< static_cast<double>(tdeq) / CLOCKS_PER_SEC * 1e6 << " us" << std::endl;
 }
